@@ -10,6 +10,10 @@ let mesAtualString = meses[mesAtualNumero]
 
 let relatorio = localStorage.getItem('relatorio') ? JSON.parse(localStorage.getItem('relatorio')) : criaRelatorio(ano)
 
+function estudo(nome,obs){
+ return {nome,obs}
+}
+
 function criaRelatorio(ano){
     const anoServico = ano
     const mes = {
