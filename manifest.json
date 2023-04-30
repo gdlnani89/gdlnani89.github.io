@@ -2,7 +2,7 @@
     "name": "Relatório",
     "short_name": "RelGDL",
     "start_url": "/",
-    "background_color": "#f0f8ff",
+    "background_color": "#4A148C",
     "theme_color": "#f0f8ff",
     "display": "standalone",
     "icons": [
