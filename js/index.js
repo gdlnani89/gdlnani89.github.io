@@ -154,42 +154,7 @@ const bodyEstudos = () =>{
     // ele.push(div,lNome,lObs,btnIncluir)
     return ele
 }
-const btnsEstudantes = ()=>{
-    const btns = []
-    let btnIncluir = $cria('button')
-    btnIncluir.setAttribute('id', 'estudanteAdd')
-    btnIncluir.innerHTML = '<ion-icon name="person-add" style="color: white; font-size: 20px"></ion-icon>'
-    btnIncluir.addEventListener('click',function(){
-        const iNome = $id('nome')
-        const iObs = $id('obs')
-        const div = $id('estudos')
-        if(iNome.value){
-            const estudanteNovo = new Estudo(iNome.value,iObs.value)
-            estudos.push(estudanteNovo)
-            iNome.value = ''
-            iObs.value = ''
-            iNome.setAttribute('placeholder', '')
-            atualiza.estudosLS(estudos)
-            atualiza.estudosSpan()
-            div.innerHTML = ''
-            div.appendChild(ulEstudos(estudos))
-        }else{
-            iNome.focus()
-            iNome.setAttribute('placeholder', 'Nome obrigatório')
-        }
-    })
-    let btnEditar = $cria('button')
-    btnEditar.setAttribute('id', 'estudantesEditar')
-    btnEditar.innerHTML = '<ion-icon name="create" style="color: white; font-size: 20px"></ion-icon>'
-    btnEditar.addEventListener('click',function(){
-        // bEx.classList.add('btnLi')
-        const btnsLi = $all('.btnLi')
-        btnsLi.forEach(item => item.classList.remove('invisivel'))
-        console.log(btnsLi);
-    })
-    btns.push(btnEditar,btnIncluir)
-    return btns
-}
+
 const bodyRelatorio = () =>{
     const ele = []
     {/* <label for="dia">Dia
@@ -333,6 +298,42 @@ const btnSalvar = (fn) =>{
     btnSalvar.addEventListener('click', fn)
     return btnSalvar
 }
+const btnsEstudantes = ()=>{
+    const btns = []
+    let btnIncluir = $cria('button')
+    btnIncluir.setAttribute('id', 'estudanteAdd')
+    btnIncluir.innerHTML = '<ion-icon name="person-add" style="color: white; font-size: 20px"></ion-icon>'
+    btnIncluir.addEventListener('click',function(){
+        const iNome = $id('nome')
+        const iObs = $id('obs')
+        const div = $id('estudos')
+        if(iNome.value){
+            const estudanteNovo = new Estudo(iNome.value,iObs.value)
+            estudos.push(estudanteNovo)
+            iNome.value = ''
+            iObs.value = ''
+            iNome.setAttribute('placeholder', '')
+            atualiza.estudosLS(estudos)
+            atualiza.estudosSpan()
+            div.innerHTML = ''
+            div.appendChild(ulEstudos(estudos))
+        }else{
+            iNome.focus()
+            iNome.setAttribute('placeholder', 'Nome obrigatório')
+        }
+    })
+    let btnEditar = $cria('button')
+    btnEditar.setAttribute('id', 'estudantesEditar')
+    btnEditar.innerHTML = '<ion-icon name="create" style="color: white; font-size: 20px"></ion-icon>'
+    btnEditar.addEventListener('click',function(){
+        // bEx.classList.add('btnLi')
+        const btnsLi = $all('.btnLi')
+        btnsLi.forEach(item => item.classList.remove('invisivel'))
+        console.log(btnsLi);
+    })
+    btns.push(btnEditar,btnIncluir)
+    return btns
+}
 //funções dos botões 
 function addAtividade(){
     const ipDia = $id('dia')
@@ -380,5 +381,5 @@ function addAtividade(){
 
 
 function addAlvo(){
-    limpaBody()
+    
 }
