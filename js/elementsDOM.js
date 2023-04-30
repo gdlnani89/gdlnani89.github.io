@@ -38,9 +38,9 @@ const inpForm = document.querySelectorAll('.form-adiciona input')
 const btnAlvos = $id('alvo')
 const btnAdd = $id('add')
 const btnSend = $id('send')
-const text = 
-btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats()}`)
-
+btnSend.addEventListener('click', function(){
+    btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats()}`)
+})
 btnAdd.addEventListener('click', function() {
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Adicionar atividade')
