@@ -242,6 +242,9 @@ const atualiza = {
     },
     estudosLS(){
         localStorage.setItem('estudos', JSON.stringify(estudos))
+    },
+    mensagemWhats(){
+        return `Segue o relatório de ${mesAtualString}: Horas ${calculaHorasTotal()}, Revisitas ${calculaRevisitasTotal()}, Videos ${calculaVideosTotal()}, Publicações ${calculaPublicacoesTotal()} e Estudos ${estudos.length}`;
     }
 }
 function ulEstudos(estudos){
