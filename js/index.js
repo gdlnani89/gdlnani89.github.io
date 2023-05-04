@@ -184,6 +184,7 @@ const bodyEstudos = () =>{
             atualiza.estudosSpan()
             div.innerHTML = ''
             div.appendChild(ulEstudos(estudos))
+            divCadastrados.appendChild(btnEditar)
         }else{
             iNome.focus()
             iNome.setAttribute('placeholder', 'Nome obrigatório')

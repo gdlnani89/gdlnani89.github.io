@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "apple-touch-icons": "off",
+    "highest-available-document-mode": "off",
+    "manifest-file-extension": "off"
+  }
+}
