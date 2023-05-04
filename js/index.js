@@ -6,11 +6,12 @@ const $cria = tag => document.createElement(tag)
 let data = new Date()
 let dia = data.getDate()
 let ano = data.getFullYear()
+console.log(ano);
 let meses = [ 'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro' ]
 let mesAtualNumero = data.getMonth()
 let mesAtualString = meses[mesAtualNumero]
 let countMes = meses[mesAtualNumero]
-console.log(countMes);
+
 let relatorio = localStorage.getItem('relatorio') ? JSON.parse(localStorage.getItem('relatorio')) : [criaRelatorio(ano)]
 let estudos = localStorage.getItem('estudos') ? JSON.parse(localStorage.getItem('estudos')) : []
 
@@ -71,6 +72,7 @@ function minuHoras(minutos) {
 }
 
 function calculaHorasTotal(relatorioMesArray){
+    console.log(!!relatorioMesArray);
     if(relatorioMesArray.length>0){
         let tempoArray = relatorioMesArray.map(item => item.tempo)
         const somaTempo = tempoArray.reduce(function(acumulador,atual){
@@ -340,7 +342,7 @@ const atualiza = {
     estudosLS(){
         localStorage.setItem('estudos', JSON.stringify(estudos))
     },
-    mensagemWhats(mesSelecionado,arrayRelatorio){
+    mensagemWhats(mesSelecionado,arrayRelatorio = []){
         return `Segue o relatório de ${mesSelecionado}: Horas ${calculaHorasTotal(arrayRelatorio)}, Revisitas ${calculaRevisitasTotal(arrayRelatorio)}, Videos ${calculaVideosTotal(arrayRelatorio)}, Publicações ${calculaPublicacoesTotal(arrayRelatorio)} e Estudos ${estudos.length}`;
     },
     relatorioTotalVazio(){
