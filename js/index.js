@@ -6,7 +6,7 @@ const $cria = tag => document.createElement(tag)
 let data = new Date()
 let dia = data.getDate()
 let ano = data.getFullYear()
-console.log(ano);
+
 let meses = [ 'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro' ]
 let mesAtualNumero = data.getMonth()
 let mesAtualString = meses[mesAtualNumero]
@@ -72,7 +72,6 @@ function minuHoras(minutos) {
 }
 
 function calculaHorasTotal(relatorioMesArray){
-    console.log(!!relatorioMesArray);
     if(relatorioMesArray.length>0){
         let tempoArray = relatorioMesArray.map(item => item.tempo)
         const somaTempo = tempoArray.reduce(function(acumulador,atual){
@@ -253,9 +252,6 @@ function ulEstudos(estudos){
 
 const bodyRelatorio = () =>{
     const ele = []
-    {/* <label for="dia">Dia
-        <input value='${dia}' type="number" id="dia" style="width: 25px;" name="dias" min="1" max="31" pattern="[1-9]|[12][0-9]|3[01]" >
-    </label> */}
     let lDia = $cria('label') 
     lDia.setAttribute('for', 'dia')
     lDia.innerText = 'Dia'
@@ -269,10 +265,6 @@ const bodyRelatorio = () =>{
     iDia.setAttribute('pattern','[1-9]|[12][0-9]|3[01]')
     iDia.setAttribute('style', 'width: 35px;')
     lDia.appendChild(iDia)
-    {/* <label for="horas">Horas
-        <input type="number" id="horas" style="width: 25px; text-align: end;" >:
-        <input type="number" id="min" style="width: 25px;" value="00" name="minutos" min="0" max="59">
-    </label> */}
     let lHoras = $cria('label')
     lHoras.setAttribute('for', 'horas')
     lHoras.innerText = 'Horas'
@@ -291,9 +283,6 @@ const bodyRelatorio = () =>{
     iMin.setAttribute('value', '00')
     iMin.setAttribute('style', 'width: 25px; text-align: end;')
     lHoras.appendChild(iMin)
-    {/* <label for="videos">Vídeos
-        <input type="number" id="videos" style="width: 25px;" value="0">
-    </label> */}
     let lVideos = $cria('label')
     lVideos.setAttribute('for', 'videos')
     lVideos.innerText = 'Vídeos'
@@ -303,9 +292,6 @@ const bodyRelatorio = () =>{
     iVideos.setAttribute('value', '0')
     iVideos.setAttribute('style', 'width: 25px; text-align: end;')
     lVideos.appendChild(iVideos)
-    {/* <label for="publicacao">Publicações
-        <input type="number" id="publicacoes" style="width: 25px;" value="0">
-    </label> */}
     let lPub = $cria('label')
     lPub.setAttribute('for', 'publicacao')
     lPub.innerText = 'Publicações'
@@ -315,9 +301,6 @@ const bodyRelatorio = () =>{
     iPub.setAttribute('value', '0')
     iPub.setAttribute('style', 'width: 25px; text-align: end;')
     lPub.appendChild(iPub)
-    {/* <label for="revisita">Revisitas
-        <input type="number" id="revisitas" style="width: 25px;" value="0">
-    </label> */}
     let lRev = $cria('label')
     lRev.setAttribute('for', 'revisita')
     lRev.innerText = 'Revisitas'
@@ -402,15 +385,7 @@ const btnsEstudantes = ()=>{
             iNome.setAttribute('placeholder', 'Nome obrigatório')
         }
     })
-    /* let btnEditar = $cria('button')
-    btnEditar.setAttribute('id', 'estudantesEditar')
-    btnEditar.innerHTML = '<ion-icon name="create" style="color: white; font-size: 20px"></ion-icon>'
-    btnEditar.addEventListener('click',function(){
-        const btnsLi = $all('.btnLi')
-        btnsLi.forEach(item => item.classList.remove('invisivel'))
-        console.log(btnsLi);
-    }) */
-    // btns.push(btnEditar,btnIncluir)
+
     btns.push(btnIncluir)
     return btns
 }
