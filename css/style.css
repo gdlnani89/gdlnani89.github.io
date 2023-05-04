@@ -24,13 +24,23 @@ header
     background-color: var(--fundo1);
     color: var(--fonte1);
     font-size: 24px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
     position: fixed;
+}
+header .periodo
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+header .periodo .ano
+{
+    font-size: 12px;
 }
 .relatorio
 {
     background-color: white;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-top: 65px;
 }
  ul
 {
@@ -57,35 +67,70 @@ header
 {
     padding: 5px;
 }
+.relatorio ul li span:first-child
+{
+    flex: 1;
+}
+.relatorio ul li span:last-child
+{
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+}
 .relatorio .dado
 {
     width: 30%;
     text-align: right;
 }
-.editar
+.relatorio #estudosTotal
 {
-    background-image: url(../icon/pencil-fill.svg);
+    font-weight: bold;
 }
 main
 {
-    height: 100%;
-    padding-top: 65px;
-}
-.tabela
-{
-    height: 100%;
-    background-color: var(--fundo2);
-    width: 100%;
-    padding-top: 10px;
+    height: 55vh;
+    overflow: auto;
 }
 .tabela table
 {
     width: 100%;
     text-align: center;
 }
+.tabela table thead
+{
+    position: sticky ;
+    top: -1px;
+    background-color: var(--fundo2);
+    z-index: 1;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+}
+/* .tabela table tbody
+{
+    display: block;
+} */
 .tabela table tr:nth-child(even)
 {
     background-color: var(--fundo4);
+    border-radius: 10px;
+}
+.tabela table tr td:last-child
+{
+    display: flex;
+    justify-content: space-between;
+}
+.tabela table tr td:last-child button:first-child
+{
+    flex: 2;
+}
+.tabela table input
+{
+    text-align: center;
+}
+.tabela table input[disabled]
+{
+    background-color: transparent;
+    color: #4A148C;
+    border: none;
 }
 footer
 {
@@ -108,7 +153,7 @@ button,a
     background-position: center;
 }
 
-#send, .next
+#send
 {
     margin-right: 20px;
 }
@@ -125,11 +170,12 @@ button,a
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
   }
   
   .caixa-dialogo-conteudo {
     position: absolute;
-    width: 50%;
+    /* width: 50%; */
     display: flex;
     top: 50%;
     left: 50%;
@@ -143,6 +189,7 @@ button,a
   .caixa-dialogo-conteudo h2
   {
     text-align: center;
+    margin: 5px;
   }
   .body-modal
   {
@@ -185,6 +232,8 @@ button,a
 {
     display: flex;
     align-items: center;
+    flex: 1;
+    text-align: center;
 }
 ion-icon {
     color: rgb(255, 255, 255);
@@ -192,7 +241,6 @@ ion-icon {
   }
 div#estudos
 {
-    width: 100%;
     text-align: center;
 }
 button#estudanteAdd
@@ -200,26 +248,20 @@ button#estudanteAdd
     padding: 4px;
     background-color: #4A148C;
     border-radius: 10px ;
-    width: 50%;
+    flex: 1;
 }
 button#estudantesEditar
 {
     padding: 4px;
     background-color: #b71c1c;
     border-radius: 10px ;
-    width: 50%;
-}
-/* button#estudanteAdd
-{
-    padding: 4px;
-    background-color: #4A148C;
-    border-radius: 10px ;
     width: 100%;
-} */
+}
+
 #ul-estudos li
 {
-    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background-color: var(--fundo4);
@@ -227,19 +269,35 @@ button#estudantesEditar
     margin-bottom: 4px;
     border-radius: 10px;
 }
-#ul-estudos li span:first-child
+#ul-estudos li textarea
 {
-    border: 1px solid rgba(0, 0, 0, 0.256);
-    padding: 4px;
-    width: 40%;
     border-radius: 10px;
+    text-align: center;
+    padding: 5px;
 }
-#ul-estudos li span:first-child ~ span
-{
 
-    padding: 4px;
-    width: 60%;
-    border-radius: 10px;
+#ul-estudos li input
+{
+    text-align: center;
+    width: 80%;
+    margin-bottom: 5px;
+}
+#ul-estudos li input[disabled]{
+    border: 1px solid var(--fundo1);
+    background-color: transparent;
+    color: #4A148C;
+}
+#ul-estudos li .btns-estudantes-edit
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+.inclusao
+{
+    display: flex;
+    flex-direction: column;
 }
 .btnLi:not(:last-child)
 {

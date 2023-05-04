@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,68 +11,69 @@
     <script src="./js/index.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/service-worker.js');
-          });
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
         }
-      </script>
+    </script>
     <title>Relatório</title>
 </head>
 <body>
     <header>
-        <button class="previous">
+        <button id="voltarMes" class="previous">
             <ion-icon name="caret-back-circle"></ion-icon>
         </button>
-        <span id="mesRelatorio" class="mes">Abril</span>
-        <button class="next">
+        <div class="periodo">
+            <span id="mesRelatorio" class="mes">Abril</span>
+            <span id="anoRelatorio" class="ano">2023</span>
+        </div>
+        <button id="avancarMes" class="next">
             <ion-icon name="caret-forward-circle"></ion-icon>
         </button>
     </header>
-    <main>
-        <div class="relatorio">
-            <ul>
-                <li>
-                    <span class="dado">Horas</span>
-                    <span id="horasTotal">00:00</span>
-                </li>
-                <li>
-                    <span class="dado">Revisitas</span>
-                    <span id="revisitasTotal">00</span>
-                </li>
-                <li>
-                    <span class="dado">Vídeos</span>
-                    <span id="videosTotal">00</span>
-                </li>
-                <li>
-                    <span class="dado">Publicações</span>
-                    <span id="pubTotal">00</span>
-                </li>
-                <li>
-                    <span class="dado">Estudos</span>
-                    <div class="editaEstudo">
-                        <span id="estudosTotal">00</span>
-                        <button id="qtdEstudos" title="Alterar">
-                            <ion-icon name="create"></ion-icon>
-                        </button>
-                    </div>
-                    
-                </li>
-            </ul>
-        </div>
-        <div class="tabela">
-            <table>
-                <thead>
-                  <tr>
+    <section class="relatorio">
+        <ul>
+            <li>
+                <span class="dado">Horas</span>
+                <span id="horasTotal">00:00</span>
+            </li>
+            <li>
+                <span class="dado">Revisitas(Rev.)</span>
+                <span id="revisitasTotal">0</span>
+            </li>
+            <li>
+                <span class="dado">Vídeos</span>
+                <span id="videosTotal">0</span>
+            </li>
+            <li>
+                <span class="dado">Publicações(Pub.)</span>
+                <span id="pubTotal">0</span>
+            </li>
+            <li>
+                <span class="dado">Estudos</span>
+                <div class="editaEstudo">
+                    <span id="estudosTotal">0</span>
+                    <button id="qtdEstudos" title="Alterar">
+                        <ion-icon name="create"></ion-icon>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <main class="tabela">
+        <table>
+            <thead>
+                <tr>
                     <th>Dia</th>
                     <th>Horas</th>
                     <th>Vídeos</th>
-                    <th>Publicações</th>
-                    <th>Revisitas</th>
-                  </tr>
-                </thead>
-                <tbody id="tbody"></tbody>
-              </table>
-        </div>
+                    <th>Pub.</th>
+                    <th>Rev.</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
     </main>
     <footer>
         <button id="alvo" title="Alvos">
@@ -96,6 +97,6 @@
     <script src="./js/relatorioTabela.js"></script>
     <script src="./js/elementsDOM.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
