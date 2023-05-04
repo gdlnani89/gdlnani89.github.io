@@ -10,16 +10,19 @@ function tBodyCreate(inclusao, indice=''){
 
     const ipDia = $cria('input')
     ipDia.setAttribute('style', 'width: 18px')
+    ipDia.setAttribute('id', indice+'dia')
     ipDia.setAttribute('value', inclusao.dia)
     ipDia.setAttribute('disabled', true)
     tdDia.appendChild(ipDia)
 
     const ipHoras = $cria('input')
     ipHoras.setAttribute('style', 'width: 35px')
+    ipHoras.setAttribute('id', indice+'horas')
     ipHoras.setAttribute('value', `${tempo.horas}:${tempo.minutosRestantes}`)
     ipHoras.setAttribute('disabled', true)
     tdHoras.appendChild(ipHoras)
     const ipVideos = $cria('input')
+    ipVideos.setAttribute('style', 'width: 18px')
     ipVideos.setAttribute('style', 'width: 18px')
     ipVideos.setAttribute('value', inclusao.videos)
     ipVideos.setAttribute('disabled', true)
@@ -56,11 +59,19 @@ function tBodyCreate(inclusao, indice=''){
     const btnEditSalvar = $cria('button')
     noneHabilita.none(btnEditSalvar,true)
     btnEditSalvar.innerHTML = '<ion-icon name="checkmark-circle" style="font-size: 20px; color: #009688"></ion-icon>'
+    btnEditSalvar.addEventListener('click', function(){
+        const ipDia = $id(indice+'dia')
+        const ipHoras = $id(indice+'horas')
+        const tempo = (ipHoras.value.split(':')[0]*60)+(parseInt(ipHoras.value.split(':')[1]))
+        
+        console.log('indice da inclusão '+indice)
+        console.log(inclusao);
+        
+    })
     const btnEditVoltar = $cria('button')
     btnEditVoltar.addEventListener('click',function(){
         const avo = this.parentNode.parentNode
         const btn = this
-        console.log(btn);
         btnsEditar(avo,btn,false)
     })
     btnEditVoltar.classList.add('invisivel')
