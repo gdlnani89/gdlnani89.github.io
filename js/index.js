@@ -172,7 +172,6 @@ const atualiza = {
     },
     alvo(){
         if(alvo){
-            if(setAlvoDiv()< 0)console.log(setAlvoDiv());
             spAlvoHoras.innerText = setAlvoDiv()
         }else{
             divAlvoTempo.classList.add('invisivel')
