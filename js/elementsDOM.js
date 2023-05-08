@@ -35,6 +35,15 @@ btnQtdEstudos.addEventListener('click',function () {
     modalCorpo(bodyEstudos())
     modalFooter([])
 })
+const divAlvoTempo = $id('alvoDiv')
+const spAlvoHoras = $id('alvoHoras')
+// alvo ? divAlvoTempo.innerHTML = `${setAlvoDiv()}<ion-icon name="rocket" style="font-size: 24px;color: #4A148C;"></ion-icon>` : ''
+if(alvo){
+    spAlvoHoras.innerText = setAlvoDiv()
+}else{
+    divAlvoTempo.classList.add('invisivel')
+    spAlvoHoras.innerText = ''
+}
 //tabela relatorio
 const tBody = $id('tbody')
 relatorioAnoAtual.mes[mesAtualString.toLowerCase()].sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
@@ -60,15 +69,15 @@ btnSend.addEventListener('click', function(){
 btnAdd.addEventListener('click', function() {
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Adicionar atividade')
-    modalCorpo(bodyRelatorio())
-    modalFooter([btnCancel(),btnSalvar(addAtividade)])
+    modalCorpo(bodyRelatorio(),'addRelatorio')
+    modalFooter([btnCancel(),btnSalvar(addAtividade,'fechar-incluirAtividade')])
     }
 );
 btnAlvos.addEventListener('click', function() {
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Alvos')
-    modalCorpo([])
-    modalFooter([])
+    modalCorpo(bodyAlvo())
+    modalFooter([btnCancel(),btnSalvar(addAlvo,'sair-incluirAlvo')])
     }
 );
 

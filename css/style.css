@@ -59,17 +59,10 @@ header .periodo .ano
 .relatorio ul li:nth-child(even){
     background-color: var(--fundo4);
 }
-.relatorio ul li:not(:nth-child(4))
-{
-    margin-bottom: 5px;
-}
+
 .relatorio ul li:not(:nth-child(5))
 {
     padding: 5px;
-}
-.relatorio ul li span:first-child
-{
-    flex: 1;
 }
 .relatorio ul li span:last-child
 {
@@ -79,12 +72,39 @@ header .periodo .ano
 }
 .relatorio .dado
 {
-    width: 30%;
     text-align: right;
+    flex: 1;
+}
+.relatorio #horaAlvos
+{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.relatorio #horaAlvos #horasTotal
+{
+    font-weight: bold;
+}
+.relatorio .alvoDiv
+{
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    background-color: #4a148c4c;
+    border-radius: 5px;
+}
+.relatorio .alvoDiv.invisivel
+{
+    display: none;
 }
 .relatorio #estudosTotal
 {
     font-weight: bold;
+}
+.relatorio #alvoHoras
+{
+    color: #b71c1c;
 }
 main
 {
@@ -195,7 +215,10 @@ button,a
   {
     display: flex;  
     flex-direction: column;
-    align-items: flex-end;
+}
+.addRelatorio
+{
+      align-items: flex-end;
   }
   .body-modal label
   {
@@ -232,6 +255,7 @@ button,a
 {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     flex: 1;
     text-align: center;
 }

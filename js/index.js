@@ -6,7 +6,6 @@ const $cria = tag => document.createElement(tag)
 let data = new Date()
 let dia = data.getDate()
 let ano = data.getFullYear()
-
 let meses = [ 'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro' ]
 let mesAtualNumero = data.getMonth()
 let mesAtualString = meses[mesAtualNumero]
@@ -14,6 +13,7 @@ let countMes = meses[mesAtualNumero]
 
 let relatorio = localStorage.getItem('relatorio') ? JSON.parse(localStorage.getItem('relatorio')) : [criaRelatorio(ano)]
 let estudos = localStorage.getItem('estudos') ? JSON.parse(localStorage.getItem('estudos')) : []
+let alvo = localStorage.getItem('alvo') ? JSON.parse(localStorage.getItem('alvo')) : null
 
 let relatorioAnoAtual
 relatorio.forEach(i =>{
@@ -52,6 +52,9 @@ function criaRelatorio(ano){
 function incluiAtividade(dia,tempo,videos,publicacoes,revisitas){
     return { dia,tempo,videos,publicacoes,revisitas}
 }
+function alvosCria(tipo,horas){
+    return {tipo,horas}
+}
 //fn para calculos de minutos
 function minutosParaHoras(minutos) {
     var horas = Math.floor(minutos / 60);
@@ -81,6 +84,11 @@ function calculaHorasTotal(relatorioMesArray){
     }else{
         return '0'
     }
+}
+function totalMinutos(){
+    const tempoAtualArray = calculaHorasTotal(relatorioAnoAtual.mes[mesAtualString.toLowerCase()]).split(':')
+    const tempoAtualTotal = (tempoAtualArray[0]*60)+parseInt(tempoAtualArray[1])
+    return tempoAtualTotal
 }
 //fn do array das atividades cadastradas
 function calculaRevisitasTotal(relatorioMesArray){
@@ -120,7 +128,8 @@ function calculaPublicacoesTotal(relatorioMesArray){
 function modalTitulo(title) {
     h2Title.innerText = title
 }
-function modalCorpo(corpo){
+function modalCorpo(corpo, cls = ''){
+    cls ? divBodyModal.classList.add(cls) : divBodyModal.classList.remove('addRelatorio')
     divBodyModal.innerHTML = ''
     corpo.forEach(element => {
         divBodyModal.appendChild(element)
@@ -130,191 +139,7 @@ function modalFooter(btns){
     divBtnsFooter.innerHTML = ''
     btns.forEach(btn => divBtnsFooter.appendChild(btn))
 }
-//bodys MODAL
-const bodyEstudos = () =>{
-    const ele = []
-    let divCadastrados = $cria('div')
-    divCadastrados.setAttribute('id','estudos')
-    let btnEditar = $cria('button')
-    btnEditar.setAttribute('id', 'estudantesEditar')
-    btnEditar.innerHTML = '<ion-icon name="create" style="color: white; font-size: 20px"></ion-icon>'
-    btnEditar.addEventListener('click',function(){
-        const btnsLi = $all('.btnLi')
-        btnsLi.forEach(item => item.classList.remove('invisivel'))
-    })
-    if(estudos.length === 0){
-        divCadastrados.innerText = 'Nenhum estudo cadastrado'
-    }else{
-        divCadastrados.appendChild(ulEstudos(estudos)) 
-        divCadastrados.appendChild(btnEditar)
-    }
-    let divInclusao = $cria('div')
-    divInclusao.setAttribute('class', 'inclusao')
-    let lNome = $cria('label') 
-    lNome.setAttribute('for', 'nome')
-    lNome.innerText = 'Nome'
-    let iNome = $cria('input')
-    iNome.setAttribute('type', 'text')
-    iNome.setAttribute('id', 'nome')
-    iNome.setAttribute('name', 'nome')
-    // iNome.setAttribute('style', 'width: 150px;')
-    lNome.appendChild(iNome)   
-    let lObs = $cria('label') 
-    lObs.setAttribute('for', 'obs')
-    lObs.innerText = 'Obs.'
-    let iObs = $cria('input')
-    iObs.setAttribute('type', 'text')
-    iObs.setAttribute('id', 'obs')
-    iObs.setAttribute('name', 'obs')
-    // iObs.setAttribute('style', 'width: 150px;')
-    lObs.appendChild(iObs)   
-    let btnIncluir = $cria('button')
-    btnIncluir.setAttribute('id', 'estudanteAdd')
-    btnIncluir.innerHTML = '<ion-icon name="person-add" style="color: white; font-size: 20px"></ion-icon>'
-    btnIncluir.addEventListener('click',function(){
-        const iNome = $id('nome')
-        const iObs = $id('obs')
-        const div = $id('estudos')
-        if(iNome.value){
-            const estudanteNovo = new Estudo(iNome.value,iObs.value)
-            estudos.push(estudanteNovo)
-            iNome.value = ''
-            iObs.value = ''
-            iNome.setAttribute('placeholder', '')
-            atualiza.estudosLS(estudos)
-            atualiza.estudosSpan()
-            div.innerHTML = ''
-            div.appendChild(ulEstudos(estudos))
-            divCadastrados.appendChild(btnEditar)
-        }else{
-            iNome.focus()
-            iNome.setAttribute('placeholder', 'Nome obrigatório')
-        }
-    })
-    divInclusao.appendChild(lNome)
-    divInclusao.appendChild(lObs)
-    divInclusao.appendChild(btnIncluir)
-    ele.push(divCadastrados,divInclusao)
-    // ele.push(div,lNome,lObs,btnIncluir)
-    return ele
-}
-function ulEstudos(estudos){
-    let ul = $cria('ul')
-    ul.setAttribute('id', 'ul-estudos')
-    estudos.forEach((item,i) =>{
-        console.log(estudos[i]);
-        let li = $cria('li')
-        // li.setAttribute('id', )
-        let iNome = $cria('input')
-        iNome.setAttribute('value',item.nome)
-        iNome.setAttribute('class', 'i-estudo')
-        iNome.setAttribute('disabled', true)
-        let taObs = $cria('textArea')
-        taObs.setAttribute('class', 'ta-estudo')
-        taObs.setAttribute('disabled', true)
-        item.obs ? taObs.innerText = item.obs : taObs.style.display = 'none'
-        let divBtns = $cria('div')
-        divBtns.setAttribute('class', 'btns-estudantes-edit')
-        let bEx = $cria('button')//exclui elemento do array
-        bEx.classList.add('btnLi')
-        bEx.classList.add('invisivel')
-        bEx.innerHTML = '<ion-icon name="person-remove" style="color: white; font-size: 10px"></ion-icon>'
-        bEx.addEventListener('click', function(){
-            this.parentNode.parentNode.remove()
-            estudos.splice(i,1)
-            atualiza.estudosSpan()
-            atualiza.estudosLS()
-            const lis = $all('#ul-estudos li')
-            if(lis.length == 0){
-             const btnEditaEstudante = $id('estudantesEditar')   
-             const divCadastrados = $id('estudos')   
-             btnEditaEstudante.classList.add('invisivel')
-             divCadastrados.innerText = 'Nenhum estudo cadastrado'
-            }
-        })
-        let bEd = $cria('button')
-        bEd.classList.add('btnLi')
-        bEd.classList.add('invisivel')
-        bEd.innerHTML = '<ion-icon name="pencil" style="color: white; font-size: 10px"></ion-icon>'
-        divBtns.appendChild(bEx)
-        divBtns.appendChild(bEd)
-        li.appendChild(iNome)
-        li.appendChild(taObs)
-        li.appendChild(divBtns)
-        /* li.appendChild(bEx)
-        li.appendChild(bEd) */
-        ul.appendChild(li)
-    })
-    
-
-    return ul
-}
-
-const bodyRelatorio = () =>{
-    const ele = []
-    let lDia = $cria('label') 
-    lDia.setAttribute('for', 'dia')
-    lDia.innerText = 'Dia'
-    let iDia = $cria('input')
-    iDia.setAttribute('value', dia)
-    iDia.setAttribute('type', 'number')
-    iDia.setAttribute('id', 'dia')
-    iDia.setAttribute('name', 'dia')
-    iDia.setAttribute('min', '1')
-    iDia.setAttribute('max', '31')
-    iDia.setAttribute('pattern','[1-9]|[12][0-9]|3[01]')
-    iDia.setAttribute('style', 'width: 35px;')
-    lDia.appendChild(iDia)
-    let lHoras = $cria('label')
-    lHoras.setAttribute('for', 'horas')
-    lHoras.innerText = 'Horas'
-    let iHoras = $cria('input')
-    iHoras.setAttribute('type', 'number')
-    iHoras.setAttribute('id', 'horas')
-    iHoras.setAttribute('value', '0')
-    iHoras.setAttribute('style', 'width: 25px; text-align: end;')
-    lHoras.appendChild(iHoras)
-    let p = $cria('p')
-    p.innerText = ':'
-    lHoras.appendChild(p)
-    let iMin = $cria('input')
-    iMin.setAttribute('type', 'number')
-    iMin.setAttribute('id', 'min')
-    iMin.setAttribute('value', '00')
-    iMin.setAttribute('style', 'width: 25px; text-align: end;')
-    lHoras.appendChild(iMin)
-    let lVideos = $cria('label')
-    lVideos.setAttribute('for', 'videos')
-    lVideos.innerText = 'Vídeos'
-    let iVideos = $cria('input')
-    iVideos.setAttribute('type', 'number')
-    iVideos.setAttribute('id', 'videos')
-    iVideos.setAttribute('value', '0')
-    iVideos.setAttribute('style', 'width: 25px; text-align: end;')
-    lVideos.appendChild(iVideos)
-    let lPub = $cria('label')
-    lPub.setAttribute('for', 'publicacao')
-    lPub.innerText = 'Publicações'
-    let iPub = $cria('input')
-    iPub.setAttribute('type', 'number')
-    iPub.setAttribute('id', 'publicacoes')
-    iPub.setAttribute('value', '0')
-    iPub.setAttribute('style', 'width: 25px; text-align: end;')
-    lPub.appendChild(iPub)
-    let lRev = $cria('label')
-    lRev.setAttribute('for', 'revisita')
-    lRev.innerText = 'Revisitas'
-    let iRev = $cria('input')
-    iRev.setAttribute('type', 'number')
-    iRev.setAttribute('id', 'revisitas')
-    iRev.setAttribute('value', '0')
-    iRev.setAttribute('style', 'width: 25px; text-align: end;')
-    lRev.appendChild(iRev)
-    ele.push(lDia,lHoras,lVideos,lPub,lRev)
-
-    return ele
-}
-
+//funçoes para atualizar tela apos inclusoes
 const atualiza = {
     relatorioLS(){
         localStorage.setItem('relatorio', JSON.stringify(relatorio))
@@ -325,7 +150,7 @@ const atualiza = {
     estudosLS(){
         localStorage.setItem('estudos', JSON.stringify(estudos))
     },
-    mensagemWhats(mesSelecionado,arrayRelatorio = []){
+    mensagemWhats(mesSelecionado,arrayRelatorio){
         return `Segue o relatório de ${mesSelecionado}: Horas ${calculaHorasTotal(arrayRelatorio)}, Revisitas ${calculaRevisitasTotal(arrayRelatorio)}, Videos ${calculaVideosTotal(arrayRelatorio)}, Publicações ${calculaPublicacoesTotal(arrayRelatorio)} e Estudos ${estudos.length}`;
     },
     relatorioTotalVazio(){
@@ -339,9 +164,21 @@ const atualiza = {
         tBody.innerHTML = ''
         relatorioAnoAtual.mes[countMes.toLowerCase()].sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
         spHorasTotal.innerText = calculaHorasTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
+        // spAlvoHoras.innerText = setAlvoDiv()
+        atualiza.alvo()
         spRevTotal.innerText = calculaRevisitasTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
         spVideosTotal.innerText = calculaVideosTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
         spPubTotal.innerText = calculaPublicacoesTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
+    },
+    alvo(){
+        if(alvo){
+            if(setAlvoDiv()< 0)console.log(setAlvoDiv());
+            spAlvoHoras.innerText = setAlvoDiv()
+        }else{
+            divAlvoTempo.classList.add('invisivel')
+            spAlvoHoras.innerText = ''
+        }
+        // spAlvoHoras.innerText = setAlvoDiv()
     }
 }
 // Btns
@@ -354,89 +191,12 @@ const btnCancel = () =>{
     })
     return btnCancel
 }
-const btnSalvar = (fn) =>{
+const btnSalvar = (fn,id) =>{
     const btnSalvar = $cria('button')
-    btnSalvar.setAttribute('id', 'fechar-incluirAtividade')
+    btnSalvar.setAttribute('id', id)
     btnSalvar.innerHTML = '<ion-icon name="checkmark-circle" style="color: green"></ion-icon>'
     btnSalvar.addEventListener('click', fn)
     return btnSalvar
-}
-const btnsEstudantes = ()=>{
-    const btns = []
-    let btnIncluir = $cria('button')
-    btnIncluir.setAttribute('id', 'estudanteAdd')
-    btnIncluir.innerHTML = '<ion-icon name="person-add" style="color: white; font-size: 20px"></ion-icon>'
-    btnIncluir.addEventListener('click',function(){
-        const iNome = $id('nome')
-        const iObs = $id('obs')
-        const div = $id('estudos')
-        if(iNome.value){
-            const estudanteNovo = new Estudo(iNome.value,iObs.value)
-            estudos.push(estudanteNovo)
-            iNome.value = ''
-            iObs.value = ''
-            iNome.setAttribute('placeholder', '')
-            atualiza.estudosLS(estudos)
-            atualiza.estudosSpan()
-            div.innerHTML = ''
-            div.appendChild(ulEstudos(estudos))
-        }else{
-            iNome.focus()
-            iNome.setAttribute('placeholder', 'Nome obrigatório')
-        }
-    })
-
-    btns.push(btnIncluir)
-    return btns
-}
-//funções dos botões 
-function addAtividade(){
-    const ipDia = $id('dia')
-    const ipHoras = $id('horas')
-    const ipMin = $id('min')
-    const ipVideos = $id('videos')
-    const ipPub = $id('publicacoes')
-    const ipRev = $id('revisitas')
-    if(ipDia.value && ipHoras.value || ipMin.value ){
-        const atividade = {
-            dia : ipDia.value,
-            tempo : (parseInt(ipHoras.value)*60)+(parseInt(ipMin.value)),
-            videos : ipVideos.value,
-            publicacoes : ipPub.value,
-            revisitas : ipRev.value
-        }
-        const totalMinutos = (parseInt(ipHoras.value)*60)+(parseInt(ipMin.value))
-        // tBody.appendChild(tBodyCreate(atividade))
-        const mesInc = spMesRelatorio.innerText.toLowerCase()
-        const arrayRelatorio = relatorioAnoAtual.mes[mesInc]
-        arrayRelatorio.push(incluiAtividade(
-            atividade.dia,
-            totalMinutos,
-            atividade.videos,
-            atividade.publicacoes,
-            atividade.revisitas,
-            spEstudosTotal.innerText
-            )
-        )
-        tBody.innerHTML = ''
-        arrayRelatorio.sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
-        inpForm.forEach(inp => inp.value = '0')
-        ipDia.value = dia
-        ipMin.value = '00'      
-        divCxDialogo.classList.remove('caixa-dialogo-aberta');  
-        localStorage.setItem('relatorio', JSON.stringify(relatorio))
-        spHorasTotal.innerText = calculaHorasTotal(relatorioAnoAtual.mes[mesInc])
-        spRevTotal.innerText = calculaRevisitasTotal(relatorioAnoAtual.mes[mesInc])
-        spPubTotal.innerText = calculaPublicacoesTotal(relatorioAnoAtual.mes[mesInc])
-        spVideosTotal.innerText = calculaRevisitasTotal(relatorioAnoAtual.mes[mesInc])
-        btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats(mesInc,arrayRelatorio)}`)
-    }else{
-        console.log('falta horas');
-    }
-}
-
-function addAlvo(){
-
 }
 const noneHabilita = {
     habilitaInps(array,b){
