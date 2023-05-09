@@ -62,7 +62,7 @@ const btnSend = $id('send')
 
 btnSend.addEventListener('click', function(){
     // event.preventDefault()
-    btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats()}`)
+    btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats(countMes,relatorioAnoAtual.mes[countMes.toLowerCase()])}`)
     // this.onclick = window.open(`whatsapp://send?text=${atualiza.mensagemWhats()}`)
 })
 
