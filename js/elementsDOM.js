@@ -5,12 +5,22 @@ document.addEventListener('click', (event) => {
 //header mes e setas
 const btnVoltaMes = $id('voltarMes')
 btnVoltaMes.addEventListener('click', function(){
+    btnVoltaMes.classList.add('clicked');
+
+    setTimeout(() => {
+        btnVoltaMes.classList.remove('clicked');
+    }, 300);
     countMes = meses[--mesAtualNumero]
     spMesRelatorio.innerText = countMes
     relatorioAnoAtual.mes[countMes.toLowerCase()] ? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
 })
 const btnAvancaMes = $id('avancarMes')
 btnAvancaMes.addEventListener('click', function(){
+    btnAvancaMes.classList.add('clicked');
+
+    setTimeout(() => {
+        btnAvancaMes.classList.remove('clicked');
+    }, 300);
     countMes = meses[++mesAtualNumero]
     spMesRelatorio.innerText = countMes
     relatorioAnoAtual.mes[countMes.toLowerCase()]? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
@@ -61,12 +71,22 @@ const btnAdd = $id('add')
 const btnSend = $id('send')
 
 btnSend.addEventListener('click', function(){
+    btnSend.classList.add('clicked');
+
+    setTimeout(() => {
+        btnSend.classList.remove('clicked');
+    }, 300);
     // event.preventDefault()
     btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats(countMes,relatorioAnoAtual.mes[countMes.toLowerCase()])}`)
     // this.onclick = window.open(`whatsapp://send?text=${atualiza.mensagemWhats()}`)
 })
 
 btnAdd.addEventListener('click', function() {
+    btnAdd.classList.add('clicked');
+
+    setTimeout(() => {
+        btnAdd.classList.remove('clicked');
+    }, 300);
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Adicionar atividade')
     modalCorpo(bodyRelatorio(),'addRelatorio')
@@ -74,6 +94,11 @@ btnAdd.addEventListener('click', function() {
     }
 );
 btnAlvos.addEventListener('click', function() {
+    btnAlvos.classList.add('clicked');
+
+    setTimeout(() => {
+        btnAlvos.classList.remove('clicked');
+    }, 300);
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Alvos')
     modalCorpo(bodyAlvo())
