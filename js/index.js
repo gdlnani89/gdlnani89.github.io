@@ -52,8 +52,13 @@ function criaRelatorio(ano){
 function incluiAtividade(dia,tempo,videos,publicacoes,revisitas){
     return { dia,tempo,videos,publicacoes,revisitas}
 }
-function alvosCria(tipo,horas){
-    return {tipo,horas}
+function alvosCria(ano,mes,tipo,horas){
+    return {
+        ano,
+        mes,
+        tipo,
+        horas
+    }
 }
 //fn para calculos de minutos
 function minutosParaHoras(minutos) {
@@ -164,20 +169,10 @@ const atualiza = {
         tBody.innerHTML = ''
         relatorioAnoAtual.mes[countMes.toLowerCase()].sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
         spHorasTotal.innerText = calculaHorasTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
-        // spAlvoHoras.innerText = setAlvoDiv()
-        atualiza.alvo()
+        spHorasFalta.innerText = setAlvoDiv()   
         spRevTotal.innerText = calculaRevisitasTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
         spVideosTotal.innerText = calculaVideosTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
         spPubTotal.innerText = calculaPublicacoesTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
-    },
-    alvo(){
-        if(alvo){
-            spAlvoHoras.innerText = setAlvoDiv()
-        }else{
-            divAlvoTempo.classList.add('invisivel')
-            spAlvoHoras.innerText = ''
-        }
-        // spAlvoHoras.innerText = setAlvoDiv()
     }
 }
 // Btns
@@ -215,3 +210,25 @@ const noneHabilita = {
         b ? elemento.classList.add('invisivel') : elemento.classList.remove('invisivel')
     }
 }
+// // Obtém o elemento <link> do favicon
+// const favicon = document.querySelector('link[rel="icon"]');
+
+// // Array com as URLs dos ícones
+// const icones = [
+// 'icone1.png',
+// 'icone2.png',
+// 'icone3.png',
+// 'icone4.png'
+// ];
+
+// // Função para alterar o ícone
+// function alterarIcone() {
+//     // Gera um índice aleatório para selecionar um ícone do array
+//     const indice = Math.floor(Math.random() * icones.length);
+
+//     // Atualiza o atributo href do elemento <link> com a URL do ícone selecionado
+//     favicon.href = icones[indice];
+// }
+
+// // Altera o ícone a cada 5 segundos
+// setInterval(alterarIcone, 5000);

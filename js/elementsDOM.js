@@ -13,6 +13,14 @@ btnVoltaMes.addEventListener('click', function(){
     countMes = meses[--mesAtualNumero]
     spMesRelatorio.innerText = countMes
     relatorioAnoAtual.mes[countMes.toLowerCase()] ? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    if((countMes === alvo.mes) && (alvo.ano === relatorioAnoAtual.anoServico)){
+        spHorasFalta.innerText = setAlvoDiv()
+        spAlvoHoras.innerText = alvo.horas+'h'
+        divAlvoTempo.classList.remove('invisivel')
+    }else{
+        divAlvoTempo.classList.add('invisivel')
+        spHorasFalta.innerText = ''
+    }
 })
 const btnAvancaMes = $id('avancarMes')
 btnAvancaMes.addEventListener('click', function(){
@@ -24,6 +32,14 @@ btnAvancaMes.addEventListener('click', function(){
     countMes = meses[++mesAtualNumero]
     spMesRelatorio.innerText = countMes
     relatorioAnoAtual.mes[countMes.toLowerCase()]? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    if((countMes === alvo.mes) && (alvo.ano === relatorioAnoAtual.anoServico)){
+        spHorasFalta.innerText = setAlvoDiv()
+        spAlvoHoras.innerText = alvo.horas+'h'
+        divAlvoTempo.classList.remove('invisivel')
+    }else{
+        divAlvoTempo.classList.add('invisivel')
+        spHorasFalta.innerText = ''
+    }
 })
 const spMesRelatorio = $id('mesRelatorio')
 spMesRelatorio.innerText = mesAtualString
@@ -46,13 +62,16 @@ btnQtdEstudos.addEventListener('click',function () {
     modalFooter([])
 })
 const divAlvoTempo = $id('alvoDiv')
+const iconRocket = $id('rocket')
+const spHorasFalta = $id('horasFalta')
 const spAlvoHoras = $id('alvoHoras')
 // alvo ? divAlvoTempo.innerHTML = `${setAlvoDiv()}<ion-icon name="rocket" style="font-size: 24px;color: #4A148C;"></ion-icon>` : ''
 if(alvo){
-    spAlvoHoras.innerText = setAlvoDiv()
+    spHorasFalta.innerText = setAlvoDiv()
+    spAlvoHoras.innerText = alvo.horas+'h'
 }else{
     divAlvoTempo.classList.add('invisivel')
-    spAlvoHoras.innerText = ''
+    spHorasFalta.innerText = ''
 }
 //tabela relatorio
 const tBody = $id('tbody')

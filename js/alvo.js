@@ -26,7 +26,7 @@ function bodyAlvo(){
     const ipHorasAlvo = $cria('INPUT')
     lHorasAlvo.appendChild(ipHorasAlvo)
     alvo ? ipHorasAlvo.value = alvo.horas : ipHorasAlvo.value = 0
-    ipHorasAlvo.setAttribute('type', 'text')
+    ipHorasAlvo.setAttribute('type', 'number')
     ipHorasAlvo.setAttribute('id', 'horasAlvo')
     slTipos.addEventListener('change', function () {
         ipHorasAlvo.value = slTipos.value
@@ -40,15 +40,30 @@ function addAlvo() {
     const slOption = slTipo.options[slTipo.selectedIndex]
     const slTexto = slOption.textContent
     const ipHoras = $id('horasAlvo')
-    const alvoCria = alvosCria(slTexto,ipHoras.value)
+    const alvoCria = alvosCria(ano,countMes,slTexto,ipHoras.value)
     localStorage.setItem('alvo', JSON.stringify(alvoCria))
-    atualiza.alvo()
+    spHorasFalta.innerText = setAlvoDiv()
+    spAlvoHoras.innerHTML = ''
+    spAlvoHoras.innerText = alvoCria.horas+'h'
+    divAlvoTempo.classList.remove('invisivel')
     divCxDialogo.classList.remove('caixa-dialogo-aberta');
 }
-function setAlvoDiv(){
+function calculaDiferenca(){
     const lsAlvo = JSON.parse(localStorage.getItem('alvo'))
     const tempoAtual = totalMinutos() || 0
     const tempoAlvo = lsAlvo.horas * 60
-    console.log(tempoAlvo-tempoAtual);
-    return minutosParaHoras(tempoAlvo-tempoAtual)
+    const calculaDiferenca = tempoAlvo-tempoAtual
+
+    return calculaDiferenca
+}
+function setAlvoDiv(){
+    if (calculaDiferenca()>0) {
+        iconRocket.setAttribute('style','color:white; font-size:18px;')
+        spHorasFalta.setAttribute('style','color:#b71c1c')
+        return minutosParaHoras(calculaDiferenca())
+    }else{
+        iconRocket.setAttribute('style','color:#4A148C; font-size:18px;')
+        spHorasFalta.setAttribute('style','color:blue')
+        return minutosParaHoras(calculaDiferenca()*-1)
+    }
 }

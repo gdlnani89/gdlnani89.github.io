@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/png" sizes="192x192" href="icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icone.png">
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/index.js"></script>
@@ -38,8 +38,11 @@
                 <div id="horaAlvos">
                     <span id="horasTotal">00:00</span>
                     <div id="alvoDiv" class="alvoDiv">
-                        <span id="alvoHoras"></span>
-                        <ion-icon name="rocket" style="font-size: 24px;color: #4A148C;"></ion-icon>
+                        <ion-icon id="rocket" name="rocket" style="font-size: 18px;"></ion-icon>
+                        <div class="alvoDiv-2">
+                            <span id="alvoHoras"></span>
+                            <span id="horasFalta"></span>
+                        </div>
                     </div>
                 </div>
             </li>

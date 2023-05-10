@@ -104,7 +104,18 @@ header .periodo .ano
 }
 .relatorio #alvoHoras
 {
+    color: black;
+    font-weight: bold;
+}
+.relatorio #horasFalta
+{
     color: #b71c1c;
+}
+.relatorio .alvoDiv-2
+{
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
 }
 main
 {
