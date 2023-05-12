@@ -1,5 +1,5 @@
 //modal corpo relatorio form
-const bodyRelatorio = () =>{
+const bodyDonativos = () =>{
     const ele = []
     {/* <label for="dia">Dia
         <input value='${dia}' type="number" id="dia" style="width: 25px;" name="dias" min="1" max="31" pattern="[1-9]|[12][0-9]|3[01]" >
@@ -23,35 +23,27 @@ const bodyRelatorio = () =>{
     </label> */}
     let lOm = $cria('label')
     lOm.setAttribute('for', 'om')
-    lOm.innerText = 'Donativo Obra Mundial'
+    lOm.innerText = 'Donativos Obra Mundial'
     let iValorOM = $cria('input')
-    iValorOM.setAttribute('type', 'number')
+    iValorOM.setAttribute('type', 'numberInp')
     iValorOM.setAttribute('id', 'om')
-    iValorOM.setAttribute('value', '0')
+    iValorOM.setAttribute('value', '0,00')
     iValorOM.setAttribute('placeHolder', 'R$')
     iValorOM.setAttribute('style', 'width: 25px; text-align: end;')
     lOm.appendChild(iValorOM)
-    let p = $cria('p')
-    p.innerText = ':'
-    lHoras.appendChild(p)
-    let iMin = $cria('input')
-    iMin.setAttribute('type', 'number')
-    iMin.setAttribute('id', 'min')
-    iMin.setAttribute('value', '00')
-    iMin.setAttribute('style', 'width: 25px; text-align: end;')
-    lHoras.appendChild(iMin)
     {/* <label for="videos">Vídeos
-        <input type="number" id="videos" style="width: 25px;" value="0">
-    </label> */}
-    let lVideos = $cria('label')
-    lVideos.setAttribute('for', 'videos')
-    lVideos.innerText = 'Vídeos'
-    let iVideos = $cria('input')
-    iVideos.setAttribute('type', 'number')
-    iVideos.setAttribute('id', 'videos')
-    iVideos.setAttribute('value', '0')
-    iVideos.setAttribute('style', 'width: 25px; text-align: end;')
-    lVideos.appendChild(iVideos)
+    <input type="number" id="videos" style="width: 25px;" value="0">
+</label> */}
+let lCong = $cria('label')
+lCong.setAttribute('for', 'videos')
+lCong.innerText = 'Donativos Congregação'
+let iValorCong = $cria('input')
+iValorCong.setAttribute('type', 'text')
+iValorCong.setAttribute('id', 'congInp')
+iValorCong.setAttribute('value', '0,00')
+iValorCong.setAttribute('placeHolder', 'R$')
+    iValorCong.setAttribute('style', 'width: 25px; text-align: end;')
+    lCong.appendChild(iValorCong)
     {/* <label for="publicacao">Publicações
         <input type="number" id="publicacoes" style="width: 25px;" value="0">
     </label> */}

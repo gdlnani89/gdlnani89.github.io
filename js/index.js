@@ -13,7 +13,7 @@ let countMes = meses[mesAtualNumero]
 let anoNovo
 
 let contas = localStorage.getItem('contas') ? JSON.parse(localStorage.getItem('contas')) : [criaContas(ano)]
-
+console.log(contas);
 let contasAnoAtual
 contas.forEach(i =>{
     if(i.anoServico === ano){
