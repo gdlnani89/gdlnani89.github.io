@@ -2,8 +2,8 @@
     "name": "ControleDonate",
     "short_name": "ContDon",
     "start_url": "/",
-    "background_color": "#4A148C",
-    "theme_color": "#4A148C",
+    "background_color": "#fff",
+    "theme_color": "#fff",
     "display": "standalone",
     "icons": [
       {
