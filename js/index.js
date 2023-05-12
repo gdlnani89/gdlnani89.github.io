@@ -10,28 +10,20 @@ let meses = [ 'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Ago
 let mesAtualNumero = data.getMonth()
 let mesAtualString = meses[mesAtualNumero]
 let countMes = meses[mesAtualNumero]
+let anoNovo
 
-let relatorio = localStorage.getItem('relatorio') ? JSON.parse(localStorage.getItem('relatorio')) : [criaRelatorio(ano)]
-let estudos = localStorage.getItem('estudos') ? JSON.parse(localStorage.getItem('estudos')) : []
-let alvo = localStorage.getItem('alvo') ? JSON.parse(localStorage.getItem('alvo')) : null
+let contas = localStorage.getItem('contas') ? JSON.parse(localStorage.getItem('contas')) : [criaContas(ano)]
 
-let relatorioAnoAtual
-relatorio.forEach(i =>{
+let contasAnoAtual
+contas.forEach(i =>{
     if(i.anoServico === ano){
-        relatorioAnoAtual = i
+        contasAnoAtual = i
     }else{
-        relatorio.push(criaRelatorio(ano))
+        contas.push(criaContas(anoNovo))
     }
 }) 
 
-class Estudo {
-    constructor(nome, obs = '') {
-        this.nome = nome
-        this.obs = obs
-    }
-}
-
-function criaRelatorio(ano){
+function criaContas(ano){
     const anoServico = ano
     const mes = {
         'janeiro' : [],
@@ -51,84 +43,44 @@ function criaRelatorio(ano){
     return {anoServico,mes}
 }
 
-function incluiAtividade(dia,tempo,videos,publicacoes,revisitas){
-    return { dia,tempo,videos,publicacoes,revisitas}
-}
-function alvosCria(ano,mes,tipo,horas){
-    return {
-        ano,
-        mes,
-        tipo,
-        horas
-    }
-}
-//fn para calculos de minutos
-function minutosParaHoras(minutos) {
-    var horas = Math.floor(minutos / 60);
-    var minutosRestantes = minutos % 60;
-    if(minutosRestantes.toString().length == 1){
-        minutosRestantes = '0'+minutosRestantes
-    }
-    return horas + ":" + minutosRestantes;
+function incluiMovimentacao(dia,desc,tipo,valor){
+    return { dia,desc,tipo,valor }
 }
 
-function minuHoras(minutos) {
-    var horas = Math.floor(minutos / 60);
-    var minutosRestantes = minutos % 60;
-    if(minutosRestantes.toString().length == 1){
-        minutosRestantes = '0'+minutosRestantes
-    }
-    return {horas,minutosRestantes};
-}
-
-function calculaHorasTotal(relatorioMesArray){
-    if(relatorioMesArray.length>0){
-        let tempoArray = relatorioMesArray.map(item => item.tempo)
-        const somaTempo = tempoArray.reduce(function(acumulador,atual){
-            return acumulador+atual
-        })
-        return minutosParaHoras(somaTempo)
-    }else{
-        return '0'
-    }
-}
-function totalMinutos(){
-    const tempoAtualArray = calculaHorasTotal(relatorioAnoAtual.mes[mesAtualString.toLowerCase()]).split(':')
-    const tempoAtualTotal = (tempoAtualArray[0]*60)+parseInt(tempoAtualArray[1])
-    return tempoAtualTotal
-}
 //fn do array das atividades cadastradas
-function calculaRevisitasTotal(relatorioMesArray){
-    if(relatorioMesArray.length>0){
-        let somaArrya = relatorioMesArray.map(item => parseInt(item.revisitas)) 
+const om = item => parseInt(item.valor)
+function calculaOM(contaMesArray){
+    if(contaMesArray.length>0){
+        let somaArrya = contaMesArray.map(om) 
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         })
         return soma
     }else{
-        return '0'
+        return 'R$ 0,00'
     }
 }
-function calculaVideosTotal(relatorioMesArray){
-    if(relatorioMesArray.length>0){
-        let somaArrya = relatorioMesArray.map(item => parseInt(item.videos))
+const cong = valor => parseInt(valor)
+function calculaCong(contaMesArray){
+    if(contaMesArray.length>0){
+        let somaArrya = contaMesArray.map(cong)
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         },0)
         return soma
     }else{
-        return '0'
+        return 'R$ 0,00'
     }
 }
-function calculaPublicacoesTotal(relatorioMesArray){
-    if(relatorioMesArray.length>0){
-        let somaArrya = relatorioMesArray.map(item => parseInt(item.publicacoes))
+function calculaGastos(contaMesArray){
+    if(contaMesArray.length>0){
+        let somaArrya = contaMesArray.map(item => parseInt(item.publicacoes))
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         })
         return soma
     }else{
-        return '0'
+        return 'R$ 0,00'
     }
 }
 //render MODAL
@@ -195,28 +147,41 @@ const btnSalvar = (fn,id) =>{
     return btnSalvar
 }
 const noneHabilita = {
-    habilitaInps(array,b){
-        if(b){
-            array.forEach(element => {
+    habilitaInps(arrayElemInp,verdadeiroParaDesbloquear){
+        if(verdadeiroParaDesbloquear){
+            arrayElemInp.forEach(element => {
                 element.removeAttribute('disabled')
                 }
             )
         }else{
-            array.forEach(element => {
+            arrayElemInp.forEach(element => {
                 element.setAttribute('disabled', true)
                 }
             )
         }
     },
-    none(elemento,b){
-        b ? elemento.classList.add('invisivel') : elemento.classList.remove('invisivel')
+    none(elemento,verdadeiroParaDesbloquear){
+        verdadeiroParaDesbloquear ? elemento.classList.add('invisivel') : elemento.classList.remove('invisivel')
     }
 }
-function btnEfeito(btn){
+function btnAnimation(btn){
     btn.classList.add('clicked');
+
     setTimeout(() => {
         btn.classList.remove('clicked');
     }, 300);
+}
+function avancaVolta(countMes){
+    spMesRelatorio.innerText = countMes
+    relatorioAnoAtual.mes[countMes.toLowerCase()]? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    if((countMes === alvo.mes) && (alvo.ano === relatorioAnoAtual.anoServico)){
+        spHorasFalta.innerText = setAlvoDiv()
+        spAlvoHoras.innerText = alvo.horas+'h'
+        divAlvoTempo.classList.remove('invisivel')
+    }else{
+        divAlvoTempo.classList.add('invisivel')
+        spHorasFalta.innerText = ''
+    }
 }
 // // Obtém o elemento <link> do favicon
 // const favicon = document.querySelector('link[rel="icon"]');

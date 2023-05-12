@@ -21,15 +21,16 @@ const bodyRelatorio = () =>{
         <input type="number" id="horas" style="width: 25px; text-align: end;" >:
         <input type="number" id="min" style="width: 25px;" value="00" name="minutos" min="0" max="59">
     </label> */}
-    let lHoras = $cria('label')
-    lHoras.setAttribute('for', 'horas')
-    lHoras.innerText = 'Horas'
-    let iHoras = $cria('input')
-    iHoras.setAttribute('type', 'number')
-    iHoras.setAttribute('id', 'horas')
-    iHoras.setAttribute('value', '0')
-    iHoras.setAttribute('style', 'width: 25px; text-align: end;')
-    lHoras.appendChild(iHoras)
+    let lOm = $cria('label')
+    lOm.setAttribute('for', 'om')
+    lOm.innerText = 'Donativo Obra Mundial'
+    let iValorOM = $cria('input')
+    iValorOM.setAttribute('type', 'number')
+    iValorOM.setAttribute('id', 'om')
+    iValorOM.setAttribute('value', '0')
+    iValorOM.setAttribute('placeHolder', 'R$')
+    iValorOM.setAttribute('style', 'width: 25px; text-align: end;')
+    lOm.appendChild(iValorOM)
     let p = $cria('p')
     p.innerText = ':'
     lHoras.appendChild(p)

@@ -16,56 +16,36 @@
             });
         }
     </script>
-    <title>Relatório</title>
+    <title>Controle Donate</title>
 </head>
 <body>
     <header>
         <button id="voltarMes" class="previous">
-            <ion-icon name="caret-back-circle"></ion-icon>
+            <ion-icon name="chevron-back-outline" style="color: black; font-size: 40px;"></ion-icon>
         </button>
         <div class="periodo">
             <span id="mesRelatorio" class="mes">Abril</span>
             <span id="anoRelatorio" class="ano">2023</span>
         </div>
         <button id="avancarMes" class="next">
-            <ion-icon name="caret-forward-circle"></ion-icon>
+            <ion-icon name="chevron-forward-outline" style="color: black; font-size: 40px;"></ion-icon>
+            <!-- <ion-icon name="caret-forward-circle" ></ion-icon> -->
         </button>
     </header>
     <section class="relatorio">
         <ul>
             <li>
-                <span class="dado">Horas</span>
-                <div id="horaAlvos">
-                    <span id="horasTotal">00:00</span>
-                    <div id="alvoDiv" class="alvoDiv">
-                        <ion-icon id="rocket" name="rocket" style="font-size: 18px;"></ion-icon>
-                        <div class="alvoDiv-2">
-                            <span id="alvoHoras"></span>
-                            <span id="horasFalta"></span>
-                        </div>
-                    </div>
-                </div>
+                <span class="dado">Donativo Obra Mundial</span>
+                <span id="om"></span>
+                <!-- <span id="horasTotal">0</span> -->
             </li>
             <li>
-                <span class="dado">Revisitas(Rev.)</span>
-                <span id="revisitasTotal">0</span>
+                <span class="dado">Donativo Congregação</span>
+                <span id="cong"></span>
             </li>
             <li>
-                <span class="dado">Vídeos</span>
-                <span id="videosTotal">0</span>
-            </li>
-            <li>
-                <span class="dado">Publicações(Pub.)</span>
-                <span id="pubTotal">0</span>
-            </li>
-            <li>
-                <span class="dado">Estudos</span>
-                <div class="editaEstudo">
-                    <span id="estudosTotal">0</span>
-                    <button id="qtdEstudos" title="Alterar">
-                        <ion-icon name="create"></ion-icon>
-                    </button>
-                </div>
+                <span class="dado">Gastos</span>
+                <span id="gastos"></span>
             </li>
         </ul>
     </section>
@@ -74,25 +54,23 @@
             <thead>
                 <tr>
                     <th>Dia</th>
-                    <th>Horas</th>
-                    <th>Vídeos</th>
-                    <th>Pub.</th>
-                    <th>Rev.</th>
-                    <th>Editar</th>
+                    <th>Descrição</th>
+                    <th>C/D</th>
+                    <th>Valor(R$)</th>
                 </tr>
             </thead>
             <tbody id="tbody"></tbody>
         </table>
     </main>
     <footer>
-        <button id="alvo" title="Alvos">
-            <ion-icon name="rocket"></ion-icon>
+        <button id="gastosAdd" title="Alvos">
+            <ion-icon name="bag-remove-outline" style="color: black; font-size: 30px;"></ion-icon>
         </button>
         <button id="add">
-            <ion-icon name="add-circle"></ion-icon>
+            <ion-icon name="cash-outline" style="color: black; font-size: 30px;"></ion-icon>
         </button>
         <a id="send">
-            <ion-icon name="navigate"></ion-icon>
+            <ion-icon name="navigate-outline" style="color: black; font-size: 30px;"></ion-icon>
         </a>
     </footer>
     <!-- modal -->

@@ -1,6 +1,6 @@
 {
-    "name": "Relatório",
-    "short_name": "RelGDL",
+    "name": "ControleDonate",
+    "short_name": "ContDon",
     "start_url": "/",
     "background_color": "#4A148C",
     "theme_color": "#4A148C",
