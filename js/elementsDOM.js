@@ -5,14 +5,15 @@ document.addEventListener('click', (event) => {
 //header mes e setas
 const btnVoltaMes = $id('voltarMes')
 btnVoltaMes.addEventListener('click', function(){
-    btnVoltaMes.classList.add('clicked');
-
-    setTimeout(() => {
-        btnVoltaMes.classList.remove('clicked');
-    }, 300);
-    countMes = meses[--mesAtualNumero]
+    btnEfeito(this)
+    if(mesAtualNumero)countMes = meses[--mesAtualNumero] 
     spMesRelatorio.innerText = countMes
-    relatorioAnoAtual.mes[countMes.toLowerCase()] ? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    console.log(relatorioAnoAtual.mes);
+    if(countMes === 'março'){
+        relatorioAnoAtual.mes['marco'] ? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    }else{
+        relatorioAnoAtual.mes[countMes.toLowerCase()] ? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    }
     if((countMes === alvo.mes) && (alvo.ano === relatorioAnoAtual.anoServico)){
         spHorasFalta.innerText = setAlvoDiv()
         spAlvoHoras.innerText = alvo.horas+'h'
@@ -21,17 +22,19 @@ btnVoltaMes.addEventListener('click', function(){
         divAlvoTempo.classList.add('invisivel')
         spHorasFalta.innerText = ''
     }
+
 })
 const btnAvancaMes = $id('avancarMes')
 btnAvancaMes.addEventListener('click', function(){
-    btnAvancaMes.classList.add('clicked');
-
-    setTimeout(() => {
-        btnAvancaMes.classList.remove('clicked');
-    }, 300);
+    btnEfeito(this)
     countMes = meses[++mesAtualNumero]
     spMesRelatorio.innerText = countMes
-    relatorioAnoAtual.mes[countMes.toLowerCase()]? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    // relatorioAnoAtual.mes[countMes.toLowerCase()]? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    if(countMes === 'março'){
+        relatorioAnoAtual.mes['marco'] ? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    }else{
+        relatorioAnoAtual.mes[countMes.toLowerCase()] ? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
+    }
     if((countMes === alvo.mes) && (alvo.ano === relatorioAnoAtual.anoServico)){
         spHorasFalta.innerText = setAlvoDiv()
         spAlvoHoras.innerText = alvo.horas+'h'

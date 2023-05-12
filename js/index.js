@@ -19,6 +19,8 @@ let relatorioAnoAtual
 relatorio.forEach(i =>{
     if(i.anoServico === ano){
         relatorioAnoAtual = i
+    }else{
+        relatorio.push(criaRelatorio(ano))
     }
 }) 
 
@@ -209,6 +211,12 @@ const noneHabilita = {
     none(elemento,b){
         b ? elemento.classList.add('invisivel') : elemento.classList.remove('invisivel')
     }
+}
+function btnEfeito(btn){
+    btn.classList.add('clicked');
+    setTimeout(() => {
+        btn.classList.remove('clicked');
+    }, 300);
 }
 // // Obtém o elemento <link> do favicon
 // const favicon = document.querySelector('link[rel="icon"]');
