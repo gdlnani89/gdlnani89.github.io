@@ -37,7 +37,7 @@ const bodyDonativos = () =>{
     lOm.innerText = 'Obra Mundial'
     const iValorOM = $cria('input')
     iValorOM.setAttribute('type', 'numberInp')
-    iValorOM.setAttribute('id', 'om')
+    iValorOM.setAttribute('id', 'omDon')
     iValorOM.setAttribute('placeHolder', 'R$ 0,00')
     iValorOM.setAttribute('style', 'text-align: end;')
     lOm.appendChild(iValorOM)
@@ -65,18 +65,17 @@ const bodyDonativos = () =>{
 
     return ele
 }
-//tabela no main
+//tabela dos lançamentos na tag main
 function tBodyCreate(inclusao, indice=''){
-    const arrayMesAtual = relatorioAnoAtual.mes[countMes.toLocaleLowerCase()]
-    const atividadeAtual = arrayMesAtual[indice]
+    const arrayMesAtual = contasAnoAtual.mes[countMes.toLocaleLowerCase()]
+    const contasAtual = arrayMesAtual[indice]
 
-    const tempo = minuHoras(inclusao.tempo)
     const tr = $cria('tr')
     const tdDia = $cria('td')
-    const tdHoras = $cria('td')
-    const tdVideo = $cria('td')
-    const tdPub = $cria('td')
-    const tdRev = $cria('td')
+    const tdDesc = $cria('td')
+    const tdTipo = $cria('td')
+    const tdValor = $cria('td')
+    // const tdRev = $cria('td')
     const tdEdit = $cria('td')
     
     const ipDia = $cria('input')
@@ -84,42 +83,36 @@ function tBodyCreate(inclusao, indice=''){
     ipDia.setAttribute('value', inclusao.dia)
     ipDia.setAttribute('disabled', true)
     tdDia.appendChild(ipDia)
+    const ipDesc = $cria('input')
+    // ipDesc.setAttribute('style', 'width: 35px')
+    ipDesc.setAttribute('value', inclusao.desc)
+    ipDesc.setAttribute('disabled', true)
+    tdDesc.appendChild(ipDesc)
+    const ipTipo = $cria('input')
+    ipTipo.setAttribute('style', 'width: 18px')
+    ipTipo.setAttribute('value', inclusao.tipo)
+    ipTipo.setAttribute('disabled', true)
+    tdTipo.appendChild(ipTipo)
+    const ipValor = $cria('input')
+    ipValor.setAttribute('style', 'width: 65px')
+    ipValor.setAttribute('value', inclusao.valor)
+    ipValor.setAttribute('disabled', true)
+    tdValor.appendChild(ipValor)
     
-    const ipHoras = $cria('input')
-    ipHoras.setAttribute('style', 'width: 35px')
-    ipHoras.setAttribute('value', `${tempo.horas}:${tempo.minutosRestantes}`)
-    ipHoras.setAttribute('disabled', true)
-    tdHoras.appendChild(ipHoras)
-    const ipVideos = $cria('input')
-    ipVideos.setAttribute('style', 'width: 18px')
-    ipVideos.setAttribute('value', inclusao.videos)
-    ipVideos.setAttribute('disabled', true)
-    tdVideo.appendChild(ipVideos)
-    const ipPub = $cria('input')
-    ipPub.setAttribute('style', 'width: 18px')
-    ipPub.setAttribute('value', inclusao.publicacoes)
-    ipPub.setAttribute('disabled', true)
-    tdPub.appendChild(ipPub)
-    const ipRev = $cria('input')
-    ipRev.setAttribute('style', 'width: 18px')
-    ipRev.setAttribute('value', inclusao.revisitas)
-    ipRev.setAttribute('disabled', true)
-    tdRev.appendChild(ipRev)
-    
-    const btnEditExc = $cria('button')
-    btnEditExc.innerHTML = '<ion-icon name="trash" style="font-size: 20px; color: red"></ion-icon>'
-    btnEditExc.addEventListener('click', function(){
+    const btnExcluiLinha = $cria('button')
+    btnExcluiLinha.innerHTML = '<ion-icon name="trash" style="font-size: 20px; color: red"></ion-icon>'
+    btnExcluiLinha.addEventListener('click', function(){
         this.parentNode.parentNode.remove()
-        const mesInc = spMesRelatorio.innerText.toLowerCase()
-        const arrayRelatorio = relatorioAnoAtual.mes[mesInc]
-        arrayRelatorio.splice(indice,1)
-        atualiza.relatorioLS()
-        atualiza.relatorioTotais()
+        const mesInc = spMesConta.innerText.toLowerCase()
+        const arrayMesContaAtual = contasAnoAtual.mes[mesInc]
+        arrayMesContaAtual.splice(indice,1)
+        atualiza.contasLS()
+        atualiza.contasTotais()
     })
-    const btnEditEdita = $cria('button')
-    // btnEditEdita.setAttribute('id','editaLinha')
-    btnEditEdita.innerHTML = '<ion-icon name="create" style="font-size: 20px; color: #4A148C"></ion-icon>'
-    btnEditEdita.addEventListener('click', function(){
+    const btnEditaLinha = $cria('button')
+    // btnEditaLinha.setAttribute('id','editaLinha')
+    btnEditaLinha.innerHTML = '<ion-icon name="create" style="font-size: 20px; color: #4A148C"></ion-icon>'
+    btnEditaLinha.addEventListener('click', function(){
         const avo = this.parentNode.parentNode
         const btn = this
         btnsEditar(avo,btn,true)
@@ -133,23 +126,23 @@ function tBodyCreate(inclusao, indice=''){
         let tempoInputSplit = ipHoras.value.split(':')
         let tempoInput = tempoInputSplit[0]*60+parseInt(tempoInputSplit[1])
         if(inclusao.dia !== ipDia.value){
-            atividadeAtual.dia = ipDia.value
+            contasAtual.dia = ipDia.value
             console.log(inclusao);
         }
         if(inclusao.tempo !== tempoInput){
-            atividadeAtual.tempo = tempoInput
+            contasAtual.tempo = tempoInput
             console.log(inclusao);
         }
         if(inclusao.videos !== ipVideos.value){
-            atividadeAtual.videos = ipVideos.value
+            contasAtual.videos = ipVideos.value
             console.log(inclusao);
         }
         if(inclusao.publicacoes !== ipPub.value){
-            atividadeAtual.publicacoes = ipPub.value
+            contasAtual.publicacoes = ipPub.value
             console.log(inclusao);
         }
         if(inclusao.revisitas !== ipRev.value){
-            atividadeAtual.revisitas = ipRev.value
+            contasAtual.revisitas = ipRev.value
             console.log(inclusao);
         }
         const isModified = JSON.stringify(inicial) !== JSON.stringify(inclusao)
@@ -161,10 +154,10 @@ function tBodyCreate(inclusao, indice=''){
         const btn = this
         noneHabilita.habilitaInps(avo.querySelectorAll('INPUT'),false)
         noneHabilita.none(btnEditSalvar,true)
-        noneHabilita.none(btnEditEdita,false)
+        noneHabilita.none(btnEditaLinha,false)
         noneHabilita.none(btn,true)
         noneHabilita.none(btnEditVoltar,true)
-        noneHabilita.none(btnEditExc,false)
+        noneHabilita.none(btnExcluiLinha,false)
     })
     const btnEditVoltar = $cria('button')
     btnEditVoltar.addEventListener('click',function(){
@@ -175,15 +168,14 @@ function tBodyCreate(inclusao, indice=''){
     btnEditVoltar.classList.add('invisivel')
     btnEditVoltar.innerHTML = '<ion-icon name="return-up-back" style="font-size: 20px; color: #4A148C"></ion-icon>'
     btnEditVoltar.setAttribute('style', 'flex: 2')
-    tdEdit.appendChild(btnEditExc)
-    tdEdit.appendChild(btnEditEdita)
+    tdEdit.appendChild(btnExcluiLinha)
+    tdEdit.appendChild(btnEditaLinha)
     tdEdit.appendChild(btnEditVoltar)
     tdEdit.appendChild(btnEditSalvar)
     tr.appendChild(tdDia)
-    tr.appendChild(tdHoras)
-    tr.appendChild(tdVideo)
-    tr.appendChild(tdPub)
-    tr.appendChild(tdRev)
+    tr.appendChild(tdDesc)
+    tr.appendChild(tdTipo)
+    tr.appendChild(tdValor)
     tr.appendChild(tdEdit)
 
     function btnsEditar(avo,btn,b){
@@ -193,57 +185,55 @@ function tBodyCreate(inclusao, indice=''){
             noneHabilita.none(btnEditSalvar,false)
             noneHabilita.none(btnEditVoltar,false)
             noneHabilita.none(btn,true)
-            noneHabilita.none(btnEditExc,true)
+            noneHabilita.none(btnExcluiLinha,true)
         }else{
             noneHabilita.habilitaInps(inp,false)
             noneHabilita.none(btnEditSalvar,true)
-            noneHabilita.none(btnEditEdita,false)
+            noneHabilita.none(btnEditaLinha,false)
             noneHabilita.none(btn,true)
-            noneHabilita.none(btnEditExc,false)
+            noneHabilita.none(btnExcluiLinha,false)
         }
     }
     
     return tr
 }
-function addAtividade(){
-    const ipDia = $id('dia')
-    const ipHoras = $id('horas')
-    const ipMin = $id('min')
-    const ipVideos = $id('videos')
-    const ipPub = $id('publicacoes')
-    const ipRev = $id('revisitas')
-    if(ipDia.value && ipHoras.value || ipMin.value ){
-        const atividade = {
-            dia : ipDia.value,
-            tempo : (parseInt(ipHoras.value)*60)+(parseInt(ipMin.value)),
-            videos : ipVideos.value,
-            publicacoes : ipPub.value,
-            revisitas : ipRev.value
-        }
-        const totalMinutos = (parseInt(ipHoras.value)*60)+(parseInt(ipMin.value))
-        // tBody.appendChild(tBodyCreate(atividade))
-        const mesInc = spMesRelatorio.innerText.toLowerCase()
-        const arrayRelatorio = relatorioAnoAtual.mes[mesInc]
-        arrayRelatorio.push(incluiAtividade(
-            atividade.dia,
-            totalMinutos,
-            atividade.videos,
-            atividade.publicacoes,
-            atividade.revisitas,
-            spEstudosTotal.innerText
+function addDonativo(){
+    const ipDia = $id('diaDon')
+    console.log(ipDia.value);
+    const ipOm = $id('omDon')
+    const ipCong = $id('congInp')
+    if(ipDia.value && (ipOm.value || ipCong.value) ){
+        const mesInclusao = spMesConta.innerText.toLowerCase()//pego da SPAN do header
+        const arrayContas = contasAnoAtual.mes[mesInclusao]
+        if(ipOm.value){
+            arrayContas.push(incluiMovimentacao(
+                    ipDia.value,
+                    'Donativos OM',
+                    'C',
+                    ipOm.value
+                )
             )
-        )
+        }
+        if(ipCong.value){
+            arrayContas.push(incluiMovimentacao(
+                    ipDia.value,
+                    'Donativos Cong.',
+                    'C',
+                    ipCong.value
+                )
+            )
+        }
+             
         tBody.innerHTML = ''
-        arrayRelatorio.sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
-        inpForm.forEach(inp => inp.value = '0')
+        arrayContas.sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
+        inpForm.forEach(inp => inp.value = '')
         ipDia.value = dia
-        ipMin.value = '00'      
         divCxDialogo.classList.remove('caixa-dialogo-aberta');  
-        localStorage.setItem('relatorio', JSON.stringify(relatorio))
-        atualiza.relatorioTotais()
-        btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats(mesInc,arrayRelatorio)}`)
+        localStorage.setItem('contas', JSON.stringify(contas))
+        atualiza.contasTotais()
+        // btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats(mesInclusao,arrayContas)}`)
     }else{
-        console.log('falta horas');
+        console.log('falta dados');
     }
 }
 // function spHorasTotal(){

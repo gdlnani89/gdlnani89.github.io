@@ -15,28 +15,23 @@ btnAvancaMes.addEventListener('click', function(){
     countMes = meses[++mesAtualNumero]
     avancaVolta(countMes)
 })
-const spMesRelatorio = $id('mes')
-spMesRelatorio.innerText = mesAtualString
+const spMesConta = $id('mes')
+spMesConta.innerText = mesAtualString
 const spAno = $id('ano')
-console.log(spAno);
-//relatório-totais
-const spOM = $id('om')
-spOM.innerText = calculaOM
+//contas-totais
+const spOMtotal = $id('om')
+spOMtotal.innerText = calculaOM
     (contasAnoAtual.mes[mesAtualString.toLowerCase()])
-const spCong = $id('cong')
-spCong.innerText = calculaCong
+const spCongTotal = $id('cong')
+spCongTotal.innerText = calculaCong
     (contasAnoAtual.mes[mesAtualString.toLowerCase()])
-const spGastos = $id('gastos')
-spGastos.innerText = calculaGastos
+const spGastosTotal = $id('gastos')
+spGastosTotal.innerText = calculaGastos
     (contasAnoAtual.mes[mesAtualString.toLowerCase()])
 const btnQtdEstudos = $id('qtdEstudos')
 
-const divAlvoTempo = $id('alvoDiv')
-const iconRocket = $id('rocket')
-const spHorasFalta = $id('horasFalta')
-const spAlvoHoras = $id('alvoHoras')
-
 const tBody = $id('tbody')
+console.log(contasAnoAtual.mes[mesAtualString.toLowerCase()]);
 contasAnoAtual.mes[mesAtualString.toLowerCase()]
     .sort((a,b)=> a.dia - b.dia)
     .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
@@ -63,7 +58,7 @@ btnDonativos.addEventListener('click', function() {
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Donativos')
     modalCorpo(bodyDonativos(),'addRelatorio')
-    modalFooter([btnCancel(),btnSalvar(addAtividade,'fechar-incluirAtividade')])
+    modalFooter([btnCancel(),btnSalvar(addDonativo,'fechar-incluirAtividade')])
     }
 );
 btnGastos.addEventListener('click', function() {
@@ -74,8 +69,14 @@ btnGastos.addEventListener('click', function() {
     modalFooter([btnCancel(),btnSalvar(addGasto,'sair-incluirAlvo')])
     }
 );
-contas.forEach(i => {
+/* contas.forEach(i => {
     console.log(typeof(parseInt(spAno.innerText)));
     console.log(i.anoServico = spAno.innerText);
-    if(i.anoServico === spAno.innerText)console.log(spAno.innerText);
-})
+    if(i.anoServico === spAno.innerText){
+        contasAnoAtual = i.mes[countMes.toLocaleLowerCase()]
+        console.log(contasAnoAtual);
+        console.log(contas);
+    }else{
+        contas.push(criaContas(ano))
+    }
+}) */

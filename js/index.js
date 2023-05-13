@@ -15,8 +15,10 @@ let anoNovo
 let contas = localStorage.getItem('contas') ? JSON.parse(localStorage.getItem('contas')) : [criaContas(ano)]
 let contasAnoAtual
 contas.forEach(i =>{
+    // console.log(i);
     if(i.anoServico === ano){
         contasAnoAtual = i
+        console.log(contasAnoAtual);
     }else{
         contas.push(criaContas(anoNovo))
     }
@@ -98,33 +100,28 @@ function modalFooter(btns){
 }
 //funçoes para atualizar tela apos inclusoes
 const atualiza = {
-    relatorioLS(){
-        localStorage.setItem('relatorio', JSON.stringify(relatorio))
+    contasLS(){
+        localStorage.setItem('contas', JSON.stringify(contas))
     },
-    estudosSpan(){
-        spEstudosTotal.innerText = estudos.length 
-    },
-    estudosLS(){
-        localStorage.setItem('estudos', JSON.stringify(estudos))
-    },
-    mensagemWhats(mesSelecionado,arrayRelatorio){
+    /* mensagemWhats(mesSelecionado,arrayRelatorio){
         return `Segue o relatório de ${mesSelecionado}: Horas ${calculaHorasTotal(arrayRelatorio)}, Revisitas ${calculaRevisitasTotal(arrayRelatorio)}, Videos ${calculaVideosTotal(arrayRelatorio)}, Publicações ${calculaPublicacoesTotal(arrayRelatorio)} e Estudos ${estudos.length}`;
-    },
-    relatorioTotalVazio(){
+    }, */
+    contasTotalVazio(){
         tBody.innerHTML = ''
         spHorasTotal.innerText = 0
         spRevTotal.innerText = 0
         spVideosTotal.innerText = 0
         spPubTotal.innerText = 0
     },
-    relatorioTotais(){
+    contasTotais(){
         tBody.innerHTML = ''
-        relatorioAnoAtual.mes[countMes.toLowerCase()].sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
-        spHorasTotal.innerText = calculaHorasTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
-        spHorasFalta.innerText = setAlvoDiv()   
-        spRevTotal.innerText = calculaRevisitasTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
-        spVideosTotal.innerText = calculaVideosTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
-        spPubTotal.innerText = calculaPublicacoesTotal(relatorioAnoAtual.mes[countMes.toLowerCase()])
+        contasAnoAtual.mes[countMes.toLowerCase()]
+            .sort((a,b)=> a.dia - b.dia)
+            .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
+        spOMtotal.innerText = calculaOM(contasAnoAtual.mes[countMes.toLowerCase()])
+        spCongTotal.innerText = calculaCong(contasAnoAtual.mes[countMes.toLowerCase()])
+        spGastosTotal.innerText = calculaGastos(contasAnoAtual.mes[countMes.toLowerCase()])
+        // spPubTotal.innerText = calculaPublicacoesTotal(contasAnoAtual.mes[countMes.toLowerCase()])
     }
 }
 // Btns
@@ -170,16 +167,18 @@ function btnAnimation(btn){
     }, 300);
 }
 function avancaVolta(countMes){
-    spMesRelatorio.innerText = countMes
-    relatorioAnoAtual.mes[countMes.toLowerCase()]? atualiza.relatorioTotais() : atualiza.relatorioTotalVazio()
-    if((countMes === alvo.mes) && (alvo.ano === relatorioAnoAtual.anoServico)){
+    spMesConta.innerText = countMes
+    console.log(countMes);
+    console.log(contasAnoAtual);
+    contasAnoAtual.mes[countMes.toLowerCase()]? atualiza.contasTotais() : atualiza.contasTotalVazio()
+/*     if((countMes === alvo.mes) && (alvo.ano === contasAnoAtual.anoServico)){
         spHorasFalta.innerText = setAlvoDiv()
         spAlvoHoras.innerText = alvo.horas+'h'
         divAlvoTempo.classList.remove('invisivel')
     }else{
         divAlvoTempo.classList.add('invisivel')
         spHorasFalta.innerText = ''
-    }
+    } */
 }
 // // Obtém o elemento <link> do favicon
 // const favicon = document.querySelector('link[rel="icon"]');
