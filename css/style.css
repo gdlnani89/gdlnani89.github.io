@@ -208,7 +208,7 @@ button,a
   
   .caixa-dialogo-conteudo {
     position: absolute;
-    /* width: 50%; */
+    min-width: 50%;
     display: flex;
     top: 50%;
     left: 50%;
@@ -371,11 +371,11 @@ button#estudantesEditar
       transform: scale(1);
     }
   } */
-  /* .clicked {
+  .clicked2 {
     background-color: #f0f0f0;
     color: #333;
   }
-   */
+  
    .clicked {
     animation: ripple 0.6s;
   }
@@ -389,5 +389,10 @@ button#estudantesEditar
       transform: scale(1.4);
       opacity: 0;
     }
+  }
+  .dIncDec{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   

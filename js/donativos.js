@@ -1,74 +1,67 @@
 //modal corpo relatorio form
 const bodyDonativos = () =>{
     const ele = []
-    {/* <label for="dia">Dia
-        <input value='${dia}' type="number" id="dia" style="width: 25px;" name="dias" min="1" max="31" pattern="[1-9]|[12][0-9]|3[01]" >
-    </label> */}
-    let lDia = $cria('label') 
-    lDia.setAttribute('for', 'dia')
+    const divDia = $cria('div')
+    divDia.setAttribute('class','dIncDec')
+    const lDia = $cria('label') 
+    lDia.setAttribute('for', 'diaDon')
     lDia.innerText = 'Dia'
-    let iDia = $cria('input')
+    const iDia = $cria('input')
     iDia.setAttribute('value', dia)
     iDia.setAttribute('type', 'number')
-    iDia.setAttribute('id', 'dia')
+    iDia.setAttribute('id', 'diaDon')
     iDia.setAttribute('name', 'dia')
     iDia.setAttribute('min', '1')
     iDia.setAttribute('max', '31')
     iDia.setAttribute('pattern','[1-9]|[12][0-9]|3[01]')
     iDia.setAttribute('style', 'width: 35px;')
     lDia.appendChild(iDia)
-    {/* <label for="horas">Horas
-        <input type="number" id="horas" style="width: 25px; text-align: end;" >:
-        <input type="number" id="min" style="width: 25px;" value="00" name="minutos" min="0" max="59">
-    </label> */}
-    let lOm = $cria('label')
+    const btnMais = $cria('BUTTON')
+    btnMais.innerHTML = '<ion-icon name="add-circle-outline" style="color: black; font-size: 40px;"></ion-icon>'
+    btnMais.onclick = () => {
+        btnAnimation(btnMais)
+        iDia.value++
+    }
+    const btnMenos = $cria('BUTTON')
+    btnMenos.innerHTML = '<ion-icon name="remove-circle-outline" style="color: black; font-size: 40px;"></ion-icon>'
+    btnMenos.onclick = () => {
+        btnAnimation(btnMenos)
+        iDia.value--
+    }
+    divDia.appendChild(lDia)
+    divDia.appendChild(btnMais)
+    divDia.appendChild(btnMenos)
+
+    const lOm = $cria('label')
     lOm.setAttribute('for', 'om')
-    lOm.innerText = 'Donativos Obra Mundial'
-    let iValorOM = $cria('input')
+    lOm.innerText = 'Obra Mundial'
+    const iValorOM = $cria('input')
     iValorOM.setAttribute('type', 'numberInp')
     iValorOM.setAttribute('id', 'om')
-    iValorOM.setAttribute('value', '0,00')
-    iValorOM.setAttribute('placeHolder', 'R$')
-    iValorOM.setAttribute('style', 'width: 25px; text-align: end;')
+    iValorOM.setAttribute('placeHolder', 'R$ 0,00')
+    iValorOM.setAttribute('style', 'text-align: end;')
     lOm.appendChild(iValorOM)
-    {/* <label for="videos">Vídeos
-    <input type="number" id="videos" style="width: 25px;" value="0">
-</label> */}
-let lCong = $cria('label')
-lCong.setAttribute('for', 'videos')
-lCong.innerText = 'Donativos Congregação'
-let iValorCong = $cria('input')
-iValorCong.setAttribute('type', 'text')
-iValorCong.setAttribute('id', 'congInp')
-iValorCong.setAttribute('value', '0,00')
-iValorCong.setAttribute('placeHolder', 'R$')
-    iValorCong.setAttribute('style', 'width: 25px; text-align: end;')
+
+    const lCong = $cria('label')
+    lCong.setAttribute('for', 'videos')
+    lCong.innerText = 'Congregação'
+    const iValorCong = $cria('input')
+    iValorCong.setAttribute('type', 'text')
+    iValorCong.setAttribute('id', 'congInp')
+    iValorCong.setAttribute('placeHolder', 'R$ 0,00')
+    iValorCong.setAttribute('style', 'text-align: end;')
     lCong.appendChild(iValorCong)
-    {/* <label for="publicacao">Publicações
-        <input type="number" id="publicacoes" style="width: 25px;" value="0">
-    </label> */}
-    let lPub = $cria('label')
-    lPub.setAttribute('for', 'publicacao')
-    lPub.innerText = 'Publicações'
-    let iPub = $cria('input')
-    iPub.setAttribute('type', 'number')
-    iPub.setAttribute('id', 'publicacoes')
-    iPub.setAttribute('value', '0')
-    iPub.setAttribute('style', 'width: 25px; text-align: end;')
-    lPub.appendChild(iPub)
-    {/* <label for="revisita">Revisitas
-        <input type="number" id="revisitas" style="width: 25px;" value="0">
-    </label> */}
-    let lRev = $cria('label')
+
+    const lRev = $cria('label')
     lRev.setAttribute('for', 'revisita')
     lRev.innerText = 'Revisitas'
-    let iRev = $cria('input')
+    const iRev = $cria('input')
     iRev.setAttribute('type', 'number')
     iRev.setAttribute('id', 'revisitas')
     iRev.setAttribute('value', '0')
     iRev.setAttribute('style', 'width: 25px; text-align: end;')
     lRev.appendChild(iRev)
-    ele.push(lDia,lHoras,lVideos,lPub,lRev)
+    ele.push(divDia, lOm,lCong)
 
     return ele
 }

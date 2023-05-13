@@ -15,8 +15,10 @@ btnAvancaMes.addEventListener('click', function(){
     countMes = meses[++mesAtualNumero]
     avancaVolta(countMes)
 })
-const spMesRelatorio = $id('mesRelatorio')
+const spMesRelatorio = $id('mes')
 spMesRelatorio.innerText = mesAtualString
+const spAno = $id('ano')
+console.log(spAno);
 //relatório-totais
 const spOM = $id('om')
 spOM.innerText = calculaOM
@@ -28,25 +30,12 @@ const spGastos = $id('gastos')
 spGastos.innerText = calculaGastos
     (contasAnoAtual.mes[mesAtualString.toLowerCase()])
 const btnQtdEstudos = $id('qtdEstudos')
-// btnQtdEstudos.addEventListener('click',function () {
-//     divCxDialogo.classList.add('caixa-dialogo-aberta');
-//     modalTitulo('Estudos')
-//     modalCorpo(bodyEstudos())
-//     modalFooter([])
-// })
+
 const divAlvoTempo = $id('alvoDiv')
 const iconRocket = $id('rocket')
 const spHorasFalta = $id('horasFalta')
 const spAlvoHoras = $id('alvoHoras')
-// alvo ? divAlvoTempo.innerHTML = `${setAlvoDiv()}<ion-icon name="rocket" style="font-size: 24px;color: #4A148C;"></ion-icon>` : ''
-/* if(alvo){
-    spHorasFalta.innerText = setAlvoDiv()
-    spAlvoHoras.innerText = alvo.horas+'h'
-}else{
-    divAlvoTempo.classList.add('invisivel')
-    spHorasFalta.innerText = ''
-} */
-//tabela relatorio
+
 const tBody = $id('tbody')
 contasAnoAtual.mes[mesAtualString.toLowerCase()]
     .sort((a,b)=> a.dia - b.dia)
@@ -60,8 +49,8 @@ const divCxDialogo = $id('minha-caixa-dialogo')
 const btnFecharDialogo = $id('fechar-dialogo')
 const inpForm = document.querySelectorAll('.form-adiciona input')
 //footer elementos
-const btnAlvos = $id('gastosAdd')
-const btnAdd = $id('add')
+const btnGastos = $id('gastosAdd')
+const btnDonativos = $id('donativosAdd')
 const btnSend = $id('send')
 
 btnSend.addEventListener('click', function(){
@@ -69,19 +58,24 @@ btnSend.addEventListener('click', function(){
     btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats(countMes,relatorioAnoAtual.mes[countMes.toLowerCase()])}`)
 })
 
-btnAdd.addEventListener('click', function() {
+btnDonativos.addEventListener('click', function() {
     btnAnimation(this)
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Donativos')
-    modalCorpo(bodyRelatorio(),'addRelatorio')
+    modalCorpo(bodyDonativos(),'addRelatorio')
     modalFooter([btnCancel(),btnSalvar(addAtividade,'fechar-incluirAtividade')])
     }
 );
-btnAlvos.addEventListener('click', function() {
+btnGastos.addEventListener('click', function() {
     btnAnimation(this)
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Gastos')
-    modalCorpo(bodyAlvo())
-    modalFooter([btnCancel(),btnSalvar(addAlvo,'sair-incluirAlvo')])
+    modalCorpo(bodyGastos())
+    modalFooter([btnCancel(),btnSalvar(addGasto,'sair-incluirAlvo')])
     }
 );
+contas.forEach(i => {
+    console.log(typeof(parseInt(spAno.innerText)));
+    console.log(i.anoServico = spAno.innerText);
+    if(i.anoServico === spAno.innerText)console.log(spAno.innerText);
+})
