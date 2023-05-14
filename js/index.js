@@ -18,7 +18,6 @@ contas.forEach(i =>{
     // console.log(i);
     if(i.anoServico === ano){
         contasAnoAtual = i
-        console.log(contasAnoAtual);
     }else{
         contas.push(criaContas(anoNovo))
     }
@@ -48,37 +47,38 @@ function incluiMovimentacao(dia,desc,tipo,valor){
 }
 
 //fn do array das atividades cadastradas
-const om = item => parseInt(item.valor)
+const om = item => item.desc === 'Donativos OM' ? parseFloat(item.valor) : 0.00
 function calculaOM(contaMesArray){
     if(contaMesArray.length>0){
         let somaArrya = contaMesArray.map(om) 
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         })
-        return soma
+        return `R$ ${soma.toFixed(2).replace('.',',')}`
     }else{
         return 'R$ 0,00'
     }
 }
-const cong = valor => parseInt(valor)
+const cong = item => item.desc === 'Donativos Cong.' ? parseFloat(item.valor) : 0.00
 function calculaCong(contaMesArray){
     if(contaMesArray.length>0){
         let somaArrya = contaMesArray.map(cong)
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         },0)
-        return soma
+        return `R$ ${soma.toFixed(2).replace('.',',')}`
     }else{
         return 'R$ 0,00'
     }
 }
+const gastos = item => (item.desc !== 'Donativos Cong.' && item.desc !== 'Donativos OM') ? parseFloat(item.valor) : 0.00
 function calculaGastos(contaMesArray){
     if(contaMesArray.length>0){
-        let somaArrya = contaMesArray.map(item => parseInt(item.publicacoes))
+        let somaArrya = contaMesArray.map(gastos)
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         })
-        return soma
+        return `R$ ${soma.toFixed(2).replace('.',',')}`
     }else{
         return 'R$ 0,00'
     }
@@ -180,25 +180,25 @@ function avancaVolta(countMes){
         spHorasFalta.innerText = ''
     } */
 }
-// // Obtém o elemento <link> do favicon
-// const favicon = document.querySelector('link[rel="icon"]');
 
-// // Array com as URLs dos ícones
-// const icones = [
-// 'icone1.png',
-// 'icone2.png',
-// 'icone3.png',
-// 'icone4.png'
-// ];
-
-// // Função para alterar o ícone
-// function alterarIcone() {
-//     // Gera um índice aleatório para selecionar um ícone do array
-//     const indice = Math.floor(Math.random() * icones.length);
-
-//     // Atualiza o atributo href do elemento <link> com a URL do ícone selecionado
-//     favicon.href = icones[indice];
-// }
-
-// // Altera o ícone a cada 5 segundos
-// setInterval(alterarIcone, 5000);
+String.prototype.reverse = function(){
+    return this.split('').reverse().join(''); 
+  };
+  
+function mascaraMoeda(campo,evento){
+    var tecla = (!evento) ? window.event.keyCode : evento.which;
+    var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
+    var resultado  = "";
+    var mascara = "##.###.###,##".reverse();
+    for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+        if (mascara.charAt(x) != '#') {
+        resultado += mascara.charAt(x);
+        x++;
+        } else {
+        resultado += valor.charAt(y);
+        y++;
+        x++;
+        }
+    }
+    campo.value = resultado.reverse();
+}

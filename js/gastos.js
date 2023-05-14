@@ -45,6 +45,7 @@ function bodyGastos(){
     ipValor.setAttribute('type', 'text')
     ipValor.setAttribute('id', 'valorGasto')
     ipValor.setAttribute('placeHolder', 'R$ 0,00')
+    ipValor.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
     lValor.appendChild(ipValor)
 
     ele.push(divDia, lDesc, lValor)

@@ -137,6 +137,12 @@ main
     z-index: 1;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
 }
+.tabela table thead th:last-child
+{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
 /* .tabela table tbody
 {
     display: block;
@@ -146,10 +152,14 @@ main
     background-color: var(--fundo4);
     border-radius: 10px;
 }
-.tabela table tr td:last-child
+.edita-v
 {
     display: flex;
     justify-content: space-between;
+}
+.edita-n
+{
+    display: none;
 }
 .tabela table tr td:last-child button:first-child
 {
@@ -164,6 +174,21 @@ main
     background-color: transparent;
     color: #4A148C;
     border: none;
+}
+#editaLinhas
+{
+    display: block;
+}
+#editaLinhas.edL-v
+{
+    display: none;
+}
+#voltaLinhas
+{
+    display: none;
+}
+#voltaLinhas.edL-v{
+    display: block;
 }
 footer
 {
@@ -204,20 +229,42 @@ button,a
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+    overflow: hidden;
+    animation: zoomIn 0.2s ease-in-out;
   }
   
   .caixa-dialogo-conteudo {
     position: absolute;
     min-width: 50%;
     display: flex;
-    top: 50%;
-    left: 50%;
+    margin: 60% 15%;
+    /* top: 50%;
+    left: 50%; */
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     flex-direction: column;
+    transform: scale(0);
+    animation: zoomInContent 0.2s ease-in-out forwards;
+  }
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes zoomInContent {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
   }
   .caixa-dialogo-conteudo h2
   {

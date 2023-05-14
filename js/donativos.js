@@ -40,6 +40,7 @@ const bodyDonativos = () =>{
     iValorOM.setAttribute('id', 'omDon')
     iValorOM.setAttribute('placeHolder', 'R$ 0,00')
     iValorOM.setAttribute('style', 'text-align: end;')
+    iValorOM.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
     lOm.appendChild(iValorOM)
 
     const lCong = $cria('label')
@@ -50,6 +51,7 @@ const bodyDonativos = () =>{
     iValorCong.setAttribute('id', 'congInp')
     iValorCong.setAttribute('placeHolder', 'R$ 0,00')
     iValorCong.setAttribute('style', 'text-align: end;')
+    iValorCong.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
     lCong.appendChild(iValorCong)
 
     const lRev = $cria('label')
@@ -129,26 +131,18 @@ function tBodyCreate(inclusao, indice=''){
             contasAtual.dia = ipDia.value
             console.log(inclusao);
         }
-        if(inclusao.tempo !== tempoInput){
-            contasAtual.tempo = tempoInput
+        if(inclusao.desc !== ipDesc.value){
+            contasAtual.desc = ipDesc.value
             console.log(inclusao);
         }
-        if(inclusao.videos !== ipVideos.value){
-            contasAtual.videos = ipVideos.value
-            console.log(inclusao);
-        }
-        if(inclusao.publicacoes !== ipPub.value){
-            contasAtual.publicacoes = ipPub.value
-            console.log(inclusao);
-        }
-        if(inclusao.revisitas !== ipRev.value){
-            contasAtual.revisitas = ipRev.value
+        if(inclusao.valor !== ipValor.value){
+            contasAtual.videos = ipValor.value
             console.log(inclusao);
         }
         const isModified = JSON.stringify(inicial) !== JSON.stringify(inclusao)
         if(isModified){
-            atualiza.relatorioLS() 
-            atualiza.relatorioTotais()
+            atualiza.contasLS() 
+            atualiza.contasTotais()
         }
         const avo = this.parentNode.parentNode
         const btn = this
@@ -168,6 +162,7 @@ function tBodyCreate(inclusao, indice=''){
     btnEditVoltar.classList.add('invisivel')
     btnEditVoltar.innerHTML = '<ion-icon name="return-up-back" style="font-size: 20px; color: #4A148C"></ion-icon>'
     btnEditVoltar.setAttribute('style', 'flex: 2')
+    tdEdit.setAttribute('class','edita-n')
     tdEdit.appendChild(btnExcluiLinha)
     tdEdit.appendChild(btnEditaLinha)
     tdEdit.appendChild(btnEditVoltar)
@@ -210,7 +205,7 @@ function addDonativo(){
                     ipDia.value,
                     'Donativos OM',
                     'C',
-                    ipOm.value
+                    ipOm.value.replace(/\./g, '').replace(',', '.')
                 )
             )
         }
@@ -219,11 +214,10 @@ function addDonativo(){
                     ipDia.value,
                     'Donativos Cong.',
                     'C',
-                    ipCong.value
+                    ipCong.value.replace(/\./g, '').replace(',', '.')
                 )
             )
         }
-             
         tBody.innerHTML = ''
         arrayContas.sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
         inpForm.forEach(inp => inp.value = '')
@@ -240,3 +234,12 @@ function addDonativo(){
 //     const sHorasTotal = $cria('SPAN')
 //     sHorasTotal.setAttribute('id', 'horasTotal')
 // }
+function editaLinhas(){
+    btnVoltaLinhas.classList.add('edL-v')
+    btnEditaLinhas.classList.add('edL-v')
+    
+}
+function editaLinhasVolta(){
+    btnVoltaLinhas.classList.remove('edL-v')
+    btnEditaLinhas.classList.remove('edL-v')
+}

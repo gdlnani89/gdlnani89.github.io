@@ -31,10 +31,11 @@ spGastosTotal.innerText = calculaGastos
 const btnQtdEstudos = $id('qtdEstudos')
 
 const tBody = $id('tbody')
-console.log(contasAnoAtual.mes[mesAtualString.toLowerCase()]);
 contasAnoAtual.mes[mesAtualString.toLowerCase()]
     .sort((a,b)=> a.dia - b.dia)
     .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
+const btnEditaLinhas = $id('editaLinhas')
+const btnVoltaLinhas = $id('voltaLinhas')
 //modal elementos
 const h2Title = $id('titleModal')
 const divBodyModal = $id('corpoModal')
