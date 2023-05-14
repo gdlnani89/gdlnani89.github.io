@@ -86,7 +86,7 @@ function tBodyCreate(inclusao, indice=''){
     ipDia.setAttribute('disabled', true)
     tdDia.appendChild(ipDia)
     const ipDesc = $cria('input')
-    // ipDesc.setAttribute('style', 'width: 35px')
+    ipDesc.setAttribute('style', 'width: 90%')
     ipDesc.setAttribute('value', inclusao.desc)
     ipDesc.setAttribute('disabled', true)
     tdDesc.appendChild(ipDesc)
@@ -102,7 +102,7 @@ function tBodyCreate(inclusao, indice=''){
     tdValor.appendChild(ipValor)
     
     const btnExcluiLinha = $cria('button')
-    btnExcluiLinha.innerHTML = '<ion-icon name="trash" style="font-size: 20px; color: red"></ion-icon>'
+    btnExcluiLinha.innerHTML = '<ion-icon name="trash" style="font-size: 15px; color: red"></ion-icon>'
     btnExcluiLinha.addEventListener('click', function(){
         this.parentNode.parentNode.remove()
         const mesInc = spMesConta.innerText.toLowerCase()
@@ -113,7 +113,7 @@ function tBodyCreate(inclusao, indice=''){
     })
     const btnEditaLinha = $cria('button')
     // btnEditaLinha.setAttribute('id','editaLinha')
-    btnEditaLinha.innerHTML = '<ion-icon name="create" style="font-size: 20px; color: #4A148C"></ion-icon>'
+    btnEditaLinha.innerHTML = '<ion-icon name="create" style="font-size: 15px; color: #4A148C"></ion-icon>'
     btnEditaLinha.addEventListener('click', function(){
         const avo = this.parentNode.parentNode
         const btn = this
@@ -122,11 +122,9 @@ function tBodyCreate(inclusao, indice=''){
     const btnEditSalvar = $cria('button')
     btnEditSalvar.setAttribute('id','btnSalvarEditEst')
     noneHabilita.none(btnEditSalvar,true)
-    btnEditSalvar.innerHTML = '<ion-icon name="checkmark-circle" style="font-size: 20px; color: #009688"></ion-icon>'
+    btnEditSalvar.innerHTML = '<ion-icon name="checkmark-circle" style="font-size: 15px; color: #009688"></ion-icon>'
     btnEditSalvar.addEventListener('click',function(){
         const inicial = {...inclusao}
-        let tempoInputSplit = ipHoras.value.split(':')
-        let tempoInput = tempoInputSplit[0]*60+parseInt(tempoInputSplit[1])
         if(inclusao.dia !== ipDia.value){
             contasAtual.dia = ipDia.value
             console.log(inclusao);
@@ -160,7 +158,7 @@ function tBodyCreate(inclusao, indice=''){
         btnsEditar(avo,btn,false)
     })
     btnEditVoltar.classList.add('invisivel')
-    btnEditVoltar.innerHTML = '<ion-icon name="return-up-back" style="font-size: 20px; color: #4A148C"></ion-icon>'
+    btnEditVoltar.innerHTML = '<ion-icon name="return-up-back" style="font-size: 15px; color: #4A148C"></ion-icon>'
     btnEditVoltar.setAttribute('style', 'flex: 2')
     tdEdit.setAttribute('class','edita-n')
     tdEdit.appendChild(btnExcluiLinha)
@@ -237,9 +235,12 @@ function addDonativo(){
 function editaLinhas(){
     btnVoltaLinhas.classList.add('edL-v')
     btnEditaLinhas.classList.add('edL-v')
-    
+    const iconEdit = $all('.edita-n')
+    iconEdit.forEach(i => i.style.display = 'flex')
 }
 function editaLinhasVolta(){
     btnVoltaLinhas.classList.remove('edL-v')
     btnEditaLinhas.classList.remove('edL-v')
+    const iconEdit = $all('.edita-n')
+    iconEdit.forEach(i => i.style.display = 'none')
 }
