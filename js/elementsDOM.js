@@ -57,7 +57,7 @@ btnSend.addEventListener('click', function(){
 btnDonativos.addEventListener('click', function() {
     btnAnimation(this)
     divCxDialogo.classList.add('caixa-dialogo-aberta');
-    modalTitulo('Donativos')
+    modalTitulo('Donativos(c)')
     modalCorpo(bodyDonativos(),'addRelatorio')
     modalFooter([btnCancel(),btnSalvar(addDonativo,'fechar-incluirAtividade')])
     }
@@ -65,7 +65,7 @@ btnDonativos.addEventListener('click', function() {
 btnGastos.addEventListener('click', function() {
     btnAnimation(this)
     divCxDialogo.classList.add('caixa-dialogo-aberta');
-    modalTitulo('Gastos')
+    modalTitulo('Gastos(d)')
     modalCorpo(bodyGastos())
     modalFooter([btnCancel(),btnSalvar(addGasto,'sair-incluirAlvo')])
     }
