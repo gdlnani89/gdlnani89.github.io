@@ -7,10 +7,10 @@ self.addEventListener('install', event => {
         '/index.html',
         '/css/styles.css',
         '/css/normalize.css',
+        '/js/elementsDOM.js',
         '/js/carteira.js',
         '/js/contasTabela.js',
         '/js/donativos.js',
-        '/js/elementsDOM.js',
         '/js/gastos.js',
         '/js/index.js',
         '/js/s30.js'
