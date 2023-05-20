@@ -87,9 +87,9 @@ function calculaGastos(contaMesArray){
 function modalTitulo(title) {
     h2Title.innerText = title
 }
-function modalCorpo(corpo, cls = ''){
-    cls ? divBodyModal.classList.add(cls) : divBodyModal.classList.remove('addRelatorio')
+function modalCorpo(corpo,bottomStyle = '25%'){
     divBodyModal.innerHTML = ''
+    divModalDialogo.style.bottom = bottomStyle//ajustar o bottom do modal
     corpo.forEach(element => {
         divBodyModal.appendChild(element)
     });

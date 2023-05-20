@@ -53,46 +53,27 @@ function bodyGastos(){
     return ele
 }
 function addGasto() {
-    contas.forEach(i => {
-        console.log(i.anoServico);
-        if(i.anoServico === spAno.innerText)console.log(spAno.innerText);
-    })
-    console.log(contas.mes[countMes]);
     const ipDia = $id('diaGasto')
     const ipDesc = $id('descGasto')
     const ipValor = $id('valorGasto')
     if(ipDia.value && ipDesc.value && ipValor.value){
-        const alvoCria = incluiMovimentacao(
-            ipDia.value,
-            ipDesc.value,
-            'd',
-            ipValor.value
+        const mesInclusao = spMesConta.innerText.toLowerCase()
+        const arrayContas = contasAnoAtual.mes[mesInclusao]
+        arrayContas.push(
+            incluiMovimentacao(
+                ipDia.value,
+                ipDesc.value,
+                'D',
+                ipValor.value.replace(/\./g, '').replace(',', '.')
+            )
         )
-        contas.forEach(i => {
-            if(i.anoServico == spAno.innerText)console.log(spAno.innerText);
-        })
-        console.log(contas.mes[countMes]);
-        divCxDialogo.classList.remove('caixa-dialogo-aberta');
-    }
-    // localStorage.setItem('alvo', JSON.stringify(alvoCria))
-
-}
-function calculaDiferenca(){
-    const lsAlvo = JSON.parse(localStorage.getItem('alvo'))
-    const tempoAtual = totalMinutos() || 0
-    const tempoAlvo = lsAlvo.horas * 60
-    const calculaDiferenca = tempoAlvo-tempoAtual
-
-    return calculaDiferenca
-}
-function setAlvoDiv(){
-    if (calculaDiferenca()>0) {
-        iconRocket.setAttribute('style','color:white; font-size:18px;')
-        spHorasFalta.setAttribute('style','color:#b71c1c')
-        return minutosParaHoras(calculaDiferenca())
-    }else{
-        iconRocket.setAttribute('style','color:#4A148C; font-size:18px;')
-        spHorasFalta.setAttribute('style','color:blue')
-        return minutosParaHoras(calculaDiferenca()*-1)
+        tBody.innerHTML = ''
+        arrayContas.sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
+        inpForm.forEach(inp => inp.value = '')
+        ipDia.value = dia
+        divCxDialogo.classList.remove('caixa-dialogo-aberta');  
+        localStorage.setItem('contas', JSON.stringify(contas))
+        atualiza.contasTotais()
     }
 }
+

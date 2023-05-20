@@ -192,7 +192,6 @@ function tBodyCreate(inclusao, indice=''){
 }
 function addDonativo(){
     const ipDia = $id('diaDon')
-    console.log(ipDia.value);
     const ipOm = $id('omDon')
     const ipCong = $id('congInp')
     if(ipDia.value && (ipOm.value || ipCong.value) ){

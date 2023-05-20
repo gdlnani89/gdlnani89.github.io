@@ -37,6 +37,7 @@ contasAnoAtual.mes[mesAtualString.toLowerCase()]
 const btnEditaLinhas = $id('editaLinhas')
 const btnVoltaLinhas = $id('voltaLinhas')
 //modal elementos
+const divModalDialogo = $id('caixa-dialogo-conteudo')
 const h2Title = $id('titleModal')
 const divBodyModal = $id('corpoModal')
 const divBtnsFooter = $id('btnsFooter')
@@ -47,6 +48,8 @@ const inpForm = document.querySelectorAll('.form-adiciona input')
 //footer elementos
 const btnGastos = $id('gastosAdd')
 const btnDonativos = $id('donativosAdd')
+const btnCarteira = $id('carteiraAdd')
+const btnS30 = $id('s-30')
 const btnSend = $id('send')
 
 btnSend.addEventListener('click', function(){
@@ -58,8 +61,24 @@ btnDonativos.addEventListener('click', function() {
     btnAnimation(this)
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Donativos')
-    modalCorpo(bodyDonativos(),'addRelatorio')
+    modalCorpo(bodyDonativos())
     modalFooter([btnCancel(),btnSalvar(addDonativo,'fechar-incluirAtividade')])
+    }
+);
+btnCarteira.addEventListener('click', function() {
+    btnAnimation(this)
+    divCxDialogo.classList.add('caixa-dialogo-aberta');
+    modalTitulo('Conta')
+    modalCorpo(bodyModalCarteira())
+    modalFooter([btnCancel(),btnSalvar(addGasto,'sair-incluirAlvo')])
+    }
+);
+btnS30.addEventListener('click', function() {
+    btnAnimation(this)
+    divCxDialogo.classList.add('caixa-dialogo-aberta');
+    modalTitulo('Relatório Mensal')
+    modalCorpo(bodyModalS30(),'10%')
+    modalFooter([btnCancel(),btnSalvar(addGasto,'sair-incluirAlvo')])
     }
 );
 btnGastos.addEventListener('click', function() {
