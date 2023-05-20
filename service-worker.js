@@ -4,7 +4,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(cacheName).then(cache => {
       return cache.addAll([
-        '/index.html',
+        'index.html',
         '/css/styles.css',
         '/css/normalize.css',
         '/js/elementsDOM.js',
