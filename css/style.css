@@ -237,7 +237,7 @@ button,a
     position: absolute;
     width: 65%;
     max-height: 80%;
-    overflow: auto;
+    /* overflow: auto; */
     display: flex;
     right: 10%;
     transform: translate(-50%, -50%);
@@ -273,7 +273,8 @@ button,a
   }
   .body-modal
   {
-    display: flex;  
+    display: flex;
+    overflow: auto;
     flex-direction: column;
 }
 .addRelatorio
@@ -451,4 +452,8 @@ button#estudantesEditar
 }
 .c-sa-s.db{
     display: none;
+}
+ul li
+{
+    display: flex;
 }
