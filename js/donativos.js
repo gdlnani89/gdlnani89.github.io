@@ -45,7 +45,7 @@ const bodyDonativos = () =>{
 
     const lCong = $cria('label')
     lCong.setAttribute('for', 'videos')
-    lCong.innerText = 'Congregação'
+    lCong.innerText = 'Congregação (Caixa)'
     const iValorCong = $cria('input')
     iValorCong.setAttribute('type', 'text')
     iValorCong.setAttribute('id', 'congInp')
@@ -54,15 +54,6 @@ const bodyDonativos = () =>{
     iValorCong.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
     lCong.appendChild(iValorCong)
 
-    const lRev = $cria('label')
-    lRev.setAttribute('for', 'revisita')
-    lRev.innerText = 'Revisitas'
-    const iRev = $cria('input')
-    iRev.setAttribute('type', 'number')
-    iRev.setAttribute('id', 'revisitas')
-    iRev.setAttribute('value', '0')
-    iRev.setAttribute('style', 'width: 25px; text-align: end;')
-    lRev.appendChild(iRev)
     ele.push(divDia, lOm,lCong)
 
     return ele
