@@ -43,18 +43,55 @@ const bodyDonativos = () =>{
     iValorOM.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
     lOm.appendChild(iValorOM)
 
-    const lCong = $cria('label')
-    lCong.setAttribute('for', 'videos')
-    lCong.innerText = 'Congregação (Caixa)'
-    const iValorCong = $cria('input')
-    iValorCong.setAttribute('type', 'text')
+    // Cria o elemento <div>
+    const divElement = document.createElement('div');
+    divElement.classList.add('don-cong');
+    
+    // Cria o elemento <label> para Congregação
+    const labelElement = document.createElement('label');
+    labelElement.setAttribute('for', 'sTipoCong');
+    labelElement.setAttribute('id', 'lTipoCong');
+    labelElement.textContent = 'Congregação';
+
+    // Cria o elemento <select>
+    const selectElement = document.createElement('select');
+    selectElement.setAttribute('name', '');
+    selectElement.setAttribute('id', 'sTipoCong');
+
+    // Cria as opções do <select>
+    const option1 = document.createElement('option');
+    option1.setAttribute('value', 'cx');
+    option1.textContent = 'Caixas';
+    
+    const option2 = document.createElement('option');
+    option2.setAttribute('value', 'ele');
+    option2.textContent = 'Eletrônico';
+    
+    // Adiciona as opções ao <select>
+    selectElement.appendChild(option1);
+    selectElement.appendChild(option2);
+    
+    // Adiciona o <select> ao <label>
+    labelElement.appendChild(selectElement);
+    
+    // Cria o elemento <input>
+    const iValorCong = document.createElement('input');
+    iValorCong.setAttribute('type', 'text');
     iValorCong.setAttribute('id', 'congInp')
     iValorCong.setAttribute('placeHolder', 'R$ 0,00')
     iValorCong.setAttribute('style', 'text-align: end;')
     iValorCong.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
-    lCong.appendChild(iValorCong)
 
-    ele.push(divDia, lOm,lCong)
+    // Adiciona o <label> e o <input> ao <div>
+    divElement.appendChild(labelElement);
+    divElement.appendChild(iValorCong);
+
+    // Adiciona o <div> ao elemento pai (por exemplo, o <body>)
+    const parentElement = document.querySelector('body');
+    parentElement.appendChild(divElement);
+
+
+    ele.push(divDia, lOm,divElement)
 
     return ele
 }
@@ -185,6 +222,7 @@ function addDonativo(){
     const ipDia = $id('diaDon')
     const ipOm = $id('omDon')
     const ipCong = $id('congInp')
+    const slCong = $id('sTipoCong')
     if(ipDia.value && (ipOm.value || ipCong.value) ){
         const mesInclusao = spMesConta.innerText.toLowerCase()//pego da SPAN do header
         const arrayContas = contasAnoAtual.mes[mesInclusao]
@@ -198,13 +236,26 @@ function addDonativo(){
             )
         }
         if(ipCong.value){
-            arrayContas.push(incluiMovimentacao(
-                    ipDia.value,
-                    'Donativos Cong.',
-                    'C',
-                    ipCong.value.replace(/\./g, '').replace(',', '.')
+            if(slCong.value === 'cx'){
+                console.log('cx');
+                arrayContas.push(incluiMovimentacao(
+                        ipDia.value,
+                        'Don. Cong. Cx',
+                        'C',
+                        ipCong.value.replace(/\./g, '').replace(',', '.')
+                    )
                 )
-            )
+            }
+            if(slCong.value === 'ele'){
+                console.log('ele');
+                arrayContas.push(incluiMovimentacao(
+                        ipDia.value,
+                        'Don. Cong. Eletronico',
+                        'C',
+                        ipCong.value.replace(/\./g, '').replace(',', '.')
+                    )
+                )
+            }
         }
         tBody.innerHTML = ''
         arrayContas.sort((a,b)=> a.dia - b.dia).forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))

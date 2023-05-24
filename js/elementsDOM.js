@@ -19,15 +19,15 @@ const spMesConta = $id('mes')
 spMesConta.innerText = mesAtualString
 const spAno = $id('ano')
 //contas-totais
+let contasAnoAtualArray = contasAnoAtual.mes[mesAtualString.toLowerCase()]
 const spOMtotal = $id('om')
-spOMtotal.innerText = calculaOM
-    (contasAnoAtual.mes[mesAtualString.toLowerCase()])
+spOMtotal.innerText = calculaSoma(contasAnoAtualArray, om)
 const spCongTotal = $id('cong')
-spCongTotal.innerText = calculaCong
-    (contasAnoAtual.mes[mesAtualString.toLowerCase()])
+spCongTotal.innerText = calculaSoma(contasAnoAtualArray, cong)
+const spCongElet = $id('congElet')
+spCongElet.innerText = calculaSoma(contasAnoAtualArray,congElet)
 const spGastosTotal = $id('gastos')
-spGastosTotal.innerText = calculaGastos
-    (contasAnoAtual.mes[mesAtualString.toLowerCase()])
+spGastosTotal.innerText = calculaSoma(contasAnoAtualArray, gastos)
 const btnQtdEstudos = $id('qtdEstudos')
 
 const tBody = $id('tbody')

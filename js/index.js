@@ -48,36 +48,15 @@ function incluiMovimentacao(dia,desc,tipo,valor){
 
 //fn do array das atividades cadastradas
 const om = item => item.desc === 'Donativos OM' ? parseFloat(item.valor) : 0.00
-function calculaOM(contaMesArray){
+const cong = item => item.desc === 'Don. Cong. Cx' ? parseFloat(item.valor) : 0.00
+const congElet = item => item.desc === 'Don. Cong. Eletronico' ? parseFloat(item.valor) : 0.00
+const gastos = item => (item.desc !== 'Don. Cong. Eletronico' && item.desc !== 'Don. Cong. Cx' && item.desc !== 'Donativos OM') ? parseFloat(item.valor) : 0.00
+function calculaSoma(contaMesArray, descMap){
     if(contaMesArray.length>0){
-        let somaArrya = contaMesArray.map(om) 
-        const soma = somaArrya.reduce(function(acumulador,atual){
-            return acumulador+atual
-        })
-        return `R$ ${soma.toFixed(2).replace('.',',')}`
-    }else{
-        return 'R$ 0,00'
-    }
-}
-const cong = item => item.desc === 'Donativos Cong.' ? parseFloat(item.valor) : 0.00
-function calculaCong(contaMesArray){
-    if(contaMesArray.length>0){
-        let somaArrya = contaMesArray.map(cong)
+        let somaArrya = contaMesArray.map(descMap)
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         },0)
-        return `R$ ${soma.toFixed(2).replace('.',',')}`
-    }else{
-        return 'R$ 0,00'
-    }
-}
-const gastos = item => (item.desc !== 'Donativos Cong.' && item.desc !== 'Donativos OM') ? parseFloat(item.valor) : 0.00
-function calculaGastos(contaMesArray){
-    if(contaMesArray.length>0){
-        let somaArrya = contaMesArray.map(gastos)
-        const soma = somaArrya.reduce(function(acumulador,atual){
-            return acumulador+atual
-        })
         return `R$ ${soma.toFixed(2).replace('.',',')}`
     }else{
         return 'R$ 0,00'
@@ -114,14 +93,15 @@ const atualiza = {
         spPubTotal.innerText = 0
     },
     contasTotais(){
+        let cAAm = contasAnoAtual.mes[countMes.toLowerCase()]
         tBody.innerHTML = ''
         contasAnoAtual.mes[countMes.toLowerCase()]
             .sort((a,b)=> a.dia - b.dia)
             .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
-        spOMtotal.innerText = calculaOM(contasAnoAtual.mes[countMes.toLowerCase()])
-        spCongTotal.innerText = calculaCong(contasAnoAtual.mes[countMes.toLowerCase()])
-        spGastosTotal.innerText = calculaGastos(contasAnoAtual.mes[countMes.toLowerCase()])
-        // spPubTotal.innerText = calculaPublicacoesTotal(contasAnoAtual.mes[countMes.toLowerCase()])
+        spOMtotal.innerText = calculaSoma(cAAm,om)
+        spCongTotal.innerText = calculaSoma(cAAm,cong)
+        spGastosTotal.innerText = calculaSoma(cAAm,gastos)
+        spCongElet.textContent = calculaSoma(cAAm,congElet)
     }
 }
 // Btns
