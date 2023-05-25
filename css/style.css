@@ -445,6 +445,7 @@ button#estudantesEditar
   }
 .d-c{
     display: flex;
+    overflow: hidden;
 }
 .c-sa-s{
     display: block;

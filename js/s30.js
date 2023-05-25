@@ -4,10 +4,13 @@ function bodyModalS30(){
     const divElement = document.createElement('div');
     const divSaldoInicial = document.createElement('div');
     divSaldoInicial.style.display = 'flex'
+    divSaldoInicial.style.width = '90%'
     const labelSaldoInicial = document.createElement('label');
     labelSaldoInicial.textContent = 'Saldo Inicial'
     const inputSaldoInicial = document.createElement('input');
     inputSaldoInicial.type = 'text';
+    inputSaldoInicial.setAttribute('disabled', true);
+    inputSaldoInicial.style.width = '95%'
     labelSaldoInicial.appendChild(inputSaldoInicial)
     const btnSaldoInicial = btnEditaCria(inputSaldoInicial)
     divSaldoInicial.appendChild(labelSaldoInicial)

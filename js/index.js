@@ -15,7 +15,6 @@ let anoNovo
 let contas = localStorage.getItem('contas') ? JSON.parse(localStorage.getItem('contas')) : [criaContas(ano)]
 let contasAnoAtual
 contas.forEach(i =>{
-    // console.log(i);
     if(i.anoServico === ano){
         contasAnoAtual = i
     }else{

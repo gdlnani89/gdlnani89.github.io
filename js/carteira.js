@@ -5,8 +5,10 @@ function bodyModalCarteira(){
     divSaldoAnterior.classList.add('d-c')
     const lSaldoAnterior = $cria('label')
     lSaldoAnterior.innerText = 'Saldo anterior'
+    lSaldoAnterior.style.width = '80%'
     const iSaldo = $cria('input')
     iSaldo.setAttribute('disabled', true)
+    iSaldo.style.width = '90%'
     lSaldoAnterior.appendChild(iSaldo)
     const btnEdita = $cria('button')
     btnEdita.classList.add('c-sa-s')
@@ -33,9 +35,11 @@ function bodyModalCarteira(){
     const divSaldoEmBetelAnterior = $cria('div')    
     divSaldoEmBetelAnterior.classList.add('d-c')
     const lSaldoEmBetelAnterior = $cria('label')
+    lSaldoEmBetelAnterior.style.width = '80%'
     lSaldoEmBetelAnterior.innerText = 'Saldo anterior em Betel'
     const iSaldoEmBetelAnterior = $cria('input')
     iSaldoEmBetelAnterior.setAttribute('disabled', true)
+    iSaldoEmBetelAnterior.style.width = '90%'
     lSaldoEmBetelAnterior.appendChild(iSaldoEmBetelAnterior)
     const btnEditaBetel = $cria('button')
     btnEditaBetel.classList.add('c-sa-s')
@@ -58,6 +62,31 @@ function bodyModalCarteira(){
     divSaldoEmBetelAnterior.appendChild(lSaldoEmBetelAnterior)
     divSaldoEmBetelAnterior.appendChild(btnEditaBetel)
     divSaldoEmBetelAnterior.appendChild(btnSalvaBetel)
-    ele.push(divSaldoAnterior, divSaldoEmBetelAnterior)
+
+    const divSaldoFinal = $cria('div')    
+    divSaldoFinal.classList.add('d-c')
+    const lSaldoFinal = $cria('label')
+    lSaldoFinal.style.width = '80%'
+    lSaldoFinal.innerText = 'Saldo final'
+    const iSaldoFinal = $cria('input')
+    iSaldoFinal.setAttribute('disabled', true)
+    iSaldoFinal.style.width = '90%'
+    lSaldoFinal.appendChild(iSaldoFinal)
+   
+    divSaldoFinal.appendChild(lSaldoFinal)
+
+    const divSaldoFinalBetel = $cria('div')    
+    divSaldoFinalBetel.classList.add('d-c')
+    const lSaldoFinalBetel = $cria('label')
+    lSaldoFinalBetel.style.width = '80%'
+    lSaldoFinalBetel.innerText = 'Saldo final em Betel'
+    const iSaldoFinalBetel = $cria('input')
+    iSaldoFinalBetel.setAttribute('disabled', true)
+    iSaldoFinalBetel.style.width = '90%'
+    lSaldoFinalBetel.appendChild(iSaldoFinalBetel)
+   
+    divSaldoFinalBetel.appendChild(lSaldoFinalBetel)
+
+    ele.push(divSaldoAnterior, divSaldoEmBetelAnterior, divSaldoFinal, divSaldoFinalBetel)
     return ele
 }
