@@ -19,19 +19,21 @@ const spMesConta = $id('mes')
 spMesConta.innerText = mesAtualString
 const spAno = $id('ano')
 //contas-totais
-let contasAnoAtualArray = contasAnoAtual.mes[mesAtualString.toLowerCase()]
+let contasAnoAtualArray = contasAnoAtual.mes[mesAtualString.toLowerCase()].lancamentos
 const spOMtotal = $id('om')
-spOMtotal.innerText = calculaSoma(contasAnoAtualArray, om)
+spOMtotal.innerText = mascaraReal(calculaSoma(contasAnoAtualArray, om))
 const spCongTotal = $id('cong')
-spCongTotal.innerText = calculaSoma(contasAnoAtualArray, cong)
+spCongTotal.innerText = mascaraReal(calculaSoma(contasAnoAtualArray, cong))
 const spCongElet = $id('congElet')
-spCongElet.innerText = calculaSoma(contasAnoAtualArray,congElet)
+spCongElet.innerText = mascaraReal(calculaSoma(contasAnoAtualArray,congElet))
 const spGastosTotal = $id('gastos')
-spGastosTotal.innerText = calculaSoma(contasAnoAtualArray, gastos)
+spGastosTotal.innerText = mascaraReal(calculaSoma(contasAnoAtualArray, gastos))
 const btnQtdEstudos = $id('qtdEstudos')
 
 const tBody = $id('tbody')
-contasAnoAtual.mes[mesAtualString.toLowerCase()]
+console.log(contasAnoAtual.mes[mesAtualString.toLowerCase()]);
+// if()
+contasAnoAtual.mes[mesAtualString.toLowerCase()].lancamentos
     .sort((a,b)=> a.dia - b.dia)
     .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
 const btnEditaLinhas = $id('editaLinhas')

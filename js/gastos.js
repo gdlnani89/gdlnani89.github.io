@@ -58,7 +58,7 @@ function addGasto() {
     const ipValor = $id('valorGasto')
     if(ipDia.value && ipDesc.value && ipValor.value){
         const mesInclusao = spMesConta.innerText.toLowerCase()
-        const arrayContas = contasAnoAtual.mes[mesInclusao]
+        const arrayContas = contasAnoAtual.mes[mesInclusao].lancamentos
         arrayContas.push(
             incluiMovimentacao(
                 ipDia.value,

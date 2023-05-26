@@ -7,38 +7,105 @@ let data = new Date()
 let dia = data.getDate()
 let ano = data.getFullYear()
 let meses = [ 'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro' ]
-let mesAtualNumero = data.getMonth()
+let mesAtualNumero = data.getMonth()//0,1,2,3,4,5,6,7,8,9,10,11
 let mesAtualString = meses[mesAtualNumero]
 let countMes = meses[mesAtualNumero]
 let anoNovo
 
 let contas = localStorage.getItem('contas') ? JSON.parse(localStorage.getItem('contas')) : [criaContas(ano)]
 let contasAnoAtual
-contas.forEach(i =>{
-    if(i.anoServico === ano){
-        contasAnoAtual = i
-    }else{
-        contas.push(criaContas(anoNovo))
-    }
-}) 
-function criaContas(ano){
-    const anoServico = ano
-    const mes = {
-        'janeiro' : [],
-        'fevereiro' : [],
-        'marco' : [],
-        'abril' : [],
-        'maio' : [],
-        'junho' : [],
-        'julho' : [],
-        'agosto' : [],
-        'setembro' : [],
-        'outubro' : [],
-        'novembro' : [],
-        'dezembro' : []
-    }
-    
-    return {anoServico,mes}
+contas.forEach(i => i.ano === ano ? contasAnoAtual = i :  contas.push(criaContas(anoNovo))) 
+
+function criaContas(ano){ 
+    return { 
+        ano : ano,
+         mes : { 
+            janeiro : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            fevereiro : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            marco : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            abril : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            maio : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            junho : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            julho : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            agosto : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            setembro : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            outubro : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            novembro : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            }, 
+            dezembro : { 
+                lancamentos : [], 
+                saldoContaInicial : 0, 
+                saldoContaFinal : 0, 
+                saldoBetelIncial : 0, 
+                saldoBetelFinal : 0 
+            } 
+        } 
+    } 
 }
 
 function incluiMovimentacao(dia,desc,tipo,valor){
@@ -53,15 +120,57 @@ const gastos = item => (item.desc !== 'Don. Cong. Eletronico' && item.desc !== '
 function calculaSoma(contaMesArray, descMap){
     if(contaMesArray.length>0){
         let somaArrya = contaMesArray.map(descMap)
+        console.log(somaArrya);
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         },0)
-        return `R$ ${soma.toFixed(2).replace('.',',')}`
+        return soma
+    }else{
+        return 0
+    }
+}
+// function calculaSoma(contaMesArray, descMap){
+//     if(contaMesArray.length>0){
+//         let somaArrya = contaMesArray.map(descMap)
+//         console.log(somaArrya);
+//         const soma = somaArrya.reduce(function(acumulador,atual){
+//             return acumulador+atual
+//         },0)
+//         return `R$ ${soma.toFixed(2).replace('.',',')}`
+//     }else{
+//         return 'R$ 0,00'
+//     }
+// }
+function mascaraReal(valor){
+    if(valor){
+        return `R$ ${valor.toFixed(2).replace('.',',')}`
     }else{
         return 'R$ 0,00'
     }
 }
+function calculaEntradas(contaMesArray){
+    let somaOM = calculaSoma(contaMesArray,om)
+    let somaCongCxs = calculaSoma(contaMesArray,cong)
+    let somaCongElet = calculaSoma(contaMesArray,congElet)
+
+}
 //render MODAL
+const modalConstrutor = {
+    modalTitulo(title){
+        h2Title.innerText = title
+    },
+    modalCorpo(corpo,bottomStyle = '25%'){
+        divBodyModal.innerHTML = ''
+        divModalDialogo.style.bottom = bottomStyle//ajustar o bottom do modal
+        corpo.forEach(element => {
+            divBodyModal.appendChild(element)
+        });
+    },
+    modalFooter(btns){
+        divBtnsFooter.innerHTML = ''
+        btns.forEach(btn => divBtnsFooter.appendChild(btn))
+    }
+}
 function modalTitulo(title) {
     h2Title.innerText = title
 }
@@ -86,21 +195,21 @@ const atualiza = {
     }, */
     contasTotalVazio(){
         tBody.innerHTML = ''
-        spHorasTotal.innerText = 0
-        spRevTotal.innerText = 0
-        spVideosTotal.innerText = 0
-        spPubTotal.innerText = 0
+        spOMtotal.innerText = 0
+        spCongTotal.innerText = 0
+        spGastosTotal.innerText = 0
+        spCongElet.innerText = 0
     },
     contasTotais(){
-        let cAAm = contasAnoAtual.mes[countMes.toLowerCase()]
+        let cAAm = contasAnoAtual.mes[countMes.toLowerCase()].lancamentos
         tBody.innerHTML = ''
-        contasAnoAtual.mes[countMes.toLowerCase()]
+        cAAm
             .sort((a,b)=> a.dia - b.dia)
             .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
-        spOMtotal.innerText = calculaSoma(cAAm,om)
-        spCongTotal.innerText = calculaSoma(cAAm,cong)
-        spGastosTotal.innerText = calculaSoma(cAAm,gastos)
-        spCongElet.textContent = calculaSoma(cAAm,congElet)
+        spOMtotal.innerText = mascaraReal(calculaSoma(cAAm,om))
+        spCongTotal.innerText = mascaraReal(calculaSoma(cAAm,cong))
+        spGastosTotal.innerText = mascaraReal(calculaSoma(cAAm,gastos))
+        spCongElet.textContent = mascaraReal(calculaSoma(cAAm,congElet))
     }
 }
 // Btns
@@ -148,16 +257,7 @@ function btnAnimation(btn){
 function avancaVolta(countMes){
     spMesConta.innerText = countMes
     console.log(countMes);
-    console.log(contasAnoAtual);
     contasAnoAtual.mes[countMes.toLowerCase()]? atualiza.contasTotais() : atualiza.contasTotalVazio()
-/*     if((countMes === alvo.mes) && (alvo.ano === contasAnoAtual.anoServico)){
-        spHorasFalta.innerText = setAlvoDiv()
-        spAlvoHoras.innerText = alvo.horas+'h'
-        divAlvoTempo.classList.remove('invisivel')
-    }else{
-        divAlvoTempo.classList.add('invisivel')
-        spHorasFalta.innerText = ''
-    } */
 }
 
 String.prototype.reverse = function(){

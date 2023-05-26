@@ -97,7 +97,7 @@ const bodyDonativos = () =>{
 }
 //tabela dos lançamentos na tag main
 function tBodyCreate(inclusao, indice=''){
-    const arrayMesAtual = contasAnoAtual.mes[countMes.toLocaleLowerCase()]
+    const arrayMesAtual = contasAnoAtual.mes[countMes.toLocaleLowerCase()].lancamentos
     const contasAtual = arrayMesAtual[indice]
 
     const tr = $cria('tr')
@@ -105,7 +105,6 @@ function tBodyCreate(inclusao, indice=''){
     const tdDesc = $cria('td')
     const tdTipo = $cria('td')
     const tdValor = $cria('td')
-    // const tdRev = $cria('td')
     const tdEdit = $cria('td')
     
     const ipDia = $cria('input')
@@ -134,7 +133,7 @@ function tBodyCreate(inclusao, indice=''){
     btnExcluiLinha.addEventListener('click', function(){
         this.parentNode.parentNode.remove()
         const mesInc = spMesConta.innerText.toLowerCase()
-        const arrayMesContaAtual = contasAnoAtual.mes[mesInc]
+        const arrayMesContaAtual = contasAnoAtual.mes[mesInc].lancamentos
         arrayMesContaAtual.splice(indice,1)
         atualiza.contasLS()
         atualiza.contasTotais()
@@ -152,7 +151,8 @@ function tBodyCreate(inclusao, indice=''){
     noneHabilita.none(btnEditSalvar,true)
     btnEditSalvar.innerHTML = '<ion-icon name="checkmark-circle" style="font-size: 15px; color: #009688"></ion-icon>'
     btnEditSalvar.addEventListener('click',function(){
-        const inicial = {...inclusao}
+        console.log(inclusao);
+        const inicial = {...inclusao}//cria uma copia 
         if(inclusao.dia !== ipDia.value){
             contasAtual.dia = ipDia.value
             console.log(inclusao);
@@ -161,8 +161,12 @@ function tBodyCreate(inclusao, indice=''){
             contasAtual.desc = ipDesc.value
             console.log(inclusao);
         }
+        if(inclusao.tipo !== ipTipo.value){
+            contasAtual.tipo = ipTipo.value
+            console.log(inclusao);
+        }
         if(inclusao.valor !== ipValor.value){
-            contasAtual.videos = ipValor.value
+            contasAtual.valor = ipValor.value
             console.log(inclusao);
         }
         const isModified = JSON.stringify(inicial) !== JSON.stringify(inclusao)
@@ -173,8 +177,8 @@ function tBodyCreate(inclusao, indice=''){
         const avo = this.parentNode.parentNode
         const btn = this
         noneHabilita.habilitaInps(avo.querySelectorAll('INPUT'),false)
-        noneHabilita.none(btnEditSalvar,true)
-        noneHabilita.none(btnEditaLinha,false)
+        noneHabilita.none(btnEditSalvar,true)//botão check verde da linha
+        noneHabilita.none(btnEditaLinha,true)//
         noneHabilita.none(btn,true)
         noneHabilita.none(btnEditVoltar,true)
         noneHabilita.none(btnExcluiLinha,false)
@@ -225,7 +229,7 @@ function addDonativo(){
     const slCong = $id('sTipoCong')
     if(ipDia.value && (ipOm.value || ipCong.value) ){
         const mesInclusao = spMesConta.innerText.toLowerCase()//pego da SPAN do header
-        const arrayContas = contasAnoAtual.mes[mesInclusao]
+        const arrayContas = contasAnoAtual.mes[mesInclusao].lancamentos
         if(ipOm.value){
             arrayContas.push(incluiMovimentacao(
                     ipDia.value,
