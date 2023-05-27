@@ -256,7 +256,6 @@ function addDonativo(){
                 )
             }
             if(slCong.value === 'ele'){
-                console.log('ele');
                 arrayContas.push(incluiMovimentacao(
                         ipDia.value,
                         'Don. Cong. Eletronico',
@@ -265,8 +264,7 @@ function addDonativo(){
                     )
                 )
             }
-            if(slCong.value === 'site'){
-                console.log('jw');
+            if(slCong.value === 'site'){//usei site pois é feito no JW para a congregação. Em Betel
                 arrayContas.push(incluiMovimentacao(
                         ipDia.value,
                         'Don. Cong. Site',

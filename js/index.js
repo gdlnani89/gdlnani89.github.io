@@ -118,8 +118,12 @@ const cong = item => item.desc === 'Don. Cong. Cx' ? parseFloat(item.valor) : 0.
 const congElet = item => item.desc === 'Don. Cong. Eletronico' ? parseFloat(item.valor) : 0.00
 const congSite = item => item.desc === 'Don. Cong. Site' ? parseFloat(item.valor) : 0.00
 const gastos = item => 
-    (item.desc !== 'Don. Cong. Eletronico' && item.desc !== 'Don. Cong. Cx' && item.desc !== 'Donativos OM' && item.desc !== 'Don. Cong. Site') ? 
+    (item.desc !== 'Don. Cong. Eletronico' && 
+    item.desc !== 'Don. Cong. Cx' && 
+    item.desc !== 'Donativos OM' && 
+    item.desc !== 'Don. Cong. Site') ? 
     parseFloat(item.valor) : 0.00
+    
 function calculaSoma(contaMesArray, descMap){
     if(contaMesArray.length>0){
         let somaArrya = contaMesArray.map(descMap)
@@ -272,4 +276,40 @@ function mascaraMoeda(campo,evento){
         }
     }
     campo.value = resultado.reverse();
+}
+const mask = {
+    inputValor(campo,evento){
+        var tecla = (!evento) ? window.event.keyCode : evento.which;
+        var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
+        var resultado  = "";
+        var mascara = "##.###.###,##".reverse();
+        for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+            if (mascara.charAt(x) != '#') {
+            resultado += mascara.charAt(x);
+            x++;
+            } else {
+            resultado += valor.charAt(y);
+            y++;
+            x++;
+            }
+        }
+        campo.value = resultado.reverse();
+    },
+    valor(v){
+        var valor  =  v.replace(/[^\d]+/gi,'').reverse();
+        var resultado  = "";
+        var mascara = "##.###.###,##".reverse();
+        for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+            if (mascara.charAt(x) != '#') {
+            resultado += mascara.charAt(x);
+            x++;
+            } else {
+            resultado += valor.charAt(y);
+            y++;
+            x++;
+            }
+        }
+        return resultado.reverse();
+    }
+
 }
