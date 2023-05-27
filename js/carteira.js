@@ -1,4 +1,7 @@
 function bodyModalCarteira(){
+    let mesAtual = contasAnoAtual.mes[mesAtualString.toLowerCase()] 
+    let saldoInicial = parseFloat(mesAtual.saldoContaInicial.replace('.','').replace(',','.')) || 0
+    
     const ele = []
     //saldo anterior
     const divSaldoAnterior = $cria('div')
@@ -9,6 +12,8 @@ function bodyModalCarteira(){
     const iSaldo = $cria('input')
     iSaldo.setAttribute('disabled', true)
     iSaldo.style.width = '90%'
+    iSaldo.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
+    iSaldo.value = mesAtual.saldoContaInicial || ''
     lSaldoAnterior.appendChild(iSaldo)
     const btnEdita = $cria('button')
     btnEdita.classList.add('c-sa-s')
@@ -27,6 +32,8 @@ function bodyModalCarteira(){
         this.classList.add('db')
         btnEdita.classList.remove('db')
         iSaldo.setAttribute('disabled', true)
+        contasAnoAtual.mes[mesAtualString.toLowerCase()].saldoContaInicial = iSaldo.value
+        atualiza.contasLS()
     })
     divSaldoAnterior.appendChild(lSaldoAnterior)
     divSaldoAnterior.appendChild(btnEdita)
@@ -40,6 +47,9 @@ function bodyModalCarteira(){
     const iSaldoEmBetelAnterior = $cria('input')
     iSaldoEmBetelAnterior.setAttribute('disabled', true)
     iSaldoEmBetelAnterior.style.width = '90%'
+    iSaldoEmBetelAnterior.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
+    iSaldoEmBetelAnterior.value
+        =mesAtual.saldoBetelInicial || ''
     lSaldoEmBetelAnterior.appendChild(iSaldoEmBetelAnterior)
     const btnEditaBetel = $cria('button')
     btnEditaBetel.classList.add('c-sa-s')
@@ -58,6 +68,8 @@ function bodyModalCarteira(){
         this.classList.add('db')
         btnEditaBetel.classList.remove('db')
         iSaldoEmBetelAnterior.setAttribute('disabled', true)
+        contasAnoAtual.mes[mesAtualString.toLowerCase()].saldoBetelInicial = iSaldoEmBetelAnterior.value
+        atualiza.contasLS()
     })
     divSaldoEmBetelAnterior.appendChild(lSaldoEmBetelAnterior)
     divSaldoEmBetelAnterior.appendChild(btnEditaBetel)
@@ -71,6 +83,7 @@ function bodyModalCarteira(){
     const iSaldoFinal = $cria('input')
     iSaldoFinal.setAttribute('disabled', true)
     iSaldoFinal.style.width = '90%'
+    iSaldoFinal.value = mascaraReal(calculaEntradas(mesAtual.lancamentos)+saldoInicial) || ''
     lSaldoFinal.appendChild(iSaldoFinal)
    
     divSaldoFinal.appendChild(lSaldoFinal)

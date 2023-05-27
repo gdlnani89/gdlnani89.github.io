@@ -19,19 +19,28 @@ const spMesConta = $id('mes')
 spMesConta.innerText = mesAtualString
 const spAno = $id('ano')
 //contas-totais
-let contasAnoAtualArray = contasAnoAtual.mes[mesAtualString.toLowerCase()].lancamentos
+let mesLancamentosAtual = 
+    contasAnoAtual.
+    mes[mesAtualString.toLowerCase()].
+    lancamentos
+
 const spOMtotal = $id('om')
-spOMtotal.innerText = mascaraReal(calculaSoma(contasAnoAtualArray, om))
+spOMtotal.innerText = 
+    mascaraReal(calculaSoma(mesLancamentosAtual, om))
 const spCongTotal = $id('cong')
-spCongTotal.innerText = mascaraReal(calculaSoma(contasAnoAtualArray, cong))
+spCongTotal.innerText = 
+    mascaraReal(calculaSoma(mesLancamentosAtual, cong))
 const spCongElet = $id('congElet')
-spCongElet.innerText = mascaraReal(calculaSoma(contasAnoAtualArray,congElet))
+spCongElet.innerText = 
+    mascaraReal(calculaSoma(mesLancamentosAtual,congElet))
+const spCongSite = $id('congSite')
+spCongSite.innerText = 
+    mascaraReal(calculaSoma(mesLancamentosAtual,congSite))
 const spGastosTotal = $id('gastos')
-spGastosTotal.innerText = mascaraReal(calculaSoma(contasAnoAtualArray, gastos))
-const btnQtdEstudos = $id('qtdEstudos')
+spGastosTotal.innerText = 
+    mascaraReal(calculaSoma(mesLancamentosAtual, gastos))
 
 const tBody = $id('tbody')
-console.log(contasAnoAtual.mes[mesAtualString.toLowerCase()]);
 // if()
 contasAnoAtual.mes[mesAtualString.toLowerCase()].lancamentos
     .sort((a,b)=> a.dia - b.dia)
@@ -72,7 +81,7 @@ btnCarteira.addEventListener('click', function() {
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Conta')
     modalCorpo(bodyModalCarteira())
-    modalFooter([btnCancel(),btnSalvar(addGasto,'sair-incluirAlvo')])
+    modalFooter([btnCancel(),btnSalvar(()=> divCxDialogo.classList.remove('caixa-dialogo-aberta'))])
     }
 );
 btnS30.addEventListener('click', function() {

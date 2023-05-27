@@ -116,11 +116,13 @@ function incluiMovimentacao(dia,desc,tipo,valor){
 const om = item => item.desc === 'Donativos OM' ? parseFloat(item.valor) : 0.00
 const cong = item => item.desc === 'Don. Cong. Cx' ? parseFloat(item.valor) : 0.00
 const congElet = item => item.desc === 'Don. Cong. Eletronico' ? parseFloat(item.valor) : 0.00
-const gastos = item => (item.desc !== 'Don. Cong. Eletronico' && item.desc !== 'Don. Cong. Cx' && item.desc !== 'Donativos OM') ? parseFloat(item.valor) : 0.00
+const congSite = item => item.desc === 'Don. Cong. Site' ? parseFloat(item.valor) : 0.00
+const gastos = item => 
+    (item.desc !== 'Don. Cong. Eletronico' && item.desc !== 'Don. Cong. Cx' && item.desc !== 'Donativos OM' && item.desc !== 'Don. Cong. Site') ? 
+    parseFloat(item.valor) : 0.00
 function calculaSoma(contaMesArray, descMap){
     if(contaMesArray.length>0){
         let somaArrya = contaMesArray.map(descMap)
-        console.log(somaArrya);
         const soma = somaArrya.reduce(function(acumulador,atual){
             return acumulador+atual
         },0)
@@ -129,18 +131,7 @@ function calculaSoma(contaMesArray, descMap){
         return 0
     }
 }
-// function calculaSoma(contaMesArray, descMap){
-//     if(contaMesArray.length>0){
-//         let somaArrya = contaMesArray.map(descMap)
-//         console.log(somaArrya);
-//         const soma = somaArrya.reduce(function(acumulador,atual){
-//             return acumulador+atual
-//         },0)
-//         return `R$ ${soma.toFixed(2).replace('.',',')}`
-//     }else{
-//         return 'R$ 0,00'
-//     }
-// }
+
 function mascaraReal(valor){
     if(valor){
         return `R$ ${valor.toFixed(2).replace('.',',')}`
@@ -152,7 +143,10 @@ function calculaEntradas(contaMesArray){
     let somaOM = calculaSoma(contaMesArray,om)
     let somaCongCxs = calculaSoma(contaMesArray,cong)
     let somaCongElet = calculaSoma(contaMesArray,congElet)
-
+    let somaGastos = calculaSoma(contaMesArray,gastos)
+    let entradas = somaOM + somaCongCxs + somaCongElet 
+    
+    return entradas - somaGastos
 }
 //render MODAL
 const modalConstrutor = {
@@ -190,9 +184,6 @@ const atualiza = {
     contasLS(){
         localStorage.setItem('contas', JSON.stringify(contas))
     },
-    /* mensagemWhats(mesSelecionado,arrayRelatorio){
-        return `Segue o relatório de ${mesSelecionado}: Horas ${calculaHorasTotal(arrayRelatorio)}, Revisitas ${calculaRevisitasTotal(arrayRelatorio)}, Videos ${calculaVideosTotal(arrayRelatorio)}, Publicações ${calculaPublicacoesTotal(arrayRelatorio)} e Estudos ${estudos.length}`;
-    }, */
     contasTotalVazio(){
         tBody.innerHTML = ''
         spOMtotal.innerText = 0
@@ -208,6 +199,7 @@ const atualiza = {
             .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
         spOMtotal.innerText = mascaraReal(calculaSoma(cAAm,om))
         spCongTotal.innerText = mascaraReal(calculaSoma(cAAm,cong))
+        spCongSite.innerText = mascaraReal(calculaSoma(cAAm,congSite))
         spGastosTotal.innerText = mascaraReal(calculaSoma(cAAm,gastos))
         spCongElet.textContent = mascaraReal(calculaSoma(cAAm,congElet))
     }

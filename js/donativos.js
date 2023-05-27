@@ -67,9 +67,14 @@ const bodyDonativos = () =>{
     option2.setAttribute('value', 'ele');
     option2.textContent = 'Eletrônico';
     
+    const option3 = document.createElement('option');
+    option3.setAttribute('value', 'site');
+    option3.textContent = 'Betel';
+    
     // Adiciona as opções ao <select>
     selectElement.appendChild(option1);
     selectElement.appendChild(option2);
+    selectElement.appendChild(option3);
     
     // Adiciona o <select> ao <label>
     labelElement.appendChild(selectElement);
@@ -255,6 +260,16 @@ function addDonativo(){
                 arrayContas.push(incluiMovimentacao(
                         ipDia.value,
                         'Don. Cong. Eletronico',
+                        'C',
+                        ipCong.value.replace(/\./g, '').replace(',', '.')
+                    )
+                )
+            }
+            if(slCong.value === 'site'){
+                console.log('jw');
+                arrayContas.push(incluiMovimentacao(
+                        ipDia.value,
+                        'Don. Cong. Site',
                         'C',
                         ipCong.value.replace(/\./g, '').replace(',', '.')
                     )
