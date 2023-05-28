@@ -24,84 +24,84 @@ function criaContas(ano){
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             fevereiro : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             marco : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             abril : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             maio : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             junho : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             julho : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             agosto : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             setembro : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             outubro : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             novembro : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             }, 
             dezembro : { 
                 lancamentos : [], 
                 saldoContaInicial : 0, 
                 saldoContaFinal : 0, 
-                saldoBetelIncial : 0, 
+                saldoBetelInicial : 0, 
                 saldoBetelFinal : 0 
             } 
         } 
@@ -312,4 +312,68 @@ const mask = {
         return resultado.reverse();
     }
 
+}
+// function valorCalculavel(valor){
+//     if(valor.length > 6 && valor.length < 10){
+//         let vSemPonto = valor.replace('.','').replace(',','.')
+
+//         return parseFloat(vSemPonto)
+//     }
+//     if(valor.length > 10){
+//         let vSemPonto1 = valor.replace('.','')
+//         let vSemPonto2 = vSemPonto1.replace('.','').replace(',','.')
+
+//         return parseFloat(vSemPonto2)
+//     }
+//     if(valor.length<=6){
+//         console.log(valor);
+//         let vSemPonto = valor.replace(',','.')
+//         return parseFloat(vSemPonto)
+//     }
+// }
+function valorCalculavel(valor) {
+    if (valor.length > 6 && valor.length < 10) {
+        let vSemPonto = valor.replace(/\./g, '').replace(/,/g, '.');
+
+        return parseFloat(vSemPonto);
+    }
+    if (valor.length > 10) {
+        let vSemPonto1 = valor.replace(/\./g, '');
+        let vSemPonto2 = vSemPonto1.replace(/,/g, '.');
+
+        return parseFloat(vSemPonto2);
+    }
+    if (valor.length <= 6) {
+        console.log(valor);
+        let vSemPonto = valor.replace(/,/g, '.');
+        return parseFloat(vSemPonto);
+    }
+
+    // Adicione um retorno padrão caso nenhum dos casos anteriores seja atendido.
+    return 0;
+}
+function atualizaCarteira(){
+    let mesAtualObj = contasAnoAtual.mes[mesAtualString.toLowerCase()] 
+    let getSaldoInicial = mesAtualObj.saldoContaInicial ? valorCalculavel(mesAtualObj.saldoContaInicial) : 0.00
+    let getSaldoInicialBetel = mesAtualObj.saldoBetelInicial ? valorCalculavel(mesAtualObj.saldoBetelInicial) : 0.00
+    let betelLancamento = mesAtualObj.lancamentos ? calculaSoma(mesAtualObj.lancamentos, congSite) : 0.00
+    let contaLancamentos = mesAtualObj.lancamentos ? calculaEntradas(mesAtualObj.lancamentos) : 0.00
+    let somaBetel = (getSaldoInicialBetel+betelLancamento).toFixed(2)
+    let somaConta = (contaLancamentos+parseFloat(getSaldoInicial)).toFixed(2)
+    let somaCongCx = mascaraReal(calculaSoma(mesLancamentosAtual, cong))
+    let somaCongElet = mascaraReal(calculaSoma(mesLancamentosAtual,congElet))
+    let somaCongSite = mascaraReal(calculaSoma(mesLancamentosAtual,congSite))
+    let somaOM = mascaraReal(calculaSoma(mesLancamentosAtual, om))
+
+    return {
+        mesAtualObj,
+        getSaldoInicial,
+        getSaldoInicialBetel,
+        somaConta,
+        somaBetel,
+        somaCongCx,
+        somaCongElet,
+        somaCongSite,
+        somaOM
+    }
 }

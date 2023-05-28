@@ -1,15 +1,12 @@
 function bodyModalCarteira(){
-    let mesAtual = contasAnoAtual.mes[mesAtualString.toLowerCase()] 
-    let getSaldoInicial = mesAtual.saldoContaInicial
-    let saldoInicialReplace = 
-        getSaldoInicial ? 
-        parseFloat(getSaldoInicial.replace('.','').replace(',','.')) : 0
-    let getSaldoInicialBetel = mesAtual.saldoBetelInicial
-    let saldoIncialBetelReplace
-        getSaldoInicialBetel ?
-        parseFloat(getSaldoInicialBetel.replace('.','').replace(',','.')) : 0
-    let betelLancamento = calculaSoma(mesAtual.lancamentos, congSite)
-    console.log(getSaldoInicialBetel);
+    const {
+        mesAtualObj : atual,
+        getSaldoInicial : sInicial,
+        getSaldoInicialBetel : sIniBetel,
+        somaConta,
+        somaBetel
+    } = atualizaCarteira()
+
     const ele = []
     //saldo anterior
     const divSaldoAnterior = $cria('div')
@@ -21,7 +18,8 @@ function bodyModalCarteira(){
     iSaldo.setAttribute('disabled', true)
     iSaldo.style.width = '90%'
     iSaldo.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
-    iSaldo.value = getSaldoInicial || ''
+    // iSaldo.value = mesAtualObj.saldoContaInicial || ''
+    iSaldo.value =  atual.saldoContaInicial || ''
     lSaldoAnterior.appendChild(iSaldo)
     const btnEdita = $cria('button')
     btnEdita.classList.add('c-sa-s')
@@ -40,8 +38,10 @@ function bodyModalCarteira(){
         this.classList.add('db')
         btnEdita.classList.remove('db')
         iSaldo.setAttribute('disabled', true)
-        mesAtual.saldoContaInicial = iSaldo.value
+        atual.saldoContaInicial = iSaldo.value
         atualiza.contasLS()
+        let atual2 = atualizaCarteira()
+        iSaldoFinal.value = 'R$ '+mask.valor(atual2.somaConta) || ''
     })
     divSaldoAnterior.appendChild(lSaldoAnterior)
     divSaldoAnterior.appendChild(btnEdita)
@@ -57,7 +57,7 @@ function bodyModalCarteira(){
     iSaldoEmBetelAnterior.style.width = '90%'
     iSaldoEmBetelAnterior.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
     iSaldoEmBetelAnterior.value
-        =mesAtual.saldoBetelInicial || ''
+        =atual.saldoBetelInicial || ''
     lSaldoEmBetelAnterior.appendChild(iSaldoEmBetelAnterior)
     const btnEditaBetel = $cria('button')
     btnEditaBetel.classList.add('c-sa-s')
@@ -78,6 +78,8 @@ function bodyModalCarteira(){
         iSaldoEmBetelAnterior.setAttribute('disabled', true)
         contasAnoAtual.mes[mesAtualString.toLowerCase()].saldoBetelInicial = iSaldoEmBetelAnterior.value
         atualiza.contasLS()
+        let atual2 = atualizaCarteira()
+        iSaldoFinalBetel.value = 'R$ '+mask.valor(atual2.somaBetel) || ''
     })
     divSaldoEmBetelAnterior.appendChild(lSaldoEmBetelAnterior)
     divSaldoEmBetelAnterior.appendChild(btnEditaBetel)
@@ -91,8 +93,8 @@ function bodyModalCarteira(){
     const iSaldoFinal = $cria('input')
     iSaldoFinal.setAttribute('disabled', true)
     iSaldoFinal.style.width = '90%'
-    let somaConta =
-    iSaldoFinal.value = mascaraReal(calculaEntradas(mesAtual.lancamentos)+saldoInicialReplace) || ''
+    
+    iSaldoFinal.value = 'R$ '+mask.valor(somaConta) || ''
     lSaldoFinal.appendChild(iSaldoFinal)
    
     divSaldoFinal.appendChild(lSaldoFinal)
@@ -105,18 +107,12 @@ function bodyModalCarteira(){
     const iSaldoFinalBetel = $cria('input')
     iSaldoFinalBetel.setAttribute('disabled', true)
     iSaldoFinalBetel.style.width = '90%'
-    let somaBetel = (parseFloat(betelLancamento)+parseFloat(getSaldoInicialBetel)).toFixed(2)
-    // console.log((parseFloat(betelLancamento)+parseFloat(getSaldoInicialBetel)).toFixed(2));
     iSaldoFinalBetel.value = 'R$ '+mask.valor(somaBetel) || ''
     lSaldoFinalBetel.appendChild(iSaldoFinalBetel)
    
     divSaldoFinalBetel.appendChild(lSaldoFinalBetel)
 
     ele.push(divSaldoAnterior, divSaldoEmBetelAnterior, divSaldoFinal, divSaldoFinalBetel)
-    
-    function calculaSomasConta(){
-        
-    }
-    
+
     return ele
 }
