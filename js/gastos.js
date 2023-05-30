@@ -39,16 +39,50 @@ function bodyGastos(){
     ipDesc.setAttribute('id', 'descGasto')
     lDesc.appendChild(ipDesc)
 
-    const lValor = $cria('LABEL')
-    lValor.innerText = 'Valor'
-    const ipValor = $cria('INPUT')    
-    ipValor.setAttribute('type', 'text')
-    ipValor.setAttribute('id', 'valorGasto')
-    ipValor.setAttribute('placeHolder', 'R$ 0,00')
-    ipValor.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
-    lValor.appendChild(ipValor)
+    // Cria o elemento <div>
+    const divElement = document.createElement('div');
+    divElement.classList.add('don-cong');
+    
+    // Cria o elemento <label> para Congregação
+    const labelElement = document.createElement('label');
+    labelElement.setAttribute('for', 'sTipoCong');
+    labelElement.setAttribute('id', 'lTipoCong');
+    labelElement.textContent = 'Tipo';
 
-    ele.push(divDia, lDesc, lValor)
+    // Cria o elemento <select>
+    const selectElement = document.createElement('select');
+    selectElement.setAttribute('name', '');
+    selectElement.setAttribute('id', 'sTipoGasto');
+
+    // Cria as opções do <select>
+    const option1 = document.createElement('option');
+    option1.setAttribute('value', 'fixo');
+    option1.textContent = 'Recorrente';
+    
+    const option2 = document.createElement('option');
+    option2.setAttribute('value', 'outros');
+    option2.textContent = 'Outros';
+    
+    // Adiciona as opções ao <select>
+    selectElement.appendChild(option1);
+    selectElement.appendChild(option2);
+    
+    // Adiciona o <select> ao <label>
+    labelElement.appendChild(selectElement);
+    
+    // Cria o elemento <input>
+    const iValorCong = document.createElement('input');
+    iValorCong.setAttribute('type', 'text');
+    iValorCong.setAttribute('id', 'valorGasto')
+    iValorCong.setAttribute('placeHolder', 'R$ 0,00')
+    iValorCong.setAttribute('style', 'text-align: end;')
+    iValorCong.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
+
+    // Adiciona o <label> e o <input> ao <div>
+    divElement.appendChild(labelElement);
+    divElement.appendChild(iValorCong);
+
+    ele.push(divDia, lDesc,divElement)
     
     return ele
 }
@@ -56,15 +90,18 @@ function addGasto() {
     const ipDia = $id('diaGasto')
     const ipDesc = $id('descGasto')
     const ipValor = $id('valorGasto')
+    const sTipo = $id('sTipoGasto')
     if(ipDia.value && ipDesc.value && ipValor.value){
         const mesInclusao = spMesConta.innerText.toLowerCase()
         const arrayContas = contasAnoAtual.mes[mesInclusao].lancamentos
+        console.log(sTipo.value);
         arrayContas.push(
             incluiMovimentacao(
                 ipDia.value,
                 ipDesc.value,
                 'D',
-                ipValor.value.replace(/\./g, '').replace(',', '.')
+                ipValor.value.replace(/\./g, '').replace(',', '.'),
+                sTipo.value
             )
         )
         tBody.innerHTML = ''

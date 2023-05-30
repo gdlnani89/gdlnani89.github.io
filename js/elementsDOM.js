@@ -1,3 +1,12 @@
+const {
+    somaBetel : betel,
+    somaCongCx : congCx,
+    somaCongElet,
+    somaCongSite,
+    somaOM,
+    somaGastos,
+} = atualizaCarteira(mesAtualString.toLowerCase())
+
 document.addEventListener('click', (event) => {
     if(event.target.className === 'caixa-dialogo caixa-dialogo-aberta')divCxDialogo.classList.remove('caixa-dialogo-aberta');      
 }
@@ -25,20 +34,15 @@ let mesLancamentosAtual =
     lancamentos
 
 const spOMtotal = $id('om')
-spOMtotal.innerText = 
-    mascaraReal(calculaSoma(mesLancamentosAtual, om))
+spOMtotal.innerText = somaOM
 const spCongTotal = $id('cong')
-spCongTotal.innerText = 
-    mascaraReal(calculaSoma(mesLancamentosAtual, cong))
+spCongTotal.innerText = congCx
 const spCongElet = $id('congElet')
-spCongElet.innerText = 
-    mascaraReal(calculaSoma(mesLancamentosAtual,congElet))
+spCongElet.innerText = somaCongElet
 const spCongSite = $id('congSite')
-spCongSite.innerText = 
-    mascaraReal(calculaSoma(mesLancamentosAtual,congSite))
+spCongSite.innerText = somaCongSite
 const spGastosTotal = $id('gastos')
-spGastosTotal.innerText = 
-    mascaraReal(calculaSoma(mesLancamentosAtual, gastos))
+spGastosTotal.innerText = somaGastos
 
 const tBody = $id('tbody')
 // if()

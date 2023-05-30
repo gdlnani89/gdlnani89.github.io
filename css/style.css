@@ -9,8 +9,11 @@
     --fundo2 : #e8eaf6;
     --fundo3 : #c9c9c9;
     --fundo4 : #ede7f6;
-    --fundo5 : #b084f5;
+    --fundo5 : #1565c0;
     --fonte1 : rgb(0, 0, 0);
+}
+h4{
+    margin: 0;
 }
 body
 {
@@ -473,7 +476,7 @@ ul li
     display: flex;
 }
 /* donativos modal */
-#sTipoCong{
+#sTipoCong, #sTipoGasto{
     padding: 2px;
     margin-left: 2px;
     background-color: #c9c9c9;

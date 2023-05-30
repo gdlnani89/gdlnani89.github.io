@@ -101,7 +101,7 @@ const bodyDonativos = () =>{
     return ele
 }
 //tabela dos lançamentos na tag main
-function tBodyCreate(inclusao, indice=''){
+function tBodyCreate({dia,desc,dc,valor}, indice=''){
     const arrayMesAtual = contasAnoAtual.mes[countMes.toLocaleLowerCase()].lancamentos
     const contasAtual = arrayMesAtual[indice]
 
@@ -114,22 +114,22 @@ function tBodyCreate(inclusao, indice=''){
     
     const ipDia = $cria('input')
     ipDia.setAttribute('style', 'width: 18px')
-    ipDia.setAttribute('value', inclusao.dia)
+    ipDia.setAttribute('value', dia)
     ipDia.setAttribute('disabled', true)
     tdDia.appendChild(ipDia)
     const ipDesc = $cria('input')
     ipDesc.setAttribute('style', 'width: 90%')
-    ipDesc.setAttribute('value', inclusao.desc)
+    ipDesc.setAttribute('value', desc)
     ipDesc.setAttribute('disabled', true)
     tdDesc.appendChild(ipDesc)
     const ipTipo = $cria('input')
     ipTipo.setAttribute('style', 'width: 18px')
-    ipTipo.setAttribute('value', inclusao.tipo)
+    ipTipo.setAttribute('value', dc)
     ipTipo.setAttribute('disabled', true)
     tdTipo.appendChild(ipTipo)
     const ipValor = $cria('input')
     ipValor.setAttribute('style', 'width: 65px')
-    ipValor.setAttribute('value', inclusao.valor)
+    ipValor.setAttribute('value', valor)
     ipValor.setAttribute('disabled', true)
     tdValor.appendChild(ipValor)
     
@@ -166,8 +166,8 @@ function tBodyCreate(inclusao, indice=''){
             contasAtual.desc = ipDesc.value
             console.log(inclusao);
         }
-        if(inclusao.tipo !== ipTipo.value){
-            contasAtual.tipo = ipTipo.value
+        if(inclusao.dc !== ipTipo.value){
+            contasAtual.dc = ipTipo.value
             console.log(inclusao);
         }
         if(inclusao.valor !== ipValor.value){
@@ -240,7 +240,8 @@ function addDonativo(){
                     ipDia.value,
                     'Donativos OM',
                     'C',
-                    ipOm.value.replace(/\./g, '').replace(',', '.')
+                    ipOm.value.replace(/\./g, '').replace(',', '.'),
+                    'conta'
                 )
             )
         }
@@ -251,7 +252,8 @@ function addDonativo(){
                         ipDia.value,
                         'Don. Cong. Cx',
                         'C',
-                        ipCong.value.replace(/\./g, '').replace(',', '.')
+                        ipCong.value.replace(/\./g, '').replace(',', '.'),
+                        'conta'
                     )
                 )
             }
@@ -260,7 +262,8 @@ function addDonativo(){
                         ipDia.value,
                         'Don. Cong. Eletronico',
                         'C',
-                        ipCong.value.replace(/\./g, '').replace(',', '.')
+                        ipCong.value.replace(/\./g, '').replace(',', '.'),
+                        'conta'
                     )
                 )
             }
@@ -269,7 +272,8 @@ function addDonativo(){
                         ipDia.value,
                         'Don. Cong. Site',
                         'C',
-                        ipCong.value.replace(/\./g, '').replace(',', '.')
+                        ipCong.value.replace(/\./g, '').replace(',', '.'),
+                        'site'
                     )
                 )
             }

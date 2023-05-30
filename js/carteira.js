@@ -1,11 +1,12 @@
 function bodyModalCarteira(){
+    let mes = $id('mes')
     const {
         mesAtualObj : atual,
         getSaldoInicial : sInicial,
         getSaldoInicialBetel : sIniBetel,
         somaConta,
         somaBetel
-    } = atualizaCarteira()
+    } = atualizaCarteira(mes.innerText.toLowerCase())
 
     const ele = []
     //saldo anterior

@@ -108,8 +108,8 @@ function criaContas(ano){
     } 
 }
 
-function incluiMovimentacao(dia,desc,tipo,valor){
-    return { dia,desc,tipo,valor }
+function incluiMovimentacao(dia,desc,dc,valor,tipo){
+    return { dia,desc,dc,valor,tipo }
 }
 
 //fn do array das atividades cadastradas
@@ -123,7 +123,8 @@ const gastos = item =>
     item.desc !== 'Donativos OM' && 
     item.desc !== 'Don. Cong. Site') ? 
     parseFloat(item.valor) : 0.00
-    
+const gastosOutros = item => item.tipo === 'outros' ? parseFloat(item.valor) : 0.00
+const gastosFixo = item => item.tipo === 'fixo' ? parseFloat(item.valor) : 0.00
 function calculaSoma(contaMesArray, descMap){
     if(contaMesArray.length>0){
         let somaArrya = contaMesArray.map(descMap)
@@ -313,24 +314,6 @@ const mask = {
     }
 
 }
-// function valorCalculavel(valor){
-//     if(valor.length > 6 && valor.length < 10){
-//         let vSemPonto = valor.replace('.','').replace(',','.')
-
-//         return parseFloat(vSemPonto)
-//     }
-//     if(valor.length > 10){
-//         let vSemPonto1 = valor.replace('.','')
-//         let vSemPonto2 = vSemPonto1.replace('.','').replace(',','.')
-
-//         return parseFloat(vSemPonto2)
-//     }
-//     if(valor.length<=6){
-//         console.log(valor);
-//         let vSemPonto = valor.replace(',','.')
-//         return parseFloat(vSemPonto)
-//     }
-// }
 function valorCalculavel(valor) {
     if (valor.length > 6 && valor.length < 10) {
         let vSemPonto = valor.replace(/\./g, '').replace(/,/g, '.');
@@ -352,28 +335,40 @@ function valorCalculavel(valor) {
     // Adicione um retorno padrão caso nenhum dos casos anteriores seja atendido.
     return 0;
 }
-function atualizaCarteira(){
-    let mesAtualObj = contasAnoAtual.mes[mesAtualString.toLowerCase()] 
+function atualizaCarteira(mes){
+    let mesAtualObj = contasAnoAtual.mes[mes] 
     let getSaldoInicial = mesAtualObj.saldoContaInicial ? valorCalculavel(mesAtualObj.saldoContaInicial) : 0.00
     let getSaldoInicialBetel = mesAtualObj.saldoBetelInicial ? valorCalculavel(mesAtualObj.saldoBetelInicial) : 0.00
     let betelLancamento = mesAtualObj.lancamentos ? calculaSoma(mesAtualObj.lancamentos, congSite) : 0.00
     let contaLancamentos = mesAtualObj.lancamentos ? calculaEntradas(mesAtualObj.lancamentos) : 0.00
+    let resolucao = mesAtualObj.resolucao ? valorCalculavel(mesAtualObj.resolucao) : 0.00
+    let saldoInicialS30 = mesAtualObj.saldoInicialS30 ? valorCalculavel(mesAtualObj.saldoInicialS30) : 0.00
     let somaBetel = (getSaldoInicialBetel+betelLancamento).toFixed(2)
     let somaConta = (contaLancamentos+parseFloat(getSaldoInicial)).toFixed(2)
-    let somaCongCx = mascaraReal(calculaSoma(mesLancamentosAtual, cong))
-    let somaCongElet = mascaraReal(calculaSoma(mesLancamentosAtual,congElet))
-    let somaCongSite = mascaraReal(calculaSoma(mesLancamentosAtual,congSite))
-    let somaOM = mascaraReal(calculaSoma(mesLancamentosAtual, om))
+    let somaCongCx = mascaraReal(calculaSoma(mesAtualObj.lancamentos, cong))
+    let somaCongElet = mascaraReal(calculaSoma(mesAtualObj.lancamentos,congElet))
+    let somaCongSite = mascaraReal(calculaSoma(mesAtualObj.lancamentos,congSite))
+    let somaOM = mascaraReal(calculaSoma(mesAtualObj.lancamentos, om))
+    let somaGastos = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastos))
+    let somaGastosFixos = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastosFixo))
+    let somaGastosOutros = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastosOutros))
 
     return {
         mesAtualObj,
         getSaldoInicial,
         getSaldoInicialBetel,
+        betelLancamento,
+        contaLancamentos,
+        resolucao,
+        saldoInicialS30,
         somaConta,
         somaBetel,
         somaCongCx,
         somaCongElet,
         somaCongSite,
-        somaOM
+        somaOM,
+        somaGastos,
+        somaGastosFixos,
+        somaGastosOutros
     }
 }
