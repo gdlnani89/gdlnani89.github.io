@@ -1,6 +1,7 @@
 function bodyModalS30(){
     let mes = $id('mes')
     let {
+        mesAtualObj,
         somaCongCx,
         somaCongElet,
         somaCongSite,
@@ -24,6 +25,7 @@ function bodyModalS30(){
     inputSaldoInicial.setAttribute('disabled', true);
     inputSaldoInicial.setAttribute('id', 'iSaldoInicialS30');
     inputSaldoInicial.style.width = '95%'
+    inputSaldoInicial.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
     inputSaldoInicial.value = saldoInicialS30.toFixed(2)
     labelSaldoInicial.appendChild(inputSaldoInicial)
     const btnSaldoInicial = btnEditaCria(inputSaldoInicial,saldoInicialSalva)
@@ -179,6 +181,7 @@ function bodyModalS30(){
     labelSaldoFinal.textContent = 'Saldo Final'
     const inpSaldoFinal = $cria('input')
     inpSaldoFinal.setAttribute('id', 's30saldoFinal')
+    inpSaldoFinal.value = mascaraReal(saldoFinal())
     labelSaldoFinal.appendChild(inpSaldoFinal)
     // Anexando todos os elementos criados à <div> principal
     divElement.appendChild(divSaldoInicial);
@@ -196,7 +199,6 @@ function bodyModalS30(){
 
     // Inserindo a <div> criada no documento HTML
     document.body.appendChild(divElement);
-
     //funções
     function btnEditaCria(inpHab,fn){
         const btnEdita = $cria('button')
@@ -232,14 +234,30 @@ function bodyModalS30(){
     }
     function saldoInicialSalva(){
         const btnEdita = $id('btnEdita')
+        const iSaldoFinal = $id('s30saldoFinal')
         this.classList.add('db')
         btnEdita.classList.remove('db')
         const inpSaldoInicial = $id('iSaldoInicialS30')
         contasAnoAtual.mes[mesAtualString.toLowerCase()].saldoInicialS30 = inpSaldoInicial.value  
         // console.log(contasAnoAtual.mes[mesAtualString.toLowerCase()]);
         atualiza.contasLS()
+        iSaldoFinal.value = mascaraReal(saldoFinal())
     }
+    function saldoFinal(){
+        let {lancamentos, saldoInicialS30, resolucao} = mesAtualObj
+        let congCx = calculaSoma(lancamentos,cong)
+        let congEle = calculaSoma(lancamentos,congElet)
+        let congBetel = calculaSoma(lancamentos,congSite)
+        let oM = calculaSoma(lancamentos,om)
+        let todasEntradas = congCx + congEle + congBetel + oM + valorCalculavel(saldoInicialS30)
 
+        let saidaGastos = calculaSoma(lancamentos,gastos)
+        let todasSaida = saidaGastos + oM + valorCalculavel(resolucao)
+        
+        let saldoFinal = todasEntradas - todasSaida
+        return saldoFinal
+    }
+    saldoFinal()
     ele.push(divElement)
     return ele
 }
