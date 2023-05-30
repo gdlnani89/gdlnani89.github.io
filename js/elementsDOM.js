@@ -49,7 +49,7 @@ const tBody = $id('tbody')
 contasAnoAtual.mes[mesAtualString.toLowerCase()].lancamentos
     .sort((a,b)=> a.dia - b.dia)
     .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
-const btnEditaLinhas = $id('editaLinhas')
+const btnTheadEditaLinhas = $id('editaLinhas')//botão do lápis
 const btnVoltaLinhas = $id('voltaLinhas')
 //modal elementos
 const divModalDialogo = $id('caixa-dialogo-conteudo')

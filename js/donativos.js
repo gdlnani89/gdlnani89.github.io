@@ -101,7 +101,7 @@ const bodyDonativos = () =>{
     return ele
 }
 //tabela dos lançamentos na tag main
-function tBodyCreate({dia,desc,dc,valor}, indice=''){
+function tBodyCreate(inclusao, indice=''){
     const arrayMesAtual = contasAnoAtual.mes[countMes.toLocaleLowerCase()].lancamentos
     const contasAtual = arrayMesAtual[indice]
 
@@ -114,22 +114,22 @@ function tBodyCreate({dia,desc,dc,valor}, indice=''){
     
     const ipDia = $cria('input')
     ipDia.setAttribute('style', 'width: 18px')
-    ipDia.setAttribute('value', dia)
+    ipDia.setAttribute('value', inclusao.dia)
     ipDia.setAttribute('disabled', true)
     tdDia.appendChild(ipDia)
     const ipDesc = $cria('input')
     ipDesc.setAttribute('style', 'width: 90%')
-    ipDesc.setAttribute('value', desc)
+    ipDesc.setAttribute('value', inclusao.desc)
     ipDesc.setAttribute('disabled', true)
     tdDesc.appendChild(ipDesc)
     const ipTipo = $cria('input')
     ipTipo.setAttribute('style', 'width: 18px')
-    ipTipo.setAttribute('value', dc)
+    ipTipo.setAttribute('value', inclusao.dc)
     ipTipo.setAttribute('disabled', true)
     tdTipo.appendChild(ipTipo)
     const ipValor = $cria('input')
     ipValor.setAttribute('style', 'width: 65px')
-    ipValor.setAttribute('value', valor)
+    ipValor.setAttribute('value', inclusao.valor)
     ipValor.setAttribute('disabled', true)
     tdValor.appendChild(ipValor)
     
@@ -156,23 +156,18 @@ function tBodyCreate({dia,desc,dc,valor}, indice=''){
     noneHabilita.none(btnEditSalvar,true)
     btnEditSalvar.innerHTML = '<ion-icon name="checkmark-circle" style="font-size: 15px; color: #009688"></ion-icon>'
     btnEditSalvar.addEventListener('click',function(){
-        console.log(inclusao);
         const inicial = {...inclusao}//cria uma copia 
         if(inclusao.dia !== ipDia.value){
             contasAtual.dia = ipDia.value
-            console.log(inclusao);
         }
         if(inclusao.desc !== ipDesc.value){
             contasAtual.desc = ipDesc.value
-            console.log(inclusao);
         }
         if(inclusao.dc !== ipTipo.value){
             contasAtual.dc = ipTipo.value
-            console.log(inclusao);
         }
         if(inclusao.valor !== ipValor.value){
             contasAtual.valor = ipValor.value
-            console.log(inclusao);
         }
         const isModified = JSON.stringify(inicial) !== JSON.stringify(inclusao)
         if(isModified){
@@ -182,10 +177,13 @@ function tBodyCreate({dia,desc,dc,valor}, indice=''){
         const avo = this.parentNode.parentNode
         const btn = this
         noneHabilita.habilitaInps(avo.querySelectorAll('INPUT'),false)
-        noneHabilita.none(btnEditSalvar,true)//botão check verde da linha
+        noneHabilita.none(btnEditSalvar,false)//botão check verde da linha
+        // noneHabilita.none(btnTheadEditaLinhas,false)//
+        btnTheadEditaLinhas.classList.remove('edL-v')
+        btnVoltaLinhas.classList.remove('edL-v')
         noneHabilita.none(btnEditaLinha,true)//
         noneHabilita.none(btn,true)
-        noneHabilita.none(btnEditVoltar,true)
+        noneHabilita.none(btnEditVoltar,false)
         noneHabilita.none(btnExcluiLinha,false)
     })
     const btnEditVoltar = $cria('button')
@@ -290,19 +288,16 @@ function addDonativo(){
         console.log('falta dados');
     }
 }
-// function spHorasTotal(){
-//     const sHorasTotal = $cria('SPAN')
-//     sHorasTotal.setAttribute('id', 'horasTotal')
-// }
+
 function editaLinhas(){
     btnVoltaLinhas.classList.add('edL-v')
-    btnEditaLinhas.classList.add('edL-v')
+    btnTheadEditaLinhas.classList.add('edL-v')
     const iconEdit = $all('.edita-n')
     iconEdit.forEach(i => i.style.display = 'flex')
 }
 function editaLinhasVolta(){
     btnVoltaLinhas.classList.remove('edL-v')
-    btnEditaLinhas.classList.remove('edL-v')
+    btnTheadEditaLinhas.classList.remove('edL-v')
     const iconEdit = $all('.edita-n')
     iconEdit.forEach(i => i.style.display = 'none')
 }
