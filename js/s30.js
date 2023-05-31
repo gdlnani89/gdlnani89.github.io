@@ -245,14 +245,17 @@ function bodyModalS30(){
     }
     function saldoFinal(){
         let {lancamentos, saldoInicialS30, resolucao} = mesAtualObj
-        let congCx = calculaSoma(lancamentos,cong)
-        let congEle = calculaSoma(lancamentos,congElet)
-        let congBetel = calculaSoma(lancamentos,congSite)
-        let oM = calculaSoma(lancamentos,om)
-        let todasEntradas = congCx + congEle + congBetel + oM + valorCalculavel(saldoInicialS30)
+        let congCx = lancamentos.length ? calculaSoma(lancamentos,cong) : 0
+        let congEle = lancamentos.length ? calculaSoma(lancamentos,congElet) : 0
+        let congBetel = lancamentos.length ? calculaSoma(lancamentos,congSite) : 0
+        let oM = lancamentos.length ? calculaSoma(lancamentos,om) : 0
+        let s30inicial = saldoInicialS30 ? valorCalculavel(saldoInicialS30) : 0.00
+        let res = resolucao ? valorCalculavel(resolucao) : 0
+        
+        let todasEntradas = congCx + congEle + congBetel + oM + s30inicial
 
         let saidaGastos = calculaSoma(lancamentos,gastos)
-        let todasSaida = saidaGastos + oM + valorCalculavel(resolucao)
+        let todasSaida = saidaGastos + oM + res
         
         let saldoFinal = todasEntradas - todasSaida
         return saldoFinal
