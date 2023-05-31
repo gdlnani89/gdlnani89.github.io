@@ -69,7 +69,7 @@ const btnSend = $id('send')
 
 btnSend.addEventListener('click', function(){
     btnAnimation(this)
-    btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats(countMes,relatorioAnoAtual.mes[countMes.toLowerCase()])}`)
+    btnSend.setAttribute('href', `whatsapp://send?text=${atualiza.mensagemWhats(countMes.toLowerCase())}`)
 })
 
 btnDonativos.addEventListener('click', function() {
@@ -93,7 +93,7 @@ btnS30.addEventListener('click', function() {
     divCxDialogo.classList.add('caixa-dialogo-aberta');
     modalTitulo('Relatório Mensal')
     modalCorpo(bodyModalS30(),'10%')
-    modalFooter([btnCancel(),btnSalvar(addGasto,'sair-incluirAlvo')])
+    modalFooter([btnCancel(),btnSalvar(()=> divCxDialogo.classList.remove('caixa-dialogo-aberta'))])
     }
 );
 btnGastos.addEventListener('click', function() {

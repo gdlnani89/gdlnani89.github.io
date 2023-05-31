@@ -207,6 +207,11 @@ const atualiza = {
         spCongSite.innerText = mascaraReal(calculaSoma(cAAm,congSite))
         spGastosTotal.innerText = mascaraReal(calculaSoma(cAAm,gastos))
         spCongElet.textContent = mascaraReal(calculaSoma(cAAm,congElet))
+    },
+    mensagemWhats(mes){
+        let {somaOm,resolucao} = atualizaCarteira(mes)
+        let envio = somaOm + resolucao
+        return `Irmão, segue o valor a ser enviado para Obra Mundial ${envio}`
     }
 }
 // Btns
@@ -327,7 +332,6 @@ function valorCalculavel(valor) {
         return parseFloat(vSemPonto2);
     }
     if (valor.length <= 6) {
-        console.log(valor);
         let vSemPonto = valor.replace(/,/g, '.');
         return parseFloat(vSemPonto);
     }

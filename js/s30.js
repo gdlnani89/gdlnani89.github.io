@@ -254,7 +254,7 @@ function bodyModalS30(){
         
         let todasEntradas = congCx + congEle + congBetel + oM + s30inicial
 
-        let saidaGastos = calculaSoma(lancamentos,gastos)
+        let saidaGastos = lancamentos.length ? calculaSoma(lancamentos,gastos) : 0
         let todasSaida = saidaGastos + oM + res
         
         let saldoFinal = todasEntradas - todasSaida
