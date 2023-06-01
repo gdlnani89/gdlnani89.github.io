@@ -5,7 +5,7 @@ function bodyModalS30(){
         somaCongCx,
         somaCongElet,
         somaCongSite,
-        somaOM,
+        OMsoma,
         somaGastosFixos,
         somaGastosOutros,
         saldoInicialS30,
@@ -26,7 +26,7 @@ function bodyModalS30(){
     inputSaldoInicial.setAttribute('id', 'iSaldoInicialS30');
     inputSaldoInicial.style.width = '95%'
     inputSaldoInicial.setAttribute('onKeyUp', 'mascaraMoeda(this,event)')
-    inputSaldoInicial.value = saldoInicialS30.toFixed(2)
+    inputSaldoInicial.value = mask.valor(saldoInicialS30.toFixed(2))
     labelSaldoInicial.appendChild(inputSaldoInicial)
     const btnSaldoInicial = btnEditaCria(inputSaldoInicial,saldoInicialSalva)
     divSaldoInicial.appendChild(labelSaldoInicial)
@@ -51,7 +51,7 @@ function bodyModalS30(){
     const inputElementCaixaDonativos = document.createElement('input');
     inputElementCaixaDonativos.type = 'text';
     inputElementCaixaDonativos.setAttribute('readonly', true)
-    inputElementCaixaDonativos.value = somaCongCx
+    inputElementCaixaDonativos.value = `R$ ${somaCongCx}`
     labelElementCaixaDonativos.appendChild(inputElementCaixaDonativos);
     liElementCaixaDonativos.appendChild(labelElementCaixaDonativos);
 
@@ -63,7 +63,7 @@ function bodyModalS30(){
     labelElementTransferenciasEletronicas.textContent = 'Transfências eletrônicas';
     const inputElementTransferenciasEletronicas = document.createElement('input');
     inputElementTransferenciasEletronicas.type = 'text';
-    inputElementTransferenciasEletronicas.value = somaCongElet;
+    inputElementTransferenciasEletronicas.value = `R$ ${somaCongElet}`;
     inputElementTransferenciasEletronicas.setAttribute('readonly', true);
     labelElementTransferenciasEletronicas.appendChild(inputElementTransferenciasEletronicas);
     liElementTransferenciasEletronicas.appendChild(labelElementTransferenciasEletronicas);
@@ -76,7 +76,7 @@ function bodyModalS30(){
     labelElementPeloSite.textContent = 'Pelo site';
     const inputElementPeloSite = document.createElement('input');
     inputElementPeloSite.type = 'text';
-    inputElementPeloSite.value = somaCongSite;
+    inputElementPeloSite.value = `R$ ${somaCongSite}`;
     inputElementPeloSite.setAttribute('readonly', true)
     labelElementPeloSite.appendChild(inputElementPeloSite);
     liElementPeloSite.appendChild(labelElementPeloSite);
@@ -95,7 +95,7 @@ function bodyModalS30(){
     labelElementOMCaixaDonativos.textContent = 'OM Caixa de donativos';
     const inputElementOMCaixaDonativos = document.createElement('input');
     inputElementOMCaixaDonativos.type = 'text';
-    inputElementOMCaixaDonativos.value = somaOM;
+    inputElementOMCaixaDonativos.value = `R$ ${OMsoma}`;    
     inputElementOMCaixaDonativos.setAttribute('readonly', true)
     labelElementOMCaixaDonativos.appendChild(inputElementOMCaixaDonativos);
     liElementOMCaixaDonativos.appendChild(labelElementOMCaixaDonativos);
@@ -118,7 +118,7 @@ function bodyModalS30(){
     labelElementDespesasOperacionais.textContent = 'Recorrentes do Salão do Reino';
     const inputElementDespesasOperacionais = document.createElement('input');
     inputElementDespesasOperacionais.type = 'text';
-    inputElementDespesasOperacionais.value = somaGastosFixos;
+    inputElementDespesasOperacionais.value = `R$ ${somaGastosFixos}`;
     inputElementDespesasOperacionais.setAttribute('readonly', true)
     labelElementDespesasOperacionais.appendChild(inputElementDespesasOperacionais);
     liElementDespesasOperacionais.appendChild(labelElementDespesasOperacionais);
@@ -152,7 +152,7 @@ function bodyModalS30(){
     labelOutrasDespesas.textContent = 'Outros gastos';
     const iOutrasDespesas = document.createElement('input');
     iOutrasDespesas.type = 'text';
-    iOutrasDespesas.value = somaGastosOutros;
+    iOutrasDespesas.value = `R$ ${somaGastosOutros}`;
     iOutrasDespesas.setAttribute('readonly', true)
     labelOutrasDespesas.appendChild(iOutrasDespesas);
     liOutraDespesas.appendChild(labelOutrasDespesas);
@@ -171,7 +171,7 @@ function bodyModalS30(){
     labelOmOutrasDespesas.textContent = 'OM Caixa de donativos';
     const iOmOutrasDespesas = document.createElement('input');
     iOmOutrasDespesas.type = 'text';
-    iOmOutrasDespesas.value = somaOM;
+    iOmOutrasDespesas.value = `R$ ${OMsoma}`;
     iOmOutrasDespesas.setAttribute('readonly', true)
     labelOmOutrasDespesas.appendChild(iOmOutrasDespesas);
     liOmOutrasDespesas.appendChild(labelOmOutrasDespesas);
@@ -181,7 +181,7 @@ function bodyModalS30(){
     labelSaldoFinal.textContent = 'Saldo Final'
     const inpSaldoFinal = $cria('input')
     inpSaldoFinal.setAttribute('id', 's30saldoFinal')
-    inpSaldoFinal.value = mascaraReal(saldoFinal())
+    inpSaldoFinal.value = `R$ ${mask.valor(saldoFinal().toFixed(2))}`
     labelSaldoFinal.appendChild(inpSaldoFinal)
     // Anexando todos os elementos criados à <div> principal
     divElement.appendChild(divSaldoInicial);
@@ -241,7 +241,7 @@ function bodyModalS30(){
         contasAnoAtual.mes[mesAtualString.toLowerCase()].saldoInicialS30 = inpSaldoInicial.value  
         // console.log(contasAnoAtual.mes[mesAtualString.toLowerCase()]);
         atualiza.contasLS()
-        iSaldoFinal.value = mascaraReal(saldoFinal())
+        iSaldoFinal.value = `R$ ${mask.valor(saldoFinal().toFixed(2))}`
     }
     function saldoFinal(){
         let {lancamentos, saldoInicialS30, resolucao} = mesAtualObj

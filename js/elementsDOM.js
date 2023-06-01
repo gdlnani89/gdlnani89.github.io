@@ -3,7 +3,7 @@ const {
     somaCongCx : congCx,
     somaCongElet,
     somaCongSite,
-    somaOM,
+    OMsoma,
     somaGastos,
 } = atualizaCarteira(mesAtualString.toLowerCase())
 
@@ -34,15 +34,15 @@ let mesLancamentosAtual =
     lancamentos
 
 const spOMtotal = $id('om')
-spOMtotal.innerText = somaOM
+spOMtotal.innerText = `R$ ${OMsoma}`
 const spCongTotal = $id('cong')
-spCongTotal.innerText = congCx
+spCongTotal.innerText = `R$ ${congCx}`
 const spCongElet = $id('congElet')
-spCongElet.innerText = somaCongElet
+spCongElet.innerText = `R$ ${somaCongElet}`
 const spCongSite = $id('congSite')
-spCongSite.innerText = somaCongSite
+spCongSite.innerText = `R$ ${somaCongSite}`
 const spGastosTotal = $id('gastos')
-spGastosTotal.innerText = somaGastos
+spGastosTotal.innerText = `R$ ${somaGastos}`
 
 const tBody = $id('tbody')
 // if()

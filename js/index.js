@@ -197,16 +197,24 @@ const atualiza = {
         spCongElet.innerText = 0
     },
     contasTotais(){
+        const {
+            somaBetel : betel,
+            somaCongCx : congCx,
+            somaCongElet,
+            somaCongSite,
+            OMsoma,
+            somaGastos,
+        } = atualizaCarteira(mesAtualString.toLowerCase())
         let cAAm = contasAnoAtual.mes[countMes.toLowerCase()].lancamentos
         tBody.innerHTML = ''
         cAAm
             .sort((a,b)=> a.dia - b.dia)
             .forEach((item,i) => tBody.appendChild(tBodyCreate(item,i)))
-        spOMtotal.innerText = mascaraReal(calculaSoma(cAAm,om))
-        spCongTotal.innerText = mascaraReal(calculaSoma(cAAm,cong))
-        spCongSite.innerText = mascaraReal(calculaSoma(cAAm,congSite))
-        spGastosTotal.innerText = mascaraReal(calculaSoma(cAAm,gastos))
-        spCongElet.textContent = mascaraReal(calculaSoma(cAAm,congElet))
+        spOMtotal.innerText = `R$ ${OMsoma}`
+        spCongTotal.innerText = `R$ ${congCx}`
+        spCongSite.innerText = `R$ ${somaCongSite}`
+        spGastosTotal.innerText = `R$ ${somaGastos}`
+        spCongElet.textContent = `R$ ${somaCongElet}`
     },
     mensagemWhats(mes){
         let {OMsoma,resolucao} = atualizaCarteira(mes)
@@ -349,14 +357,14 @@ function atualizaCarteira(mes){
     let saldoInicialS30 = mesAtualObj.saldoInicialS30 ? valorCalculavel(mesAtualObj.saldoInicialS30) : 0.00
     let somaBetel = (getSaldoInicialBetel+betelLancamento).toFixed(2)
     let somaConta = (contaLancamentos+parseFloat(getSaldoInicial)).toFixed(2)
-    let somaCongCx = mascaraReal(calculaSoma(mesAtualObj.lancamentos, cong))
-    let somaCongElet = mascaraReal(calculaSoma(mesAtualObj.lancamentos,congElet))
-    let somaCongSite = mascaraReal(calculaSoma(mesAtualObj.lancamentos,congSite))
-    let OMsoma = calculaSoma(mesAtualObj.lancamentos, om)
-    let somaOM = mascaraReal(OMsoma)
-    let somaGastos = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastos))
-    let somaGastosFixos = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastosFixo))
-    let somaGastosOutros = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastosOutros))
+    let somaCongCx = mask.valor(calculaSoma(mesAtualObj.lancamentos, cong).toFixed(2))
+    let somaCongElet = mask.valor(calculaSoma(mesAtualObj.lancamentos,congElet).toFixed(2))
+    let somaCongSite = mask.valor(calculaSoma(mesAtualObj.lancamentos,congSite).toFixed(2))
+    let OMsoma = mask.valor(calculaSoma(mesAtualObj.lancamentos, om).toFixed(2))
+    // let somaOM = mascaraReal(OMsoma)
+    let somaGastos = mask.valor(calculaSoma(mesAtualObj.lancamentos,gastos).toFixed(2))
+    let somaGastosFixos = mask.valor(calculaSoma(mesAtualObj.lancamentos,gastosFixo).toFixed(2))
+    let somaGastosOutros = mask.valor(calculaSoma(mesAtualObj.lancamentos,gastosOutros).toFixed(2))
 
     return {
         mesAtualObj,
@@ -371,7 +379,7 @@ function atualizaCarteira(mes){
         somaCongCx,
         somaCongElet,
         somaCongSite,
-        somaOM,
+        // somaOM,
         somaGastos,
         somaGastosFixos,
         somaGastosOutros,
