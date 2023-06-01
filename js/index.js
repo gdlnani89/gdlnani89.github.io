@@ -209,9 +209,9 @@ const atualiza = {
         spCongElet.textContent = mascaraReal(calculaSoma(cAAm,congElet))
     },
     mensagemWhats(mes){
-        let {somaOm,resolucao} = atualizaCarteira(mes)
-        let envio = somaOm + resolucao
-        return `Irmão, segue o valor a ser enviado para Obra Mundial ${envio}`
+        let {OMsoma,resolucao} = atualizaCarteira(mes)
+        let envio = OMsoma + resolucao
+        return `Irmão, segue o valor a ser enviado para Obra Mundial R$${mask.valor(envio.toFixed(2))}`
     }
 }
 // Btns
@@ -352,7 +352,8 @@ function atualizaCarteira(mes){
     let somaCongCx = mascaraReal(calculaSoma(mesAtualObj.lancamentos, cong))
     let somaCongElet = mascaraReal(calculaSoma(mesAtualObj.lancamentos,congElet))
     let somaCongSite = mascaraReal(calculaSoma(mesAtualObj.lancamentos,congSite))
-    let somaOM = mascaraReal(calculaSoma(mesAtualObj.lancamentos, om))
+    let OMsoma = calculaSoma(mesAtualObj.lancamentos, om)
+    let somaOM = mascaraReal(OMsoma)
     let somaGastos = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastos))
     let somaGastosFixos = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastosFixo))
     let somaGastosOutros = mascaraReal(calculaSoma(mesAtualObj.lancamentos,gastosOutros))
@@ -373,6 +374,7 @@ function atualizaCarteira(mes){
         somaOM,
         somaGastos,
         somaGastosFixos,
-        somaGastosOutros
+        somaGastosOutros,
+        OMsoma
     }
 }
