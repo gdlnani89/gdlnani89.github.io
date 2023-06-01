@@ -196,7 +196,7 @@ const atualiza = {
         spGastosTotal.innerText = 0
         spCongElet.innerText = 0
     },
-    contasTotais(){
+    contasTotais(mes = mesAtualString.toLowerCase()){
         const {
             somaBetel : betel,
             somaCongCx : congCx,
@@ -204,7 +204,7 @@ const atualiza = {
             somaCongSite,
             OMsoma,
             somaGastos,
-        } = atualizaCarteira(mesAtualString.toLowerCase())
+        } = atualizaCarteira(mes)
         let cAAm = contasAnoAtual.mes[countMes.toLowerCase()].lancamentos
         tBody.innerHTML = ''
         cAAm
@@ -265,8 +265,7 @@ function btnAnimation(btn){
 }
 function avancaVolta(countMes){
     spMesConta.innerText = countMes
-    console.log(countMes);
-    contasAnoAtual.mes[countMes.toLowerCase()]? atualiza.contasTotais() : atualiza.contasTotalVazio()
+    contasAnoAtual.mes[countMes.toLowerCase()]? atualiza.contasTotais(countMes.toLowerCase()) : atualiza.contasTotalVazio()
 }
 
 String.prototype.reverse = function(){
