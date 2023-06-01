@@ -217,8 +217,7 @@ const atualiza = {
         spCongElet.textContent = `R$ ${somaCongElet}`
     },
     mensagemWhats(mes){
-        let {OMsoma,resolucao} = atualizaCarteira(mes)
-        let envio = OMsoma + resolucao
+        let {envio} = atualizaCarteira(mes)
         return `Irmão, segue o valor a ser enviado para Obra Mundial R$${mask.valor(envio.toFixed(2))}`
     }
 }
@@ -365,7 +364,7 @@ function atualizaCarteira(mes){
     let somaGastos = mask.valor(calculaSoma(mesAtualObj.lancamentos,gastos).toFixed(2))
     let somaGastosFixos = mask.valor(calculaSoma(mesAtualObj.lancamentos,gastosFixo).toFixed(2))
     let somaGastosOutros = mask.valor(calculaSoma(mesAtualObj.lancamentos,gastosOutros).toFixed(2))
-
+    let envio = resolucao + calculaSoma(mesAtualObj.lancamentos, om)
     return {
         mesAtualObj,
         getSaldoInicial,
@@ -383,6 +382,7 @@ function atualizaCarteira(mes){
         somaGastos,
         somaGastosFixos,
         somaGastosOutros,
-        OMsoma
+        OMsoma,
+        envio
     }
 }
