@@ -3,6 +3,7 @@ const $all = s => document.querySelectorAll(s)
 const $id = id => document.getElementById(id)
 const $cria = tag => document.createElement(tag)
 
+const resolucao = 850
 let data = new Date()
 let dia = data.getDate()
 let ano = data.getFullYear()
@@ -218,7 +219,8 @@ const atualiza = {
     },
     mensagemWhats(mes){
         let {envio} = atualizaCarteira(mes)
-        return `Irmão, segue o valor a ser enviado para Obra Mundial R$${mask.valor(envio.toFixed(2))}`
+let envioResolucao = envio + resolucao
+        return `Irmão, segue o valor a ser enviado para Obra Mundial R$${mask.valor(envioResolucao.toFixed(2))}`
     }
 }
 // Btns
