@@ -219,3 +219,15 @@ table tbody tr:active{
     background-color: darkblue;
     color: white;
 }
+.slideIn{
+ animation-name: slideIn;
+ animation-duration: .2s;
+}
+@keyframes slideIn{
+ from{
+ bottom: -160px;
+}
+ tô{
+ bottom: 0;
+}
+}
