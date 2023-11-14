@@ -28,7 +28,7 @@
             <button class="p-1" @click="mesProximo">></button>
         </nav>
         <div class="border border-solid border-black m-2 rounded relative">
-            <div class="absolute right-2 top-5">
+            <div class="absolute right-2 top-12">
                 <button @click="btnsIncluir" v-show="btnMaisIncluir" class="cursor-pointer border border-black border-solid bg-transparent rounded" style="width: 15px; height: 15px;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -40,13 +40,13 @@
                       </svg>                      
                 </button>
             </div>
-            <h4 @click="btnsIncluir" class="text-center m-1">Incluir</h4>
+            <h4 @click="btnsIncluir" class="text-center m-1 p-2">Incluir</h4>
             <div v-show="showIncluir" class="flex flex-col gap-1 items-center justify-center relative">
                 <p>
+                    <button class="p-2 w-7" @click="dia--">-</button>
                     Dia
                     <input class="p-1 w-14" type="number" v-model="dia">
-                    <button class="p-1 w-7" @click="dia++">+</button>
-                    <button class="p-1 w-7" @click="dia--">-</button>
+                    <button class="p-2 w-7" @click="dia++">+</button>
                 </p>
                 <div class="relative">
                     Descrição
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="border border-solid border-black m-2 rounded relative">
-            <div class="absolute right-2 top-5">
+            <div class="absolute right-2 top-12">
                 <button @click="btnsTotal" v-show="btnMaisTotal" class="cursor-pointer border border-black border-solid bg-transparent rounded" style="width: 15px; height: 15px;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -98,7 +98,7 @@
                       </svg>                      
                 </button>
             </div>
-            <h4 @click="btnsTotal" class="text-center m-1">Totais</h4>
+            <h4 @click="btnsTotal" class="text-center m-1 p-2">Totais</h4>
             <div v-show="showTotal">
                 <p class="text-center m-1">Obra mundial <strong>R$ {{totalOM}}</strong></p>
                 <p class="text-center m-1">Congregação <strong>R$ {{totalCong}}</strong></p>
