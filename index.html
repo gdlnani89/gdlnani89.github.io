@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="icone.png">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/index.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
+    <title>Controle Donate</title>
+</head>
+<body>
+    <header>
+        <button id="voltarMes" class="previous">
+            <ion-icon name="chevron-back-outline" style="color: black; font-size: 40px;"></ion-icon>
+        </button>
+        <div class="periodo">
+            <span id="mes" class="mes">Abril</span>
+            <span id="ano" class="ano">2023</span>
+        </div>
+        <button id="avancarMes" class="next">
+            <ion-icon name="chevron-forward-outline" style="color: black; font-size: 40px;"></ion-icon>
+            <!-- <ion-icon name="caret-forward-circle" ></ion-icon> -->
+        </button>
+    </header>
+    <section class="relatorio">
+        <ul>
+            <li>
+                <span class="dado">Donativo Obra Mundial</span>
+                <span id="om"></span>
+                <!-- <span id="horasTotal">0</span> -->
+            </li>
+            <li>
+                <span class="dado">Don. Cong.(Caixas)</span>
+                <span id="cong"></span>
+            </li>
+            <li>
+                <span class="dado">Don. Cong.(Eletrônico)</span>
+                <span id="congElet"></span>
+            </li>
+            <li>
+                <span class="dado">Don. Cong.(JW)</span>
+                <span id="congSite"></span>
+            </li>
+            <li>
+                <span class="dado">Gastos</span>
+                <span id="gastos"></span>
+            </li>
+        </ul>
+    </section>
+    <main class="tabela">
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Descrição</th>
+                    <th>C/D</th>
+                    <th>R$</th>
+                    <th class="tr-th">
+                        <button id="editaLinhas" onclick="editaLinhas()">
+                            <ion-icon name="create-outline" style="font-size: 20px; color: #4A148C;"></ion-icon>
+                        </button>
+                        <button id="voltaLinhas" onclick="editaLinhasVolta()">
+                            <ion-icon name="return-up-back-outline" style="font-size: 20px; color: #4A148C;"></ion-icon>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </main>
+    <footer>
+        <button id="gastosAdd" title="Alvos">
+            <ion-icon name="bag-remove-outline" style="color: black; font-size: 30px;"></ion-icon>
+        </button>
+        <button id="donativosAdd">
+            <ion-icon name="cash-outline" style="color: black; font-size: 30px;"></ion-icon>
+        </button>
+        <button id="carteiraAdd">
+            <ion-icon name="wallet-outline" style="color: black; font-size: 30px;""></ion-icon>
+        </button>
+        <button id="s-30">S-30</button>
+        <a id="send">
+            <ion-icon name="navigate-outline" style="color: black; font-size: 30px;"></ion-icon>
+        </a>
+    </footer>
+    <!-- modal -->
+    <div class="caixa-dialogo" id="minha-caixa-dialogo">
+        <div id="caixa-dialogo-conteudo" class="caixa-dialogo-conteudo">
+            <h2 id="titleModal"></h2>
+            <div id="corpoModal" class="body-modal">
+            </div>
+            <div id="btnsFooter" class="footer-dialogo"></div>
+        </div>
+    </div>
+    <script src="./js/donativos.js"></script>
+    <script src="./js/s30.js"></script>
+    <script src="./js/gastos.js"></script>
+    <script src="./js/carteira.js"></script>
+    <script src="./js/elementsDOM.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
